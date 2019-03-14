@@ -1,0 +1,128 @@
+@media (min-width: 576px) {
+    .formframe {
+        max-width: 500px;
+        border: 1px solid #dadce0;
+        margin: auto;
+        border-radius: 8px;
+    }
+    .frompadding {
+        padding: 48px 40px 36px;
+    }
+    .fromcontainer {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+        min-height: 90vh;
+        position: relative;
+    }
+}
+.progress-bar {
+    -moz-animation: auxiliary-indeterminate-translate 2s infinite linear;
+    animation: auxiliary-indeterminate-translate 2s infinite linear;
+    width: 100%;
+    background-color: transparent;
+    transform-origin: top left;
+}
+.progress-bar > .inner {
+    -moz-animation: auxiliary-indeterminate-scale 2s infinite linear;
+    animation: auxiliary-indeterminate-scale 2s infinite linear;
+    background-color: #007bff;
+    height: 100%;
+    display: inline-block;
+}
+@keyframes auxiliary-indeterminate-scale {
+    0% {
+        -moz-animation-timing-function:cubic-bezier(.205028,.057051,.576610,.453971);
+        animation-timing-function:cubic-bezier(.205028,.057051,.576610,.453971);
+        -moz-transform:scaleX(.08);
+        transform:scaleX(.08)
+    }
+    19.15% {
+        -moz-animation-timing-function:cubic-bezier(.152313,.196432,.648374,1.004315);
+        animation-timing-function:cubic-bezier(.152313,.196432,.648374,1.004315);
+        -moz-transform:scaleX(.457104);
+        transform:scaleX(.457104)
+    }
+    44.15% {
+        -moz-animation-timing-function:cubic-bezier(.257759,.003163,.211762,1.381790);
+        animation-timing-function:cubic-bezier(.257759,.003163,.211762,1.381790);
+        -moz-transform:scaleX(.727960);
+        transform:scaleX(.727960)
+    }
+    to {
+        -moz-transform:scaleX(.08);
+        transform:scaleX(.08)
+    }
+}
+@keyframes auxiliary-indeterminate-translate {
+    0% {
+        -moz-animation-timing-function:cubic-bezier(.15,0,.515058,.409685);
+        animation-timing-function:cubic-bezier(.15,0,.515058,.409685);
+        -moz-transform:translateX(-54.888891%);
+        transform:translateX(-54.888891%)
+    }
+    25% {
+        -moz-animation-timing-function:cubic-bezier(.310330,.284058,.8,.733712);
+        animation-timing-function:cubic-bezier(.310330,.284058,.8,.733712);
+        -moz-transform:translateX(-17.236978%);
+        transform:translateX(-17.236978%)
+    }
+    48.35% {
+        -moz-animation-timing-function:cubic-bezier(.4,.627035,.6,.902026);
+        animation-timing-function:cubic-bezier(.4,.627035,.6,.902026);
+        -moz-transform:translateX(29.497274%);
+        transform:translateX(29.497274%)
+    }
+    to {
+        -moz-transform:translateX(105.388891%);
+        transform:translateX(105.388891%)
+    }
+}
+
+.frompadding {
+    margin: auto;
+    padding-top: 30px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.dropdown-country-number {
+    color: rgba(0,0,0,0.54);
+    padding-left: 8px;
+}
+
+.dropdown-country-flags {
+    background: url('/images/flags.png') no-repeat 0 0;
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 24px 3876px;
+    width: 24px;
+    height: 16px;
+    left: 12px;
+    top: 20px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.dropdown-country-flagsbutton {
+    background: url('/images/flags.png') no-repeat 0 0;
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 24px 3876px;
+    width: 24px;
+    height: 16px;
+    position: absolute;
+    left: 8px;
+    top: 9px;
+}
+
+.dropdown-country-words {
+    padding: 8px 10px 8px 26px;
+}
+
+.dropdown-country-relative {
+    position: relative;
+}
