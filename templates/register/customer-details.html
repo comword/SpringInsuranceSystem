@@ -1,0 +1,145 @@
+<div>
+    <h2 class="text-center mb-1">Hibernia-Sino</h2>
+    <h4 class="text-center mb-3">Fill your details</h4>
+    <form class="needs-validation" novalidate>
+        <p v-if="errors.length">
+            <b>Please correct the following error(s):</b>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
+        </ul>
+        </p>
+        <div class="mb-3">
+            <label for="phone">Phone number</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownCountryBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span style="padding-right: 20px;"><div id="flagBtn" class="dropdown-country-flagsbutton" style="background-position: -1px -2670px;"></div></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownCountryBtn">
+                            <a class="dropdown-item dropdown-country-relative" href="#" @click.prevent="detailForm.phoneCountry='+353'">
+                                <div class="dropdown-country-flags" style="background-position: -1px -2670px;"></div>
+                                <div class="dropdown-country-words">Ireland<span class="dropdown-country-number">+353</span></div>
+                            </a>
+                            <a class="dropdown-item dropdown-country-relative" href="#" @click.prevent="detailForm.phoneCountry='+86'">
+                                <div class="dropdown-country-flags" style="background-position: -1px -1072px;"></div>
+                                <div class="dropdown-country-words">China<span class="dropdown-country-number">+86</span></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <input type="tel" class="form-control" id="phone" v-model="detailForm.phone" placeholder="Phone number" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                    Please enter a valid phone number
+                </div>
+            </div>
+        </div>
+        <hr class="mb-3">
+        <h4 class="mb-3">Billing address</h4>
+        <div class="mb-3">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" v-model="detailForm.address" placeholder="1234 Main St" required>
+            <div class="invalid-feedback">
+                Please enter your billing address.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="address2">Address 2<span class="text-muted">(Optional)</span></label>
+            <input type="text" class="form-control" id="address2" v-model="detailForm.address2" placeholder="Apartment or suite">
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 mb-3">
+                <label for="country">Country</label>
+                <select class="custom-select d-block w-100" id="country" v-model="detailForm.country" required>
+                    <option value="">Choose...</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="China">China</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid country.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="state">State</label>
+                <select class="custom-select d-block w-100" id="state" v-model="detailForm.state" required>
+                    <option value="">Choose...</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please provide a valid state.
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="zip">Zip</label>
+                <input type="text" class="form-control" id="zip" required>
+                <div class="invalid-feedback">
+                    Zip code required.
+                </div>
+            </div>
+        </div>
+        <hr class="mb-3">
+        <h4 class="mb-3">Payment</h4>
+        <div class="d-block my-3">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="paymentMethod" value="credit" v-model="detailForm.payment" checked>
+                    Credit card
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="paymentMethod" value="debit" v-model="detailForm.payment">
+                    Debit card
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="paymentMethod" value="paypal" v-model="detailForm.payment">
+                    PayPal
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Name on card</label>
+                <input type="text" class="form-control" id="cc-name" v-model="detailForm.card_name" required>
+                <small class="text-muted">Full name as displayed on card</small>
+                <div class="invalid-feedback">
+                    Name on card is required
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="cc-number">Credit card number</label>
+                <input type="text" class="form-control" id="cc-number" v-model="detailForm.card_num" required>
+                <div class="invalid-feedback">
+                    Credit card number is required
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="cc-expiration">Expiration</label>
+                <input type="text" class="form-control" id="cc-expiration" v-model="detailForm.card_expr" required>
+                <div class="invalid-feedback">
+                    Expiration date required
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="cc-cvv">CVV</label>
+                <input type="text" class="form-control" id="cc-cvv" v-model="detailForm.card_ccv" required=>
+                <div class="invalid-feedback">
+                    Security code required
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mb-3">
+                <button class="btn btn-primary btn-block" @click="back_1()" role="button">Back</button>
+            </div>
+            <div class="col-6 mb-3">
+                <button class="btn btn-primary btn-raised btn-block" type="button" @click="next_2()">Finish</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+<div>
+<h2 class="text-center mb-1">Hibernia-Sino</h2>
+<h4 class="text-center mb-3">Create your account</h4>
+<form class="needs-validation" novalidate>
+    <p v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
+    </ul>
+    </p>
+    <div class="form-row">
+        <div class="col-sm-6 mb-3">
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" v-model="signupForm.firstName" required>
+                <div class="form-text invalid-feedback">
+                    Valid first name is required.
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mb-3">
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" v-model="signupForm.lastName" required>
+                <div class="form-text invalid-feedback">
+                    Valid last name is required.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" v-model="signupForm.username" required>
+            <div class="form-text invalid-feedback" style="width: 100%;">Please enter a username.</div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" v-model="signupForm.email" required>
+            <div class="form-text invalid-feedback" style="width: 100%;">Valid email is required.</div>
+        </div>
+    </div>
+    <hr class="mb-3" />
+    <div class="form-row">
+        <div class="col-sm-6 mb-3">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" v-model="signupForm.password" required>
+                <div class="invalid-feedback">Use 8 characters or more as your password.</div>
+            </div>
+        </div>
+        <div class="col-sm-6 mb-3">
+            <div class="form-group">
+                <label for="lastName">Confirm</label>
+                <input type="password" class="form-control" id="confirm" v-model="signupForm.confirm" required>
+                <div class="invalid-feedback">Those password didn't match. Try again.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 mb-3">
+            <a class="btn btn-primary btn-block" href="/login" role="button">Sign in instead</a>
+        </div>
+        <div class="col-6 mb-3">
+            <button class="btn btn-primary btn-raised btn-block" type="button" @click="next_1()">Next</button>
+        </div>
+    </div>
+</form>
+</div>

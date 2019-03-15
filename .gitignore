@@ -1,4 +1,6 @@
 /target/
+/apps/
+.class
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

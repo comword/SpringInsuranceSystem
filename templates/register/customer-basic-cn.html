@@ -1,0 +1,71 @@
+<div>
+    <h2 class="text-center mb-1">Hibernia-Sino</h2>
+    <h4 class="text-center mb-3">创建您的帐户</h4>
+    <form class="needs-validation" novalidate>
+        <p v-if="errors.length">
+            <b>请检查以下错误：</b>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
+        </ul>
+        </p>
+        <div class="form-row">
+            <div class="col-sm-6 mb-3">
+                <div class="form-group">
+                    <label for="lastName">姓</label>
+                    <input type="text" class="form-control" id="lastName" v-model="signupForm.lastName" required>
+                    <div class="form-text invalid-feedback">
+                        请输入有效的姓。
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <div class="form-group">
+                    <label for="firstName">名</label>
+                    <input type="text" class="form-control" id="firstName" v-model="signupForm.firstName" required>
+                    <div class="form-text invalid-feedback">
+                        请输入有效的名。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" class="form-control" id="username" v-model="signupForm.username" required>
+                <div class="form-text invalid-feedback" style="width: 100%;">请输入用户名。</div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="email">电子邮箱</label>
+                <input type="email" class="form-control" id="email" v-model="signupForm.email" required>
+                <div class="form-text invalid-feedback" style="width: 100%;">请输入有效的电子邮箱。</div>
+            </div>
+        </div>
+        <hr class="mb-3" />
+        <div class="form-row">
+            <div class="col-sm-6 mb-3">
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" id="password" v-model="signupForm.password" required>
+                    <div class="invalid-feedback">使用 8 个或更多字符作为您的密码。</div>
+                </div>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <div class="form-group">
+                    <label for="lastName">确认密码</label>
+                    <input type="password" class="form-control" id="confirm" v-model="signupForm.confirm" required>
+                    <div class="invalid-feedback">这两个密码不一致，请重试。</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mb-3">
+                <a class="btn btn-primary btn-block" href="/login" role="button">登录现有帐号</a>
+            </div>
+            <div class="col-6 mb-3">
+                <button class="btn btn-primary btn-raised btn-block" type="button" @click="next_1()">下一步</button>
+            </div>
+        </div>
+    </form>
+</div>
