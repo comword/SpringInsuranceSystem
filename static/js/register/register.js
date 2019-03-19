@@ -1,5 +1,5 @@
 $.getScript('/js/md5.min.js');
-let app_token;
+let app_token, app_lang;
 function setInvalid(id){
     $(id).removeClass("is-valid")
     $(id).addClass("is-invalid")
@@ -8,11 +8,6 @@ function setInvalid(id){
 function setValid(id){
     $(id).removeClass("is-invalid")
     $(id).addClass("is-valid")
-}
-
-function getLang() {
-    let urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("lang");
 }
 
 window.onload = function() {
@@ -50,7 +45,6 @@ function loadBasicPage(router, data) {
                     password: '',
                     confirm: ''
                 },
-                lang: '',
                 errors: []
             }
         },
@@ -64,12 +58,12 @@ function loadBasicPage(router, data) {
             } catch(e) {
                 localStorage.removeItem('signupForm');
             }
-            this.lang = getLang();
             $.ajax({
                 url: '/register/tokenId',
                 method: 'GET',
                 success: function (data) {
                     app_token = data["token"];
+                    app_lang = data["lang"];
                 },
                 error: function (error) {
                     console.log(error);
@@ -128,7 +122,7 @@ function loadBasicPage(router, data) {
                 let postData = Object.assign({}, this.signupForm);
                 delete postData.confirm;
                 postData.password = md5(this.signupForm.password);
-                postData.lang = this.lang;
+                postData.lang = app_lang;
                 postData.token = app_token;
                 let self = this;
                 $("#progress").animate({ opacity: 1 });
@@ -188,13 +182,11 @@ function loadDetailPage(router, data) {
                     card_expr: '',
                     card_ccv: ''
                 },
-                lang: '',
                 errors: []
             }
         },
         mounted: function () {
-            this.lang = getLang();
-            if(this.lang==="zh_CN")
+            if(app_lang==="zh_CN")
                 this.detailForm.phoneCountry = '+86';
             else
                 this.detailForm.phoneCountry = '+353';

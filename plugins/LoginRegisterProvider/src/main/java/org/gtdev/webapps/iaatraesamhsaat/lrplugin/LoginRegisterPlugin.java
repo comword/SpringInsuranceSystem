@@ -21,7 +21,7 @@ public class LoginRegisterPlugin extends SpringPlugin {
         SpringPluginManager pluginManager = (SpringPluginManager) getWrapper().getPluginManager();
         applicationContext.setParent(pluginManager.getApplicationContext());
         applicationContext.setClassLoader(getWrapper().getPluginClassLoader());
-        applicationContext.register(LoginRegisterController.class);
+        applicationContext.register(CustomerLRController.class);
 //        applicationContext.register(config.class);
 //        applicationContext.register(HelloController.class);
         applicationContext.refresh();

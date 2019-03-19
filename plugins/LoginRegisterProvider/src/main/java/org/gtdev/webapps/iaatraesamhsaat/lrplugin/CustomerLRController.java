@@ -24,8 +24,8 @@ import java.util.*;
 
 @Extension
 @Controller
-public class LoginRegisterController implements ExtensionPoint {
-    private Logger Log = LoggerFactory.getLogger(LoginRegisterController.class);
+public class CustomerLRController implements ExtensionPoint {
+    private Logger Log = LoggerFactory.getLogger(CustomerLRController.class);
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
@@ -51,8 +51,9 @@ public class LoginRegisterController implements ExtensionPoint {
 
     @ResponseBody
     @GetMapping(value = "/register/tokenId", produces = "application/json")
-    public String customerToken(HttpSession session) {
-        return "{\"token\": \""+session.getId()+"\"}";
+    public String customerToken(HttpSession session, HttpServletRequest request) {
+        return "{\"token\": \""+session.getId()+"\", \"lang\": \""
+                +localeResolver.resolveLocale(request).toLanguageTag()+"\"}";
     }
 
     @Data
@@ -79,19 +80,24 @@ public class LoginRegisterController implements ExtensionPoint {
         return sb.toString();
     }
 
+    public static String loadHTMLFile(Locale lang, String path) throws IOException {
+        File nextPage = null;
+        if(lang.equals(Locale.SIMPLIFIED_CHINESE))
+            nextPage = ResourceUtils.getFile("file:"+path+"-cn.html");
+        else
+            nextPage = ResourceUtils.getFile("file:"+path+".html");
+        FileInputStream is = new FileInputStream(nextPage);
+        String res = convertStreamToString(is);
+        is.close();
+        return res;
+    }
+
     @RequestMapping(value = "/register/basicInfo" , method = RequestMethod.GET)
     public ResponseEntity<String> basicInfoGet(HttpServletRequest request) throws IOException {
         RegisterReply rpl = new RegisterReply();
-        File nextPage = null;
         Locale l = localeResolver.resolveLocale(request);
-        if(l.equals(Locale.SIMPLIFIED_CHINESE))
-            nextPage = ResourceUtils.getFile("file:templates/register/customer-basic-cn.html");
-        else
-            nextPage = ResourceUtils.getFile("file:templates/register/customer-basic.html");
-        FileInputStream is = new FileInputStream(nextPage);
         rpl.nextPage.put("name", "basic");
-        rpl.nextPage.put("template", convertStreamToString(is));
-        is.close();
+        rpl.nextPage.put("template", loadHTMLFile(l, "templates/register/customer-basic"));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return new ResponseEntity<>(objectMapper.writeValueAsString(rpl), headers, HttpStatus.OK);
@@ -102,21 +108,23 @@ public class LoginRegisterController implements ExtensionPoint {
         Log.info(post.toString());
         if(!post.token.equals(session.getId()))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"errcode\": -1000 ,\"errmsg\": \"Session token expired, please refresh the page.\"}");
-        session.setAttribute("basicInfo", post);
+        session.setAttribute("basicInfo", post); //save the post to session
         RegisterReply rpl = new RegisterReply();
-        File nextPage = null;
-        if(post.lang != null)
-            if(post.lang.equals("zh_CN")) //chinese
-                nextPage = ResourceUtils.getFile("file:templates/register/customer-details-cn.html");
-        if(nextPage==null)
-            nextPage = ResourceUtils.getFile("file:templates/register/customer-details.html");
-        FileInputStream is = new FileInputStream(nextPage);
+        Locale l;
+        if(post.lang == null)
+            l = Locale.US;
+        else
+            l = Locale.forLanguageTag(post.lang);
         rpl.nextPage.put("name", "detailsForm");
-        rpl.nextPage.put("template", convertStreamToString(is));
-        is.close();
+        rpl.nextPage.put("template", loadHTMLFile(l, "templates/register/customer-details"));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return new ResponseEntity<>(objectMapper.writeValueAsString(rpl), headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/register/detailsInfo" , method = RequestMethod.POST)
+    public @ResponseBody RegisterReply detailsInfoPost(HttpSession session, @RequestBody basicInfoPost post) throws IOException {
+        RegisterReply rpl = new RegisterReply();
+        return rpl;
+    }
 }
