@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <style type="text/css">/* Chart.js */
+    @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+
+
+<body>
+
+<!--顶部导航栏-->
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+
+    <!--<a class="navbar-brand col-sm-3 col-md-2 mr-0" style="color: #e3f2fd;">HS admin</a>-->
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #e3f2fd;">
+        Find More
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="#">Dashboard</a>
+        <a class="dropdown-item" href="#claim_table">Claims</a>
+        <a class="dropdown-item" href="#product_table">Products</a>
+        <a class="dropdown-item" href="#customer_table">Customers</a>
+        <a class="dropdown-item" href="#record">Records</a>
+        <a class="dropdown-item" href="#">Settings</a>
+    </div>
+
+
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link">Sign out</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+
+
+        <!--左侧导航栏-->
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+
+                <ul class="nav flex-column" data-spy="affix">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#claim_table">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            Claims
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#product_table">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            Products
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#customer_table">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            Customers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#record">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                            Records
+                        </a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Received claims</span>
+                    <a class="d-flex align-items-center text-muted">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Current month
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Current quarter
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Current Year
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            All information
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <br/>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+
+            <!--第一部分: Dashboard及图表-->
+            <h5 id="chart"></h5>
+
+            <h1 class="text-left">Dashboard</h1>
+            <h4 class="text-right" style=";color: #20c997"><small>Welcome to Hibernia-Sino Admin System, FZX!</small></h4>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            </div>
+
+
+            <!--第二部分：索赔申请table-->
+            <h5><small>Claims received per day (last week)</small></h5>
+            <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="1138" height="480" style="display: block; width: 1138px; height: 480px;"></canvas>
+
+            <h3 id="claim_table"></h3>
+            <br/>
+            <br/>
+            <br/>
+            <h2>Claims received</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Customer Id</th>
+                        <th>Customer Name</th>
+                        <th>Insurance Type Id</th>
+                        <th>Content</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1,001</td>
+                        <td>Lorem</td>
+                        <td>CA0002</td>
+                        <td>Tip: Replacement of fuse: Turn down the fuse cover counterclockwise, remove the fuse(protective tube), after replacing, tighten the fuse cover clockwise only (Fuse model: F15A/250V ).</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,002</td>
+                        <td>amet</td>
+                        <td>BA01234</td>
+                        <td>Data include the vehicle make and model, claim frequency , average loss payment per claim and overall losses per insured vehicle year.</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,003</td>
+                        <td>Integer</td>
+                        <td>CA0002</td>
+                        <td>odio</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,003</td>
+                        <td>libero</td>
+                        <td>CA0005</td>
+                        <td>cursus</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,004</td>
+                        <td>dapibus</td>
+                        <td>CA0007</td>
+                        <td>Sed</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,005</td>
+                        <td>Nulla</td>
+                        <td>CA0008</td>
+                        <td>sem</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,006</td>
+                        <td>nibh</td>
+                        <td>CA0009</td>
+                        <td>imperdiet</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,007</td>
+                        <td>sagittis</td>
+                        <td>CA0012</td>
+                        <td>Praesent</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,008</td>
+                        <td>Fusce</td>
+                        <td>CA0023</td>
+                        <td>tellus</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,009</td>
+                        <td>augue</td>
+                        <td>CA0034</td>
+                        <td>porta</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,010</td>
+                        <td>massa</td>
+                        <td>CA0056</td>
+                        <td>lacinia</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,011</td>
+                        <td>eget</td>
+                        <td>CA00027</td>
+                        <td>Class</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,012</td>
+                        <td>taciti</td>
+                        <td>CA00078</td>
+                        <td>ad</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,013</td>
+                        <td>torquent</td>
+                        <td>CA0023</td>
+                        <td>conubia</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,014</td>
+                        <td>per</td>
+                        <td>CA0002</td>
+                        <td>himenaeos</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>1,015</td>
+                        <td>sodales</td>
+                        <td>CA0089</td>
+                        <td>in</td>
+                        <td>lifuzixin000@gmail.com</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!--第三部分：保险产品介绍及赔偿标准介绍-->
+            <h3 id="product_table"></h3>
+            <br/>
+            <br/>
+            <br/>
+            <h2>Insurance products</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Insurance Type Id</th>
+                        <th>Insurance Name</th>
+                        <th>Abstract</th>
+                        <th>Indemnification standard</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>CA001</td>
+                        <td>Japan 3 days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
+                    <tr>
+                        <td>CA02</td>
+                        <td>Japan 5 days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
+                    <tr>
+                        <td>CA003</td>
+                        <td>China 3 days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
+                    <tr>
+                        <td>CA006</td>
+                        <td>Ireland 3 days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
+                    <tr>
+                        <td>CA012</td>
+                        <td>Usa 3 days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
+                    <tr>
+                        <td>CA001</td>
+                        <td>Japan 3 days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <!--第四部分：用户信息table-->
+            <h3 id="customer_table"></h3>
+            <br/>
+            <br/>
+            <br/>
+            <h2>Customer information</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Customer Id</th>
+                        <th>Customer Name</th>
+                        <th>Gender</th>
+                        <th>Application date </th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>11010319980309xxxx</td>
+                        <td>Fu Zixin</td>
+                        <td>Male</td>
+                        <td>2019-03-09</td>
+                        <td>18600812186</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>11010319980309xxxx</td>
+                        <td>Fu Zixin</td>
+                        <td>Male</td>
+                        <td>2019-03-09</td>
+                        <td>18600812186</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>11010319980309xxxx</td>
+                        <td>Fu Zixin</td>
+                        <td>Male</td>
+                        <td>2019-03-09</td>
+                        <td>18600812186</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>11010319980309xxxx</td>
+                        <td>Fu Zixin</td>
+                        <td>Male</td>
+                        <td>2019-03-09</td>
+                        <td>18600812186</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>11010319980309xxxx</td>
+                        <td>Fu Zixin</td>
+                        <td>Male</td>
+                        <td>2019-03-09</td>
+                        <td>18600812186</td>
+                        <td>fuzixin000@gmail.com</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <!--第五部分：记录备案form-->
+            <h3 id = "record"></h3>
+            <br/>
+            <br/>
+            <br/>
+            <h2>Records</h2>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputName">Name</label>
+                        <input type="text" class="form-control" id="inputName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputProduct">Product</label>
+                    <input type="text" class="form-control" id="inputProduct" placeholder="Japan 3 days">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Result">Result</label>
+                        <input type="text" class="form-control" id="Result">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Record</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                </div>
+
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2" >Submit form</button>
+                </div>
+            </form>
+
+
+
+        </main>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+   ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/js/admin/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="/js/admin/popper.min.js"></script>
+<script src="/js/admin/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script src="/js/admin/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script src="/js/admin/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [200, 213, 184, 240, 234, 240, 120],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
