@@ -1,5 +1,7 @@
 package org.gtdev.webapps.iaatraesamhsaat.security;
 
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,21 +17,23 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Data
+    @Getter
     public static class JwtConfig {
         @Value("${security.jwt.uri:/auth/**}")
-        String Uri;
+        private String uri;
 
         @Value("${security.jwt.header:Authorization}")
-        String header;
+        private String header;
 
         @Value("${security.jwt.prefix:}")
-        String prefix;
+        private String prefix;
 
         @Value("${security.jwt.expiration:#{24*60*60}}")
-        int expiration;
+        private int expiration;
 
         @Value("${security.jwt.secret:JwtSecretKey}")
-        String secret;
+        private String secret;
     }
 
     @Autowired
