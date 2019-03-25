@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>home</title>
+<!-- <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script th:src="@{https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js}"></script>
+
+<link th:href="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet">
+ 
+
+ 
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script th:src="@{https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/vue.min.js}"></script>
+
+    <style>
+
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding-left: 0px;
+        padding-right:0px;
+        padding-top: 30px;
+        padding-bottom: 0px;
+        color: #5a5a5a;
+
+    }
+
+
+    /*导航栏*/
+
+    .navbar a{
+        color:white;
+        font-size: 21px;
+        font-weight: bold;
+    }
+    /*导航栏 变换*/
+    .navbar-transparent{
+        transition-duration: 0.6s;
+    }
+    .navbar-default{
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        transition-duration: 0.6s;
+        border-radius: 10px;
+        box-shadow:12px 6px 12px 6px #ccc;
+    }
+
+
+    .navbar-transparent .navbar-brand {
+        color: #ecf0f1;
+    }
+    .navbar-transparent .navbar-brand:hover,
+    .navbar-transparent .navbar-brand:focus {
+        border-radius: 0px 0px 5px 5px;
+        background-color: white;
+        transition-duration: 0.7s;
+        color: #695051;
+    }
+    .navbar-default .navbar-brand:hover,
+    .navbar-default .navbar-brand:focus {
+        border-radius: 0px 0px 5px 5px;
+        transition-duration: 0.7s;
+    }
+    .navbar-transparent .navbar-text {
+        color: #ecf0f1;
+    }
+    .navbar-transparent .navbar-nav > li > a {
+        color: #ecf0f1;
+
+    }
+
+    .navbar-transparent .navbar-nav > li > a:hover,
+    .navbar-transparent .navbar-nav > li > a:focus {
+        border-radius: 0px 0px 5px 5px;
+        color: #695051;
+        transition-duration: 0.7s;
+    }
+
+    .navbar-default .navbar-nav > li > a:hover,
+    .navbar-default .navbar-nav > li > a:focus {
+        border-radius: 0px 0px 5px 5px;
+        transition-duration: 0.7s;
+    }
+    .navbar-transparent .navbar-nav > li > .dropdown-menu{
+        background-color: #695051;
+        border-radius: 0px 0px 8px 8px;
+
+    }
+    .navbar-default .navbar-nav > li > .dropdown-menu {
+        border-radius: 0px 0px 8px 8px;
+
+    }
+    .navbar-transparent .navbar-nav > li > .dropdown-menu > li > a {
+        color: #ecf0f1;
+        transition-duration: 0.8s;
+    }
+
+    .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+
+        transition-duration: 0.8s;
+    }
+    .navbar-transparent .navbar-nav > li > .dropdown-menu > li > a:hover,
+    .navbar-transparent .navbar-nav > li > .dropdown-menu > li > a:focus {
+        color: #695051;
+        background-color: white;
+    }
+    .navbar-transparent .navbar-nav > li > .dropdown-menu > li.divider {
+        background-color: #584745;
+    }
+    .navbar-transparent .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-transparent .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-transparent .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #695051;
+        background-color: white;
+    }
+    .navbar-transparent .navbar-nav > .active > a{
+        color: white;
+        background-color: rgba(122, 30, 44, 0.41);
+    }
+    .navbar-transparent .navbar-nav > .active > a:hover,
+    .navbar-transparent .navbar-nav > .active > a:focus {
+        color: #695051;
+        background-color: white;
+    }
+    .navbar-transparent .navbar-nav > .open > a,
+    .navbar-transparent .navbar-nav > .open > a:hover,
+    .navbar-transparent .navbar-nav > .open > a:focus {
+        color: #695051;
+        background-color: #584745;
+    }
+    .navbar-transparent .navbar-toggle {
+        border-color: #584745;
+    }
+    .navbar-transparent .navbar-toggle:hover,
+    .navbar-transparent .navbar-toggle:focus {
+        background-color: #584745;
+    }
+    .navbar-transparent .navbar-toggle .icon-bar {
+        background-color: #ecf0f1;
+    }
+    .navbar-transparent .navbar-collapse,
+    .navbar-transparent .navbar-form {
+        border-color: #ecf0f1;
+    }
+    .navbar-transparent .navbar-link {
+        color: #ecf0f1;
+    }
+    .navbar-transparent .navbar-link:hover {
+        color: #695051;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .fixedBg{
+        margin: 0px;
+        padding: 0px;
+        min-height: 400px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .testBefore,.testAfter{
+        /*background: linear-gradient(to top, #ffffff, #ffefba);*/
+        margin: 0px;
+        padding: 0px;
+        /*background: #333;*/
+        width: 100%;
+        height: 150px;
+        text-align: center;
+      }
+    .testBefore{
+        /*background: linear-gradient(to top, #ffefba, #ffffff);*/
+        margin-top: 100px;
+
+    }
+
+    .img-logo{
+        margin-top:-10px;
+        width: 60px;
+        height: 40px;
+    }
+
+
+    #title{
+        text-align: center;
+        margin-bottom: 80px;
+    }
+    .back h2{
+        padding-top: 100px;
+    }
+    .margin{
+        margin-top: 200px;
+    }
+    #company-screen{
+
+        position:absolute;
+        padding-top: 400px;
+        margin-left: 180px;
+        color: #FFFFFF;
+    }
+
+    #company{
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        margin-top: -50px;
+        height: 1080px;
+        background-size: cover;
+        mix-blend-mode: darken;
+    }
+
+
+    /*圆形图片*/
+    .circle-shadow{
+        height: 360px;
+        width: 360px;
+        border-radius:50%;
+        background-color: transparent;
+        box-shadow:0px 0px 8px 5px #ccc;
+        transform: scale(1.08);
+    }
+
+
+    .enter-shadow{
+        box-shadow:0px 0px 8px 5px #ccc;
+       transition-duration: 0.8s;
+    }
+
+    #mengban{
+        position:absolute;
+        height: 1232px;
+        width: 100%;
+        background-color: #3D3D3D;
+        opacity: 0.6;
+
+        margin-top: -200px;
+
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+
+
+    /*.navbar a{*/
+        /*color:white;*/
+    /*} */
+
+
+
+     /* 轮播广告 */
+
+     .carousel {
+         margin-top: 400px;
+         height: 900px;
+         margin-bottom: 60px;
+
+        }
+
+        .carousel .item {
+            height: 900px;
+            background-color: #000;
+        }
+
+        .carousel .item img {
+            width: 100%;
+        }
+
+        .carousel-caption {
+
+            z-index: 10;
+        }
+
+        .carousel-caption h1 {
+            margin-bottom: 100px;
+        }
+
+        .carousel-caption p {
+            margin-bottom: 20px;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+    #ad-feedback {
+        margin-top: 400px;
+        height: 400px;
+        margin-bottom: 60px;
+
+    }
+
+    #ad-feedback  .item {
+        height: 400px;
+        background-color: #000;
+    }
+
+    #ad-feedback  .item img {
+        width: 100%;
+    }
+
+    .feedback-caption {
+
+        z-index: 10;
+    }
+
+    .feedback-caption h1 {
+        margin-bottom: 50px;
+    }
+
+    .feedback-caption p {
+        margin-bottom: 20px;
+        font-size: 20px;
+        line-height: 1.8;
+    }
+
+
+
+    .back{
+        margin-top: 200px;
+        margin-bottom: 0px;
+        height: 400px;
+        width: 100%;
+        background: linear-gradient(to right, #8e2de2, #4a00e0);
+        box-shadow:300px 300px 300px 300px #ccc;
+    }
+    .back h3,.back h2{
+        color: whitesmoke;
+        text-align: center;
+    }
+    .end{
+        margin-top: 60px;
+        margin-bottom: 30px;
+    }
+    .link{
+        margin-bottom: 50px;
+        margin-left: 45%;
+        margin-right: 39.5%;
+    }
+
+    /*#screen,.jumbotron{*/
+        /*width: 100%;*/
+        /*height: 800px;*/
+        /*margin: 0px;*/
+        /*padding: 0px;*/
+    /*}*/
+    /*#screen-img{*/
+        /*padding: 0px;*/
+        /*margin: 0px;*/
+        /*height: 100%;*/
+        /*width: 100%;*/
+    /*}*/
+
+    /*.entry-img{*/
+        /*margin-left: 0px;*/
+        /*margin-right: 0px;*/
+    /*}*/
+
+
+
+
+
+    @media (max-width: 768px) {
+    .carousel {
+        height: 300px;
+        margin-bottom: 30px;
+    }
+
+    .carousel .item {
+        height: 300px;
+    }
+
+    .carousel img {
+        min-height: 300px;
+    }
+
+
+    .carousel-caption h1 {
+            margin-bottom: 30px;
+    }
+
+    .carousel-caption p {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+    #company {
+        height: 400px;
+        background-size: cover;
+
+    }
+        #company-screen{
+
+            padding-top: 100px;
+            margin-left: 50px;
+            color: #FFFFFF;
+        }
+        #company-screen h1{
+
+            font-size: 32px;
+        }
+    #mengban{
+        height: 570px;
+    }
+    }
+
+
+
+</style>
+</head>
+<body>
+
+
+<nav v-bind:class="{'navbar-transparent':isTransP, 'navbar-default':!isTransP}" class="navbar navbar-fixed-top" role="navigation" id="menu-nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand navbar-left"  href="#"><img class="img-logo" th:src="@{/static/images/Hibernia-Sino-logo.png}"></a>
+            <a class="navbar-brand" href="#">Hibernia-Sino</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#ad-carousel">综述</a></li>
+                <li><a href="#formEnter">功能</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">特点 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="dropdown-header">第一部分菜单头部</li>
+                        <li><a href="#feature-tab" data-tab="tab-chrome">Chrome</a></li>
+                        <li><a href="#feature-tab" data-tab="tab-firefox">Firefox</a></li>
+                        <li><a href="#feature-tab" data-tab="tab-safari">Safari</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">第二部分菜单头部</li>
+                        <li><a href="#feature-tab" data-tab="tab-opera">Opera</a></li>
+                        <li><a href="#feature-tab" data-tab="tab-ie">IE</a></li>
+                    </ul>
+                </li>
+                <li><a href="#about"    >关于</a></li>
+            </ul>
+            <ul id="enre" class="nav navbar-nav navbar-right">
+                    <li v-if="!isLogin" ><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                    <li v-if="!isLogin"><a @click="isLogin = true" href="#"  ><span class="glyphicon glyphicon-log-in" ></span> 登录</a></li>
+                    <li v-else><a th:text="${name}" href="#"><span class="glyphicon glyphicon-user"></span><span th:text="${name}"> Fxoy </span></a></li>
+                  </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!--<div class="jumbotron" >-->
+    <!--<div class="container">-->
+        <!--<img id="screen-img" th:src="@{/static/images/slide1.jpg}" alt="1 slide">-->
+
+    <!--</div>-->
+<!--</div>-->
+
+<div class="jumbotron" id="company" th:style="'background-image:url('+ @{/static/images/slide6.jpg} + ');'" >
+    <div id="mengban">
+
+    </div>
+    <div class="container" id = "company-screen" >
+
+        <h1>Welcome to Hibernia Sino！</h1>
+        <p>A travel insurance company</p>
+        <p><a class="btn btn-primary btn-lg" role="button">
+            了解更多</a>
+        </p>
+    </div>
+
+
+</div>
+
+
+<div id="ad-carousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#ad-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#ad-carousel" data-slide-to="1"></li>
+        <li data-target="#ad-carousel" data-slide-to="2"></li>
+        <li data-target="#ad-carousel" data-slide-to="3"></li>
+        <li data-target="#ad-carousel" data-slide-to="4"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img th:src="@{/static/images/slide1.jpg}" alt="1 slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Hibernia-Sino</h1>
+
+                    <p>Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://www.google.cn/intl/zh-CN/chrome/browser/"
+                          role="button" target="_blank">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide2.jpg}" alt="2 slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Firefox</h1>
+
+                    <p>Mozilla Firefox，中文名通常称为“火狐”或“火狐浏览器”，是一个开源网页浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://www.firefox.com.cn/download/" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide3.jpg}" alt="3 slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Safari</h1>
+
+                    <p>Safari，是苹果计算机的最新操作系统Mac OS X中的浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://www.apple.com/cn/safari/" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide4.jpg}" alt="4 slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Opera</h1>
+
+                    <p>Opera浏览器，是一款挪威Opera Software ASA公司制作的支持多页面标签式浏览的网络浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://www.opera.com/zh-cn" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide6.jpg}" alt="5 slide">
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>IE</h1>
+
+                    <p>Internet Explorer，简称 IE，是微软公司推出的一款网页浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://ie.microsoft.com/" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#ad-carousel" data-slide="prev"><span
+            class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="#ad-carousel" data-slide="next"><span
+            class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+
+
+
+
+<div class="margin"></div>
+
+
+
+
+
+<div id="formEnter" class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="caption" id="title">
+                <strong><h1>Travel Insurance</h1></strong>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <a href="#" class="thumbnail" v-on:mouseover="a=true" @mouseout="a=false" v-bind:class="{  'enter-shadow': a}">
+                <img th:src="@{/static/images/people1.jpg}" style="height: 360px; width: 100%; display: block;" alt="">
+            </a>
+            <div class="caption text-center" style="margin-top: 30px" >
+                <h3>Purchase Insurance</h3>
+                <p style="margin-top: 20px">我们提供三分钟的快速投保方式,以及提供易懂的投保流程说明图</p>
+                <p>
+                    <a href="##" class="btn btn-primary">Insure</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <a href="#" class="thumbnail" v-on:mouseover="b=true" @mouseout="b=false" v-bind:class="{  'enter-shadow': b}">
+                <img alt="100%x180" th:src="@{/static/images/people2.jpg}" style="height: 360px; width: 100%; display: block;">
+            </a>
+            <div class="caption text-center " style="margin-top: 30px">
+                <h3>Insurance Claim </h3>
+                <p style="margin-top: 20px">我们提供三分钟的简单而又快捷的索赔方式,以及提供易懂的索赔流程说明图</p>
+                <p>
+                    <a href="##" class="btn btn-primary">Claim</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div class="testBefore"></div>
+<div class="fixedBg" th:style="'background-image:url('+ @{/static/images/slide6.jpg} + ');'"></div>
+<div class="testAfter"></div>
+
+
+
+
+
+
+<div class="jumbotron" style="background-color: white">
+    <div  id="Fxc" style="width: 100%; height:600px;" >
+    <div class="col-xs-12 col-md-12">
+        <div class="container" id="title">
+            <strong><h1>Item Entry</h1></strong>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4 entry-img">
+
+        <img th:src="@{/static/images/slide3.jpg}" style="height: 360px; width: 360px;"  v-on:mouseover="a=true" @mouseout="a=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': a}" >
+        <div class="caption text-center">
+
+                <h3>Bootstrap 编码规范</h3>
+                <p>by @mdo</p>
+                <p>Bootstrap 编码规范：编写灵活、稳定、高质量的 HTML 和 CSS 代码的规范。</p>
+
+        </div>
+
+    </div>
+    <div  class="col-xs-12 col-md-4 entry-img">
+
+        <img   th:src="@{/static/images/people2.jpg}" style="height: 360px; width: 360px;" v-on:mouseover="b=true" @mouseout="b=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': b}"  >
+        <div class="caption text-center">
+
+                <h3>{{ a }} {{ b }} {{ d }}</h3>
+                <input type="button" v-on:click="d=scrollY"  value="change">
+                <p>by @mdo</p>
+                <p>Bootstrap 编码规范：编写灵活、稳定、高质量的 HTML 和 CSS 代码的规范。</p>
+
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-md-4 entry-img">
+
+        <img th:src="@{/static/images/slide2.jpg}" style="height: 360px; width: 360px;" v-on:mouseover="c=true" @mouseout="c=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': c}" >
+        <div class="caption text-center">
+
+                <h3>Bootstrap 编码规范</h3>
+                <p>by @mdo</p>
+                <p>Bootstrap 编码规范：编写灵活、稳定、高质量的 HTML 和 CSS 代码的规范。</p>
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+    <div class="testBefore"></div>
+    <div class="fixedBg" th:style="'background-image:url('+ @{/static/images/slide6.jpg} + ');'"></div>
+    <div class="testAfter"></div>
+
+
+
+
+<div id="ad-feedback" class="carousel slide" data-ride="carouse2" style="width: 100%; height: 400px;">
+    <ol class="carousel-indicators">
+        <li data-target="#ad-feedback" data-slide-to="0" class="active"></li>
+        <li data-target="#ad-feedback" data-slide-to="1"></li>
+        <li data-target="#ad-feedback" data-slide-to="2"></li>
+        <li data-target="#ad-feedback" data-slide-to="3"></li>
+        <li data-target="#ad-feedback" data-slide-to="4"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img th:src="@{/static/images/slide1.jpg}" alt="1 slide">
+
+            <div class="container">
+                <div class="feedback-caption">
+                    <h3>Feedback</h3>
+
+                    <p>Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。</p>
+                    <img src="/wp-content/uploads/2014/06/download.png" class="img-circle">
+                    <p>Fxoy</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide2.jpg}" alt="2 slide">
+
+            <div class="container">
+                <div class="feedback-caption">
+                    <h1>Firefox</h1>
+
+                    <p>Mozilla Firefox，中文名通常称为“火狐”或“火狐浏览器”，是一个开源网页浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://www.firefox.com.cn/download/" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide3.jpg}" alt="3 slide">
+
+            <div class="container">
+                <div class="feedback-caption">
+                    <h1>Safari</h1>
+
+                    <p>Safari，是苹果计算机的最新操作系统Mac OS X中的浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://www.apple.com/cn/safari/" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide4.jpg}" alt="4 slide">
+
+            <div class="container">
+                <div class="feedback-caption">
+                    <h1>Opera</h1>
+
+                    <p>Opera浏览器，是一款挪威Opera Software ASA公司制作的支持多页面标签式浏览的网络浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://www.opera.com/zh-cn" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img th:src="@{/static/images/slide6.jpg}" alt="5 slide">
+
+            <div class="container">
+                <div class="feedback-caption">
+                    <h1>IE</h1>
+
+                    <p>Internet Explorer，简称 IE，是微软公司推出的一款网页浏览器。</p>
+
+                    <p><a class="btn btn-lg btn-primary" href="http://ie.microsoft.com/" target="_blank"
+                          role="button">点我下载</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#ad-feedback" data-slide="prev"><span
+            class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="#ad-feedback" data-slide="next"><span
+            class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+
+
+
+
+    <div id="about" class="row" style="margin-top: 200px; width: 100%; height:100%;">
+        <div class="col-xs-12 col-md-4" style="height: 450px; margin-bottom: 100px">
+            <img th:src="@{/static/images/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
+
+        </div>
+
+        <div class="col-xs-12 col-md-8" style="height: 450px; margin-bottom: 100px">
+            <div class="container" style=" margin: 0px; padding: 0px; background-color: dodgerblue;">
+            </div>
+        </div>
+
+
+
+        <div class="col-xs-12 col-md-8" style="height: 450px; margin-bottom: 100px">
+            <div class="container" style=" margin: 0px; padding: 0px; background-color: dodgerblue;">
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4" style="height: 450px; margin-bottom: 100px">
+            <img th:src="@{/static/images/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
+        </div>
+
+
+
+
+
+        <div class="col-xs-12 col-md-4" style="height: 450px; margin-bottom: 100px">
+            <img th:src="@{/static/images/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
+        </div>
+
+        <div class="col-xs-12 col-md-8" style="height: 450px; margin-bottom: 100px">
+            <div class="container" style=" margin: 0px; padding: 0px; background-color: dodgerblue;">
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+<footer class="back">
+
+
+    <div class="center-block end"><img class="center-block" style="height: 200px; width: 350px" th:src="@{/static/images/Hibernia-Sino-logo-white.png}"></div>
+
+        <!--<div class="col-md-4"></div>-->
+        <div class="link"  ><img  style="height: 50px; width: 50px" src="C:\Users\17444\IdeaProjects\demo\src\main\resources\static\images\facebook.png" th:src="@{/static/images/facebook.png}">
+        <img  style="height: 50px; width: 50px" src="C:\Users\17444\IdeaProjects\demo\src\main\resources\static\images\twitter.png" th:src="@{/static/images/twitter.png}">
+        <img  style="height: 50px; width: 50px" src="C:\Users\17444\IdeaProjects\demo\src\main\resources\static\images\git.png" th:src="@{/static/images/git.png}"></div>
+        <!--<div class="col-md-4"></div>-->
+
+
+
+
+    <h3>Contact Phone: +86 186-4506-7431 | +86 147-4220-7617</h3>
+
+
+
+</footer>
+<script th:src="@{/static/js/3dTitle.js}"></script>
+
+    <script>
+
+        new Vue({
+            el:"body",
+            data:{
+               isLogin:false
+            },
+            methods:{
+            },
+            computed:{}
+        });
+
+
+        new Vue({
+            el:"#formEnter",
+            data:{
+                a: false,
+                b: false,
+            },
+            methods:{
+
+            },
+            computed:{}
+        });
+
+        new Vue({
+            el:"#Fxc",
+            data:{
+                a: false,
+                b: false,
+                c: false,
+                d: scrollY
+            },
+            methods:{
+
+            },
+            computed:{}
+        });
+        new Vue({
+            el:"#menu-nav",
+            data:{
+                isLogin:false,
+                isTransP: true
+            },
+
+            methods:{
+                scrollFunc: function (e) {
+
+                    e = e || window.event;
+
+                    if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
+
+                        if(scrollY>200){
+                            this.isTransP=false;
+                        }
+                        else{
+                            this.isTransP=true;
+                        }
+
+                            console.log(this.isTransP);
+                            console.log(scrollY);
+
+
+
+
+                    } else if (e.detail) {  //Firefox滑轮事件
+
+                        if(scrollY>200){
+                            this.isTransP=false;
+                        }
+                        else{
+                            this.isTransP=true;
+                        }
+                            console.log(this.isTransP);
+                            console.log(scrollY);
+
+
+
+                    }
+
+                } },
+            mounted:function ()
+
+            {
+                if (document.addEventListener){//firefox
+                    document.addEventListener('DOMMouseScroll', this.scrollFunc, false);}
+                window.onmousewheel = document.onmousewheel = this.scrollFunc;//ie chrome
+            },
+            computer:{}
+        });
+
+
+    </script>
+
+
+</body>
+</html>
