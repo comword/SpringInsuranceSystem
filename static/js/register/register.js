@@ -59,7 +59,7 @@ function loadBasicPage(router, data) {
                 localStorage.removeItem('signupForm');
             }
             $.ajax({
-                url: '/register/tokenId',
+                url: '/login/tokenId',
                 method: 'GET',
                 success: function (data) {
                     app_token = data["token"];
@@ -145,7 +145,7 @@ function loadBasicPage(router, data) {
                         self.errors.push(err.errmsg);
                         switch (err.errcode) {
                             case -1000:
-                                //location.reload();
+                                location.reload();
                                 break;
                         }
                     }

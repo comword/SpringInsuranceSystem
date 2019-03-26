@@ -3,8 +3,6 @@ package org.gtdev.webapps.iaatraesamhsaat.lrplugin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.pf4j.Extension;
-import org.pf4j.ExtensionPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,38 +20,17 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
 
-@Extension
 @Controller
-public class CustomerLRController implements ExtensionPoint {
-    private Logger Log = LoggerFactory.getLogger(CustomerLRController.class);
+public class CustomerRegisterController {
+    private Logger Log = LoggerFactory.getLogger(this.getClass());
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private LocaleResolver localeResolver;
 
-    @GetMapping("/login")
-    public String login(HttpServletRequest request) {
-        Locale l = localeResolver.resolveLocale(request);
-        if(l.equals(Locale.SIMPLIFIED_CHINESE))
-            return "login/login-cn";
-        else
-            return "login/login";
-    }
-
     @GetMapping("/register/customer/**")
     public String registerCustomer(HttpServletRequest request) {
-//        Locale l = localeResolver.resolveLocale(request);
-//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
-//            return "register/customer-cn";
-//        else
         return "register/customer";
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/register/tokenId", produces = "application/json")
-    public String customerToken(HttpSession session, HttpServletRequest request) {
-        return "{\"token\": \""+session.getId()+"\", \"lang\": \""
-                +localeResolver.resolveLocale(request).toLanguageTag()+"\"}";
     }
 
     @Data

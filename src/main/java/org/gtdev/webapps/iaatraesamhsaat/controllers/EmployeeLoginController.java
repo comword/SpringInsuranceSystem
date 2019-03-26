@@ -1,27 +1,23 @@
-package org.gtdev.webapps.iaatraesamhsaat.lrplugin;
+package org.gtdev.webapps.iaatraesamhsaat.controllers;
 
-import org.pf4j.Extension;
-import org.pf4j.ExtensionPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
-@Extension
 @Controller
-public class EmployeeLoginController implements ExtensionPoint {
-    private Logger Log = LoggerFactory.getLogger(EmployeeLoginController.class);
+public class EmployeeLoginController {
+    private Logger Log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private LocaleResolver localeResolver;
 
-    @GetMapping("/employee/login")
+    @GetMapping("/loginEmployee")
     public String login(HttpServletRequest request) {
         Locale l = localeResolver.resolveLocale(request);
         if(l.equals(Locale.SIMPLIFIED_CHINESE))
@@ -30,8 +26,5 @@ public class EmployeeLoginController implements ExtensionPoint {
             return "employee/login/login";
     }
 
-    @RequestMapping("/employee/admin")
-    public String admin(){
-        return "employee/admin/admin.html";
-    }
+
 }

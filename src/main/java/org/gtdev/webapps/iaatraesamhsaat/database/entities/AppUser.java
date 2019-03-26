@@ -1,17 +1,22 @@
 package org.gtdev.webapps.iaatraesamhsaat.database.entities;
 
+import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "is_users",
         indexes = {@Index(columnList="userName", unique = true),
             @Index(columnList="email", unique = true),
             @Index(columnList="displayName", unique = true)})
-public class User {
+@Data
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -53,12 +58,38 @@ public class User {
         userState(int code) {
             this.code = code;
         }
+        public static userState parse(short id) {
+            userState right = null; // Default
+            for (userState item : userState.values()) {
+                if (item.code==id) {
+                    right = item;
+                    break;
+                }
+            }
+            return right;
+        }
     }
 
     @NotBlank
-    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false, columnDefinition = "SMALLINT")
     @Type(type = "org.hibernate.type.ShortType")
-    private userState state;
+    private short stateId;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+    @JoinTable(name = "is_usersGroup",
+            joinColumns = { @JoinColumn(name = "appuser_id") },
+            inverseJoinColumns = { @JoinColumn(name = "appgroup_id") })
+    private Set<AppGroup> groups = new HashSet<>();
+
+    public userState getUserState () {
+        return userState.parse(stateId);
+    }
+
+    public void setUserState(userState right) {
+        stateId = (short) right.code;
+    }
 }

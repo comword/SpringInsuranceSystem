@@ -29,7 +29,6 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class PluginConfig implements BeanFactoryAware {
 
-
     private final SpringPluginManager pluginManager;
     private final ApplicationContext applicationContext;
     private final ObjectMapper objectMapper;
@@ -84,13 +83,14 @@ public class PluginConfig implements BeanFactoryAware {
     private void registerMvcEndpoints(PluginManager pm) {
         pm.getExtensions(IController.class).stream()
                 .flatMap(g -> g.mvcControllers().stream())
-                .forEach(r -> ((ConfigurableBeanFactory) beanFactory)
-                        .registerSingleton(r.getClass().getName(), r));
+                .forEach(r -> {
+                    ((ConfigurableBeanFactory) beanFactory).registerSingleton(r.getClass().getName(), r);
+                    applicationContext.getAutowireCapableBeanFactory().autowireBean(r);
+                });
         applicationContext
                 .getBeansOfType(RequestMappingHandlerMapping.class)
                 .forEach((k, v) -> v.afterPropertiesSet());
     }
-
 
     @PreDestroy
     public void cleanup() {
