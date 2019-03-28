@@ -1,14 +1,12 @@
 package org.gtdev.webapps.iaatraesamhsaat.database.entities;
 
 import lombok.Data;
-import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "is_users",
@@ -83,7 +81,8 @@ public class AppUser {
     @JoinTable(name = "is_usersGroup",
             joinColumns = { @JoinColumn(name = "appuser_id") },
             inverseJoinColumns = { @JoinColumn(name = "appgroup_id") })
-    private Set<AppGroup> groups = new HashSet<>();
+    @ToString.Exclude
+    private List<AppGroup> groups = new ArrayList<>();
 
     public userState getUserState () {
         return userState.parse(stateId);

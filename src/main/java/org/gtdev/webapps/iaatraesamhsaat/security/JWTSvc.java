@@ -1,6 +1,5 @@
 package org.gtdev.webapps.iaatraesamhsaat.security;
 //Reference:https://medium.com/omarelgabrys-blog/microservices-with-spring-boot-authentication-with-jwt-part-3-fafc9d7187e8
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,10 +15,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,7 +46,7 @@ public class JWTSvc {
     @Autowired
     private JwtConfig jwtConfig;
 
-    public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
+    public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) {
         Long now = System.currentTimeMillis();
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
@@ -58,23 +56,25 @@ public class JWTSvc {
                 .setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
                 .compact();
-
-        // Add token to header
-        response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+        //response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+        Cookie c = new Cookie(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+//        c.setSecure(true);
+        c.setHttpOnly(true);
+        response.addCookie(c);
     }
 
-    public boolean verifyHeader(HttpServletRequest request) {
-        String header = request.getHeader(jwtConfig.getHeader());
-        if(header == null)
-            return false;
-        else if(!header.startsWith(jwtConfig.getPrefix()))
-            return false;
-        return true;
+    public Cookie getAuthCookie(HttpServletRequest request) {
+        Cookie[] cks = request.getCookies();
+        for (Cookie c: cks) {
+            if(c.getName().equals(jwtConfig.getHeader()))
+                if(c.getValue().startsWith(jwtConfig.getPrefix()))
+                    return c;
+        }
+        return null;
     }
 
-    public Authentication getAuthentication(HttpServletRequest request) {
-        String header = request.getHeader(jwtConfig.getHeader());
-        String token = header.replace(jwtConfig.getPrefix(), "");
+    public Authentication getAuthentication(Cookie c) {
+        String token = c.getValue().replace(jwtConfig.getPrefix(), "");
         try {
             Claims claims = Jwts.parser()
                     .setSigningKey(jwtConfig.getSecret().getBytes())
@@ -87,6 +87,7 @@ public class JWTSvc {
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                         username, null, authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                return auth;
             }
         } catch (Exception e) {
             SecurityContextHolder.clearContext();

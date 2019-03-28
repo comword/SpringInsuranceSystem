@@ -62,13 +62,18 @@ window.onload = function() {
                     cache: false,
                     processData: false,
                     success: function (data) {
-
+                        if (data.rescode===0) {
+                            if (data.redirect!=null)
+                                window.location.replace(data.redirect);
+                            else
+                                window.location.replace("/customer/admin");
+                        }
                     },
                     error: function (error) {
                         let err = JSON.parse(error.responseText);
                         self.errors.push(err.errmsg);
                         switch (err.errcode) {
-                            case -1000:
+                            case -1001:
                                 location.reload();
                                 break;
                         }

@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,9 +35,9 @@ public class UserAuthProvider implements AuthenticationProvider {
         String password;
         try{
             s = authentication.getName();
-            password = authentication.getCredentials().toString();
+            password = authentication.getCredentials().toString().toUpperCase();
         } catch (Exception e) {
-            throw new BadCredentialsException("Authentication failed.");
+            throw new BadCredentialsException("Empty username or password.");
         }
         AppUser u;
         if(validateEmail(s)) //check if email address
@@ -42,8 +45,27 @@ public class UserAuthProvider implements AuthenticationProvider {
         else //try as username
             u = userRepo.findAppUserByUserName(s);
         if(u == null) //all failed
-            throw new UsernameNotFoundException("User: " + s + " not found.");
+            throw new UsernameNotFoundException("User not found.");
         else {
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                StringBuilder sb = new StringBuilder();
+                String salt = u.getSalt().toUpperCase();
+                for (int i = 0; i < salt.length(); i++){
+                    sb.append(password.charAt(i));
+                    sb.append(salt.charAt(i));
+                }
+                md.update(sb.toString().getBytes());
+                byte[] digest = md.digest();
+                String pwdMd5 = DatatypeConverter.printHexBinary(digest).toUpperCase();
+                if(pwdMd5.equals(u.getPassword())) {
+
+                } else
+                    throw new BadCredentialsException("Incorrect password or username.");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+                return null;
+            }
             List<GrantedAuthority> grantedAuthorities = AuthorityUtils.createAuthorityList(getRolesByGroups(u.getGroups()));
             return new UsernamePasswordAuthenticationToken(String.valueOf(u.getId()), u.getPassword(), grantedAuthorities);
         }
@@ -61,7 +83,7 @@ public class UserAuthProvider implements AuthenticationProvider {
         return false;
     }
 
-    String[] getRolesByGroups(Set<AppGroup> gp) {
+    String[] getRolesByGroups(List<AppGroup> gp) {
         Set<String> res = new HashSet<>();
         for(AppGroup g : gp)
             res.add(g.getGroupPrivilege().name());

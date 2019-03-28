@@ -1,11 +1,14 @@
 package org.gtdev.webapps.iaatraesamhsaat.database.entities;
 
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -51,13 +54,9 @@ public class AppGroup {
     @Type(type = "org.hibernate.type.ShortType")
     private short gpPrivilegeId;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            },
-            mappedBy = "groups")
-    private Set<AppUser> posts = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
+    @ToString.Exclude
+    private List<AppUser> users = new ArrayList<>();
 
     public gpPrivilege getGroupPrivilege () {
         return gpPrivilege.parse(gpPrivilegeId);

@@ -25,7 +25,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand navbar-left"  href="#"><img class="img-logo" th:src="@{/static/images/Hibernia-Sino-logo.png}"></a>
+            <a class="navbar-brand navbar-left"  href="#"><img class="img-logo" th:src="@{/images/homePage/Hibernia-Sino-logo.png}"></a>
             <a class="navbar-brand" href="#">Hibernia-Sino</a>
         </div>
         <div class="navbar-collapse collapse">
@@ -56,7 +56,7 @@
     </div>
 </nav>
 
-<div class="jumbotron" id="company" th:style="'background-image:url('+ @{/static/images/homePage/slide6.jpg} + ');'" >
+<div class="jumbotron" id="company" th:style="'background-image:url('+ @{/images/homePage/slide6.jpg} + ');'" >
     <div id="mengban">
     </div>
     <div class="container" id = "company-screen" >
@@ -78,7 +78,7 @@
     </ol>
     <div class="carousel-inner">
         <div class="item active">
-            <img th:src="@{/static/images/homePage/slide1.jpg}" alt="1 slide">
+            <img th:src="@{/images/homePage/slide1.jpg}" alt="1 slide">
 
             <div class="container">
                 <div class="carousel-caption">
@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide2.jpg}" alt="2 slide">
+            <img th:src="@{/images/homePage/slide2.jpg}" alt="2 slide">
 
             <div class="container">
                 <div class="carousel-caption">
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide3.jpg}" alt="3 slide">
+            <img th:src="@{/images/homePage/slide3.jpg}" alt="3 slide">
 
             <div class="container">
                 <div class="carousel-caption">
@@ -120,7 +120,7 @@
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide4.jpg}" alt="4 slide">
+            <img th:src="@{/images/homePage/slide4.jpg}" alt="4 slide">
 
             <div class="container">
                 <div class="carousel-caption">
@@ -134,7 +134,7 @@
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide6.jpg}" alt="5 slide">
+            <img th:src="@{/images/homePage/slide6.jpg}" alt="5 slide">
 
             <div class="container">
                 <div class="carousel-caption">
@@ -163,7 +163,7 @@
         </div>
         <div class="col-xs-12 col-md-6">
             <a href="#" class="thumbnail" v-on:mouseover="a=true" @mouseout="a=false" v-bind:class="{  'enter-shadow': a}">
-                <img th:src="@{/static/images/homePage/people1.jpg}" style="height: 360px; width: 100%; display: block;" alt="">
+                <img th:src="@{/images/homePage/people1.jpg}" style="height: 360px; width: 100%; display: block;" alt="">
             </a>
             <div class="caption text-center" style="margin-top: 30px" >
                 <h3>Purchase Insurance</h3>
@@ -175,7 +175,7 @@
         </div>
         <div class="col-xs-12 col-md-6">
             <a href="#" class="thumbnail" v-on:mouseover="b=true" @mouseout="b=false" v-bind:class="{  'enter-shadow': b}">
-                <img alt="100%x180" th:src="@{/static/images/homePage/people2.jpg}" style="height: 360px; width: 100%; display: block;">
+                <img alt="100%x180" th:src="@{/images/homePage/people2.jpg}" style="height: 360px; width: 100%; display: block;">
             </a>
             <div class="caption text-center " style="margin-top: 30px">
                 <h3>Insurance Claim</h3>
@@ -190,7 +190,7 @@
 </div>
 
 <div class="testBefore"></div>
-<div class="fixedBg" th:style="'background-image:url('+ @{/static/images/homePage/slide6.jpg} + ');'"></div>
+<div class="fixedBg" th:style="'background-image:url('+ @{/images/homePage/slide6.jpg} + ');'"></div>
 <div class="testAfter"></div>
 
 <div class="jumbotron" style="background-color: white">
@@ -202,7 +202,7 @@
         </div>
         <div class="col-xs-12 col-md-4 entry-img">
 
-            <img th:src="@{/static/images/homePage/slide3.jpg}" style="height: 360px; width: 360px;"  v-on:mouseover="a=true" @mouseout="a=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': a}" >
+            <img th:src="@{/images/homePage/slide3.jpg}" style="height: 360px; width: 360px;"  v-on:mouseover="a=true" @mouseout="a=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': a}" >
             <div class="caption text-center">
 
                 <h3>Bootstrap 编码规范</h3>
@@ -214,7 +214,7 @@
         </div>
         <div  class="col-xs-12 col-md-4 entry-img">
 
-            <img   th:src="@{/static/images/homePage/people2.jpg}" style="height: 360px; width: 360px;" v-on:mouseover="b=true" @mouseout="b=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': b}"  >
+            <img   th:src="@{/images/homePage/people2.jpg}" style="height: 360px; width: 360px;" v-on:mouseover="b=true" @mouseout="b=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': b}"  >
             <div class="caption text-center">
 
                 <h3>{{ a }} {{ b }} {{ d }}</h3>
@@ -227,7 +227,7 @@
         </div>
         <div class="col-xs-12 col-md-4 entry-img">
 
-            <img th:src="@{/static/images/homePage/slide2.jpg}" style="height: 360px; width: 360px;" v-on:mouseover="c=true" @mouseout="c=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': c}" >
+            <img th:src="@{/images/homePage/slide2.jpg}" style="height: 360px; width: 360px;" v-on:mouseover="c=true" @mouseout="c=false" class="img-circle center-block img-thumbnail" v-bind:class="{  'circle-shadow': c}" >
             <div class="caption text-center">
 
                 <h3>Bootstrap 编码规范</h3>
@@ -240,7 +240,7 @@
 </div>
 
 <div class="testBefore"></div>
-<div class="fixedBg" th:style="'background-image:url('+ @{/static/images/homePage/slide6.jpg} + ');'"></div>
+<div class="fixedBg" th:style="'background-image:url('+ @{/images/homePage/slide6.jpg} + ');'"></div>
 <div class="testAfter"></div>
 
 <div id="ad-feedback" class="carousel slide" data-ride="carouse2" style="width: 100%; height: 400px;">
@@ -253,21 +253,20 @@
     </ol>
     <div class="carousel-inner">
         <div class="item active">
-            <img th:src="@{/static/images/homePage/slide1.jpg}" alt="1 slide">
+            <img th:src="@{/images/homePage/slide1.jpg}" alt="1 slide">
 
             <div class="container">
                 <div class="feedback-caption">
                     <h3>Feedback</h3>
 
                     <p>Google Chrome，又称Google浏览器，是一个由Google（谷歌）公司开发的网页浏览器。</p>
-                    <img src="/wp-content/uploads/2014/06/download.png" class="img-circle">
                     <p>Fxoy</p>
 
                 </div>
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide2.jpg}" alt="2 slide">
+            <img th:src="@{/images/homePage/slide2.jpg}" alt="2 slide">
 
             <div class="container">
                 <div class="feedback-caption">
@@ -281,7 +280,7 @@
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide3.jpg}" alt="3 slide">
+            <img th:src="@{/images/homePage/slide3.jpg}" alt="3 slide">
 
             <div class="container">
                 <div class="feedback-caption">
@@ -295,7 +294,7 @@
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide4.jpg}" alt="4 slide">
+            <img th:src="@{/images/homePage/slide4.jpg}" alt="4 slide">
 
             <div class="container">
                 <div class="feedback-caption">
@@ -309,7 +308,7 @@
             </div>
         </div>
         <div class="item">
-            <img th:src="@{/static/images/homePage/slide6.jpg}" alt="5 slide">
+            <img th:src="@{/images/homePage/slide6.jpg}" alt="5 slide">
 
             <div class="container">
                 <div class="feedback-caption">
@@ -331,7 +330,7 @@
 
 <div id="about" class="row" style="margin-top: 200px; width: 100%; height:100%;">
     <div class="col-xs-12 col-md-4" style="height: 450px; margin-bottom: 100px">
-        <img th:src="@{/static/images/homePage/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
+        <img th:src="@{/images/homePage/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
 
     </div>
 
@@ -347,7 +346,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-md-4" style="height: 450px; margin-bottom: 100px">
-        <img th:src="@{/static/images/homePage/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
+        <img th:src="@{/images/homePage/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
     </div>
 
 
@@ -355,7 +354,7 @@
 
 
     <div class="col-xs-12 col-md-4" style="height: 450px; margin-bottom: 100px">
-        <img th:src="@{/static/images/homePage/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
+        <img th:src="@{/images/homePage/people2.jpg}" style="height: 450px; width: 100%; box-shadow:0px 5px 8px 5px #ccc; " class="img-rounded"  >
     </div>
 
     <div class="col-xs-12 col-md-8" style="height: 450px; margin-bottom: 100px">
@@ -368,17 +367,17 @@
 
 <footer class="back">
 
-    <div class="center-block end"><img class="center-block" style="height: 200px; width: 350px" th:src="@{/static/images/Hibernia-Sino-logo-white.png}"></div>
+    <div class="center-block end"><img class="center-block" style="height: 200px; width: 350px" th:src="@{/images/Hibernia-Sino-logo-white.png}"></div>
 
-    <div class="link"  ><img  style="height: 50px; width: 50px" th:src="@{/static/images/homePage/facebook.png}">
-        <img  style="height: 50px; width: 50px" th:src="@{/static/images/homePage/twitter.png}">
-        <img  style="height: 50px; width: 50px" th:src="@{/static/images/homePage/git.png}"></div>
+    <div class="link"  ><img  style="height: 50px; width: 50px" th:src="@{/images/homePage/facebook.png}">
+        <img  style="height: 50px; width: 50px" th:src="@{/images/homePage/twitter.png}">
+        <img  style="height: 50px; width: 50px" th:src="@{/images/homePage/git.png}"></div>
     <h3>Contact Phone: +86 186-4506-7431 | +86 147-4220-7617</h3>
 </footer>
 <script src="../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script src="../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
-<script th:src="@{/static/js/home.js}"></script>
+<script th:src="@{/js/homePage/home.js}"></script>
 </body>
 </html>
