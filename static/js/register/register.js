@@ -139,7 +139,6 @@ function loadBasicPage(router, data) {
                         loadDetailPage(self.$router, data);
                     },
                     error: function (error) {
-                        //console.log(error);
                         $("#progress").animate({ opacity: 0 });
                         let err = JSON.parse(error.responseText);
                         self.errors.push(err.errmsg);
@@ -174,7 +173,7 @@ function loadDetailPage(router, data) {
                     address:'',
                     address2: '',
                     country: '',
-                    state: '',
+                    province: '',
                     zip: '',
                     payment: '',
                     card_name: '',
@@ -182,7 +181,8 @@ function loadDetailPage(router, data) {
                     card_expr: '',
                     card_ccv: ''
                 },
-                errors: []
+                errors: [],
+                provinces: []
             }
         },
         mounted: function () {
@@ -207,24 +207,108 @@ function loadDetailPage(router, data) {
                     $("#flagBtn").css({"backgroundPosition": "-1px -2670px"});
                 if(newVal === '+86')
                     $("#flagBtn").css({"backgroundPosition": "-1px -1072px"});
+            },
+            'detailForm.country': function(newVal, oldVal) {
+                if(newVal === oldVal)
+                    return;
+                let query = {};
+                if(newVal === "Ireland") {
+                    query.query = "Ireland";
+                } else if(newVal === "China") {
+                    query.query = "China";
+                }
+                let self = this;
+                $.get('/register/provinces', query,
+                    function(data){
+                        if(data.errcode!==0){
+                            console.log(data); //Error
+                        } else {
+                            self.provinces = data.area;
+                        }
+                    });
             }
         },
         methods: {
+            validPhone: function(phone) {
+                if(phone.startsWith("+353")){
+                    if(phone.length === 13)
+                        return true;
+                } else if(phone.startsWith("+86")){
+                    if(phone.length === 14)
+                        return true;
+                }
+                return false;
+            },
             next_2: function () {
                 this.errors = [];
                 let failed = false;
-                if (!this.detailForm.phone) {
+                if (!this.validPhone(this.detailForm.phone)) {
                     setInvalid('#phone');
                     failed = true;
                 }
                 else
-                    setValid('#firstName');
-                if (!this.signupForm.lastName) {
-                    setInvalid('#lastName');
+                    setValid('#phone');
+                if (!this.detailForm.ID) {
+                    setInvalid('#idNum');
                     failed = true;
                 }
                 else
-                    setValid('#lastName');
+                    setValid('#idNum');
+                if (!this.detailForm.address) {
+                    setInvalid('#address');
+                    failed = true;
+                }
+                else
+                    setValid('#address');
+                if (!this.detailForm.country) {
+                    setInvalid('#country');
+                    failed = true;
+                }
+                else
+                    setValid('#country');
+                if (!this.detailForm.province) {
+                    setInvalid('#province');
+                    failed = true;
+                }
+                else
+                    setValid('#province');
+                if (!this.detailForm.zip) {
+                    setInvalid('#zip');
+                    failed = true;
+                }
+                else
+                    setValid('#zip');
+                if (failed)
+                    return;
+                let postData = Object.assign({}, this.detailForm);
+                delete postData.phone;
+                postData.lang = app_lang;
+                postData.token = app_token;
+                let self = this;
+                $("#progress").animate({ opacity: 1 });
+                $("#signup-form").data("bmd.bootstrapMaterialDesign", null);
+                $.ajax({
+                    url: '/register/detailsInfo',
+                    method: 'POST',
+                    data: JSON.stringify(postData),
+                    contentType: "application/json; charset=UTF-8",
+                    async: false,
+                    cache: false,
+                    processData: false,
+                    success: function (data) {
+
+                    },
+                    error: function (error) {
+                        $("#progress").animate({ opacity: 0 });
+                        let err = JSON.parse(error.responseText);
+                        self.errors.push(err.errmsg);
+                        switch (err.errcode) {
+                            case -1000:
+                                location.reload();
+                                break;
+                        }
+                    }
+                });
             }
         }
     });

@@ -1,4 +1,67 @@
-INSERT INTO `is_users` (`id`, `display_name`, `email`, `last_login`, `password`, `salt`, `state_id`, `user_name`) VALUES ('1', 'test0', 'test0@hibernia-sino.com', CURRENT_TIMESTAMP, '9C65F0D2A545B128C5CDF12B9F522E0B', '2A6F3275294956C46F038BBC365E2561', '1', 'test0');
-INSERT INTO `is_groups` (`id`, `gp_privilege_id`, `group_name`) VALUES ('1', '80', 'Customers');
-INSERT INTO `is_users_group` (`appuser_id`, `appgroup_id`) VALUES ('1', '1');
+INSERT INTO `provinces` (`code`, `chinese_name`, `english_name`) VALUES
+('CN-AH', '安徽省', 'Anhui Sheng'),
+('CN-BJ', '北京市', 'Beijing Shi'),
+('CN-CQ', '重庆市', 'Chongqing Shi'),
+('CN-FJ', '福建省', 'Fujian Sheng'),
+('CN-GD', '广东省', 'Guangdong Sheng'),
+('CN-GS', '甘肃省', 'Gansu Sheng'),
+('CN-GX', '广西壮族自治区', 'Guangxi Zhuang Autonomous Region'),
+('CN-GZ', '贵州省', 'Guizhou Sheng'),
+('CN-HA', '河南省', 'Henan Sheng'),
+('CN-HB', '湖北省', 'Hubei Sheng'),
+('CN-HE', '河北省', 'Hebei Sheng'),
+('CN-HI', '海南省', 'Hainan Sheng'),
+('CN-HK', '香港特别行政区', 'Hong Kong Special Administrative Region'),
+('CN-HL', '黑龙江省', 'Heilongjiang Sheng'),
+('CN-HN', '湖南省', 'Hunan Sheng'),
+('CN-JL', '吉林省', 'Jilin Sheng'),
+('CN-JS', '江苏省', 'Jiangsu Sheng'),
+('CN-JX', '江西省', 'Jiangxi Sheng'),
+('CN-LN', '辽宁省', 'Liaoning Sheng'),
+('CN-MO', '澳门特别行政区', 'Macau Special Administrative Region'),
+('CN-NM', '內蒙古自治区', 'Inner Mongolia Autonomous Region'),
+('CN-NX', '宁夏回族自治区', 'Ningxia Hui Autonomous Region'),
+('CN-QH', '青海省', 'Qinghai Sheng'),
+('CN-SC', '四川省', 'Sichuan Sheng'),
+('CN-SD', '山东省', 'Shandong Sheng'),
+('CN-SH', '上海市', 'Shanghai Shi'),
+('CN-SN', '陕西省', 'Shaanxi Sheng'),
+('CN-SX', '山西省', 'Shanxi Sheng'),
+('CN-TJ', '天津市', 'Tianjin Shi'),
+('CN-XJ', '新疆维吾尔自治区', 'Xinjiang Uyghur Autonomous Region'),
+('CN-XZ', '西藏自治区', 'Tibet Autonomous Region'),
+('CN-YN', '云南省', 'Yunnan Sheng'),
+('CN-ZJ', '浙江省', 'Zhejiang Sheng');
+
+INSERT INTO `provinces` (`code`, `chinese_name`, `english_name`) VALUES
+('IE-CW', '卡娄郡', 'Country Carlow'),
+('IE-CN', '卡文郡', 'Country Cavan'),
+('IE-CE', '克莱尔郡', 'Country Clare'),
+('IE-CO', '科克郡', 'Country Cork'),
+('IE-DL', '当尼戈尔郡', 'Country Donegal'),
+('IE-D', '都柏林郡', 'Country Dublin'),
+('IE-G', '高维郡', 'Country Galway'),
+('IE-KY', '凯瑞郡', 'Country Kerry'),
+('IE-KE', '基尔代尔郡', 'Country Kildare'),
+('IE-KK', '基尔肯尼郡', 'Country Kilkenny'),
+('IE-LS', '利施郡', 'Country Laois'),
+('IE-LM', '利特里姆郡', 'Country Leitrim'),
+('IE-LK', '利默里克郡', 'Country Limerick'),
+('IE-LD', '朗福德郡', 'Country Longford'),
+('IE-LH', '劳斯郡', 'Country Louth'),
+('IE-MO', '梅欧郡', 'Country Mayo'),
+('IE-MH', '米斯郡', 'Country Meath'),
+('IE-MN', '莫纳亨郡', 'Country Monaghan'),
+('IE-OY', '奥法利郡', 'Country Offaly'),
+('IE-RN', '罗斯康门郡', 'Country Roscommon'),
+('IE-SO', '斯莱戈郡', 'Country Sligo'),
+('IE-TA', '蒂珀雷里郡', 'Country Tipperary'),
+('IE-WD', '沃特福德郡', 'Country Waterford'),
+('IE-WH', '西米斯郡', 'Country Westmeath'),
+('IE-WX', '韦克斯福德郡', 'Country Wexford'),
+('IE-WW', '威克娄郡', 'Country Wicklow');
+
+INSERT INTO `app_user` (`id`, `display_name`, `email`, `last_login`, `password`, `salt`, `state_id`, `user_name`) VALUES ('1', 'test0', 'test0@hibernia-sino.com', CURRENT_TIMESTAMP, '9C65F0D2A545B128C5CDF12B9F522E0B', '2A6F3275294956C46F038BBC365E2561', '1', 'test0');
+INSERT INTO `app_group` (`id`, `gp_privilege_id`, `group_name`) VALUES ('1', '80', 'Customers');
+INSERT INTO `user_group` (`appuser_id`, `appgroup_id`) VALUES ('1', '1');
 

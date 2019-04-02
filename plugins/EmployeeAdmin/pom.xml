@@ -57,10 +57,10 @@
         </dependency>
         <dependency>
             <groupId>org.gtdev.webapps.iaatraesamhsaat</groupId>
-            <artifactId>pluginsdk</artifactId>
+            <artifactId>iaatraesamhsaat</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/../../lib/pluginsdk-${project.version}.jar</systemPath>
+            <systemPath>${project.basedir}/../../lib/iaatraesamhsaat-${project.version}.jar</systemPath>
         </dependency>
 
     </dependencies>

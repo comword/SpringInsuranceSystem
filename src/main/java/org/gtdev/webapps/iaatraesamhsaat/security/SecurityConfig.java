@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
         .and().authorizeRequests()
         .antMatchers("**").permitAll()
+        .antMatchers("/").permitAll()
         .antMatchers("/login/**").permitAll()
         .antMatchers("/robots.txt").permitAll()
         .antMatchers( "/register/**").permitAll()

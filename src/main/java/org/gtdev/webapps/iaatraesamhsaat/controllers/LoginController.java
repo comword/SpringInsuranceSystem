@@ -32,7 +32,7 @@ import java.util.Locale;
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @Controller
-public class CustomerLoginController {
+public class LoginController {
     private Logger Log = LoggerFactory.getLogger(this.getClass());
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -51,7 +51,7 @@ public class CustomerLoginController {
         if (c != null){
             Authentication auth = JWTSvc.getAuthentication(c);
             if(auth!=null){ //already authenticated
-                return "redirect:/customer/admin";
+                return "redirect:/";
             }
         }
         Locale l = localeResolver.resolveLocale(request);

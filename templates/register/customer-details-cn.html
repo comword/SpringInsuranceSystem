@@ -1,0 +1,139 @@
+<div key="detailsForm">
+    <h2 class="text-center mb-1">Hibernia-Sino</h2>
+    <h4 class="text-center mb-3">请填写您的更多信息</h4>
+    <form class="needs-validation" novalidate>
+        <p v-if="errors.length">
+            <b>请检查以下错误：</b>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
+        </ul>
+        </p>
+        <div class="form-group mb-3">
+            <label for="phone">手机号</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownCountryBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span style="padding-right: 20px;"><div id="flagBtn" class="dropdown-country-flagsbutton" style="background-position: -1px -2670px;"></div></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownCountryBtn">
+                            <a class="dropdown-item dropdown-country-relative" href="#" @click.prevent="detailForm.phoneCountry='+353'">
+                                <div class="dropdown-country-flags" style="background-position: -1px -2670px;"></div>
+                                <div class="dropdown-country-words">爱尔兰<span class="dropdown-country-number">+353</span></div>
+                            </a>
+                            <a class="dropdown-item dropdown-country-relative" href="#" @click.prevent="detailForm.phoneCountry='+86'">
+                                <div class="dropdown-country-flags" style="background-position: -1px -1072px;"></div>
+                                <div class="dropdown-country-words">中国大陆<span class="dropdown-country-number">+86</span></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <input type="tel" class="form-control" id="phone" v-model="detailForm.phone" required>
+                <div class="invalid-feedback" style="width: 100%;">请输入有效的手机号</div>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="idNum">身份证号码</label>
+            <input type="text" class="form-control" id="idNum" v-model="detailForm.ID" required>
+            <div class="invalid-feedback" style="width: 100%;">
+                请输入有效的身份证号码
+            </div>
+        </div>
+        <hr class="mb-3">
+        <h4 class="mb-3">账单地址</h4>
+        <div class="form-group mb-3">
+            <label for="address">地址</label>
+            <input type="text" class="form-control" id="address" v-model="detailForm.address" placeholder="西城区长安街1号" required>
+            <div class="invalid-feedback">
+                请输入您的账单地址
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="address2">地址 2<span class="text-muted">(可选)</span></label>
+            <input type="text" class="form-control" id="address2" v-model="detailForm.address2" placeholder="3单元2层201室">
+        </div>
+
+        <div style="display: flex;">
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 50%;">
+                <label for="country">国家</label>
+                <select class="custom-select d-block w-100" id="country" v-model="detailForm.country" required>
+                    <option value="">请选择...</option>
+                    <option value="Ireland">爱尔兰</option>
+                    <option value="China">中国</option>
+                </select>
+                <div class="invalid-feedback">
+                    请选择一个国家
+                </div>
+            </div>
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
+                <label for="province">省</label>
+                <select class="custom-select d-block w-100" id="province" v-model="detailForm.province" required>
+                    <option value="">请选择...</option>
+                    <option v-for="prov in provinces" :value="prov[0]">{{prov[2]}}</option>
+                </select>
+                <div class="invalid-feedback">
+                    请选择一个省
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="zip">邮政编码</label>
+                <input type="text" class="form-control" id="zip" v-model="detailForm.zip" required>
+                <div class="invalid-feedback">
+                    请输入邮政编码
+                </div>
+            </div>
+        </div>
+        <hr class="form-group mb-3">
+        <h4 class="mb-3">支付方式 (可选)</h4>
+        <div class="form-group d-block my-3">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="paymentMethod" value="credit" v-model="detailForm.payment" checked>
+                    信用卡
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="paymentMethod" value="debit" v-model="detailForm.payment">
+                    借记卡
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="paymentMethod" value="paypal" v-model="detailForm.payment">
+                    贝宝(PayPal)
+                </label>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
+                <label for="cc-name">姓名</label>
+                <input type="text" class="form-control" id="cc-name" v-model="detailForm.card_name" required>
+                <small class="text-muted">请输入您卡上的全名</small>
+            </div>
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
+                <label for="cc-number">卡号</label>
+                <input type="text" class="form-control" id="cc-number" v-model="detailForm.card_num" required>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
+                <label for="cc-expiration">有效期限</label>
+                <input type="text" class="form-control" id="cc-expiration" v-model="detailForm.card_expr" required>
+            </div>
+            <div class="form-group mb-3" style="margin-right: 1rem;">
+                <label for="cc-cvv">CVV</label>
+                <input type="text" class="form-control" id="cc-cvv" v-model="detailForm.card_ccv" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mb-3">
+                <button class="btn btn-primary btn-block" @click="back_1()" role="button">返回</button>
+            </div>
+            <div class="col-6 mb-3">
+                <button class="btn btn-primary btn-raised btn-block" type="button" @click="next_2()">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-<div>
+<div key="detailsForm">
     <h2 class="text-center mb-1">Hibernia-Sino</h2>
     <h4 class="text-center mb-3">Fill your details</h4>
     <form class="needs-validation" novalidate>
@@ -8,7 +8,7 @@
             <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
         </ul>
         </p>
-        <div class="mb-3">
+        <div class="form-group mb-3">
             <label for="phone">Phone number</label>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -29,14 +29,19 @@
                     </div>
                 </div>
                 <input type="tel" class="form-control" id="phone" v-model="detailForm.phone" placeholder="Phone number" required>
-                <div class="invalid-feedback" style="width: 100%;">
-                    Please enter a valid phone number
-                </div>
+                <div class="invalid-feedback" style="width: 100%;">Please enter a valid phone number</div>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="idNum">ID Number</label>
+            <input type="text" class="form-control" id="idNum" v-model="detailForm.ID" required>
+            <div class="invalid-feedback" style="width: 100%;">
+                Please enter a valid ID number
             </div>
         </div>
         <hr class="mb-3">
         <h4 class="mb-3">Billing address</h4>
-        <div class="mb-3">
+        <div class="form-group mb-3">
             <label for="address">Address</label>
             <input type="text" class="form-control" id="address" v-model="detailForm.address" placeholder="1234 Main St" required>
             <div class="invalid-feedback">
@@ -44,13 +49,13 @@
             </div>
         </div>
 
-        <div class="mb-3">
+        <div class="form-group mb-3">
             <label for="address2">Address 2<span class="text-muted">(Optional)</span></label>
             <input type="text" class="form-control" id="address2" v-model="detailForm.address2" placeholder="Apartment or suite">
         </div>
 
-        <div class="row">
-            <div class="col-md-5 mb-3">
+        <div style="display: flex;">
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 50%;">
                 <label for="country">Country</label>
                 <select class="custom-select d-block w-100" id="country" v-model="detailForm.country" required>
                     <option value="">Choose...</option>
@@ -61,26 +66,27 @@
                     Please select a valid country.
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="state">State</label>
-                <select class="custom-select d-block w-100" id="state" v-model="detailForm.state" required>
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
+                <label for="province">Province</label>
+                <select class="custom-select d-block w-100" id="province" v-model="detailForm.province" required>
                     <option value="">Choose...</option>
+                    <option v-for="prov in provinces" :value="prov[0]">{{prov[1]}}</option>
                 </select>
                 <div class="invalid-feedback">
-                    Please provide a valid state.
+                    Please provide a valid province.
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="form-group mb-3">
                 <label for="zip">Zip</label>
-                <input type="text" class="form-control" id="zip" required>
+                <input type="text" class="form-control" id="zip" v-model="detailForm.zip" required>
                 <div class="invalid-feedback">
-                    Zip code required.
+                    Zip code is required.
                 </div>
             </div>
         </div>
-        <hr class="mb-3">
-        <h4 class="mb-3">Payment</h4>
-        <div class="d-block my-3">
+        <hr class="form-group mb-3">
+        <h4 class="mb-3">Payment (Optional)</h4>
+        <div class="form-group d-block my-3">
             <div class="radio">
                 <label>
                     <input type="radio" name="paymentMethod" value="credit" v-model="detailForm.payment" checked>
@@ -100,37 +106,25 @@
                 </label>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
+        <div style="display: flex;">
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
                 <label for="cc-name">Name on card</label>
                 <input type="text" class="form-control" id="cc-name" v-model="detailForm.card_name" required>
                 <small class="text-muted">Full name as displayed on card</small>
-                <div class="invalid-feedback">
-                    Name on card is required
-                </div>
             </div>
-            <div class="col-md-6 mb-3">
-                <label for="cc-number">Credit card number</label>
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
+                <label for="cc-number">Card number</label>
                 <input type="text" class="form-control" id="cc-number" v-model="detailForm.card_num" required>
-                <div class="invalid-feedback">
-                    Credit card number is required
-                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3 mb-3">
+        <div style="display: flex;">
+            <div class="form-group mb-3" style="margin-right: 1rem; width: 100%;">
                 <label for="cc-expiration">Expiration</label>
                 <input type="text" class="form-control" id="cc-expiration" v-model="detailForm.card_expr" required>
-                <div class="invalid-feedback">
-                    Expiration date required
-                </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="form-group mb-3" style="margin-right: 1rem;">
                 <label for="cc-cvv">CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" v-model="detailForm.card_ccv" required=>
-                <div class="invalid-feedback">
-                    Security code required
-                </div>
+                <input type="text" class="form-control" id="cc-cvv" v-model="detailForm.card_ccv" required>
             </div>
         </div>
         <div class="row">

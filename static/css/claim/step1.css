@@ -1,0 +1,183 @@
+
+/*
+*                       _oo0oo_
+*                      o8888888o
+*                      88" . "88
+*                      (| -_- |)
+*                      0\  =  /0
+*                    ___/`---'\___
+*                  .' \|     |// '.
+*                 / \|||  :  |||// \
+*                / _||||| -:- |||||- \
+*               |   | \  -  /// |   |
+*               | \_|  ''\---/''  |_/ |
+*               \  .-\__  '-'  ___/-. /
+*             ___'. .'  /--.--\  `. .'___
+*          ."" '<  `.___\_<|>_/___.' >' "".
+*         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+*         \  \ `_.   \_ __\ /__ _/   .-` /  /
+*     =====`-.____`.___ \_____/___.-`___.-'=====
+*                       `=---='
+*
+*     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*
+*               Buddha Bless:  "No Bugs"
+*
+* ========================================================= */
+
+
+
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: whitesmoke;
+}
+.navbar a{
+
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.navbar-light{
+
+    margin: 0px;
+    box-shadow:12px 6px 12px 6px #ccc;
+}
+
+
+
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-brand:focus {
+    border-radius: 0px 0px 5px 5px;
+    background-color: rgba(234, 234, 234, 0.58);
+    transition-duration: 0.7s;
+
+}
+
+
+
+.navbar-light .navbar-nav > li > a:hover,
+.navbar-light .navbar-nav > li > a:focus {
+    border-radius: 0px 0px 5px 5px;
+    background-color: rgba(234, 234, 234, 0.58);
+    transition-duration: 0.7s;
+}
+
+.navbar-light .navbar-nav > li > .dropdown {
+    border-radius: 0px 0px 8px 8px;
+
+}
+
+
+.dropdown-item:hover{
+    background-color: rgba(234, 234, 234, 0.58);
+    transition-duration: 0.8s;
+}
+.dropdown-item{
+    color: rgba(0,0,0,.5)
+}
+
+.img-logo {
+    margin-top: -10px;
+    width: 60px;
+    height: 40px;
+}
+
+.main-whole{
+    width: 100%;
+    min-height: 1000px;
+    height: auto;
+    background-color: whitesmoke;
+}
+.main-page{
+    margin-top: 100px;
+    padding-bottom: 200px;
+    min-height: 900px;
+    height: auto;
+    background-color: white;
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0px 0px 24px #ccc;
+}
+
+.title-div{
+    padding-top: 50px;
+    margin-bottom: 30px;
+}
+#claim-title{
+    font-weight: bolder;
+
+
+}
+
+.marginUnder{
+    margin-bottom: 40px;
+}
+
+
+.form-group{
+
+}
+.col-form-label{
+    padding: 0px;
+    margin-right: 2%;
+}
+.form-body{
+    margin-bottom: 20px;
+}
+.form-submit{
+    margin-left: 45%;
+}
+.input-group{
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.infMargin{
+    margin-top: 10px;
+
+}
+.orderNum{
+    color:#007bff;
+}
+.orderMon{
+    color:#ffc107;
+}
+.ul-inf-button li{
+    display:inline-block;
+    margin: 0;
+    margin-top: 30px;
+    padding: 0;
+}
+.step-button{
+    width: 160px;
+}
+@media (max-width: 768px) {
+    .form-submit{
+        margin-left:0px;
+    }
+    .main-page{
+        margin-top: 100px;
+        padding-bottom: 200px;
+        min-height: 900px;
+        height: auto;
+        background-color: white;
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0px 0px 24px #ccc;
+    }
+    .ul-inf-button {
+        padding: 0;
+    }
+    .ul-inf-button li button
+    {
+        width: 100%;
+    }
+    .step-button{
+        width: 100%;
+    }
+}

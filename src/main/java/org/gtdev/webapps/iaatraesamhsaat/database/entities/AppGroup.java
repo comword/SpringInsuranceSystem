@@ -12,12 +12,11 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "is_groups",
-        indexes = {@Index(columnList="groupName", unique = true)})
+@Table(indexes = {@Index(columnList="groupName", unique = true)})
 @Data
 public class AppGroup {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank

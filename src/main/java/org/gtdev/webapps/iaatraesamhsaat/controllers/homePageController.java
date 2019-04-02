@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Controller
-public class homePageController {
+public class HomePageController {
     private Logger Log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired

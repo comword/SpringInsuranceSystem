@@ -3,6 +3,8 @@ package org.gtdev.webapps.iaatraesamhsaat.lrplugin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.ProvincesRepository;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.Provinces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class CustomerRegisterController {
 
     @Autowired
     private LocaleResolver localeResolver;
+
+    @Autowired
+    private ProvincesRepository provincesRepo;
 
     @GetMapping("/register/customer/**")
     public String registerCustomer(HttpServletRequest request) {
@@ -99,8 +104,42 @@ public class CustomerRegisterController {
         return new ResponseEntity<>(objectMapper.writeValueAsString(rpl), headers, HttpStatus.OK);
     }
 
+    @Data
+    @NoArgsConstructor
+    static class ProvincesReply {
+        private int errcode = 0;
+        private List<Provinces> area = new ArrayList<>();
+    }
+
+    @RequestMapping(value = "/register/provinces" , method = RequestMethod.GET)
+    public @ResponseBody ProvincesReply getProvinces(String query) {
+        ProvincesReply rpl = new ProvincesReply();
+        if(query == null){
+            rpl.errcode = -1000; //Bad query
+            return rpl;
+        }
+        Log.info("Querying provinces for "+query);
+        if(query.equals("Ireland")){
+            rpl.area = provincesRepo.findIrelandCountries();
+        } else if (query.equals("China")) {
+            rpl.area = provincesRepo.findChineseCountries();
+        } else {
+            rpl.errcode = -400;
+        }
+        return rpl;
+    }
+
+    @Data
+    @NoArgsConstructor
+    static class detailsInfoPost {
+        private String lang, token;
+        private String phone, ID, address, address2, country, state, zip,
+                payment, card_name, card_num, card_expr, card_ccv;
+    }
+
     @RequestMapping(value = "/register/detailsInfo" , method = RequestMethod.POST)
-    public @ResponseBody RegisterReply detailsInfoPost(HttpSession session, @RequestBody basicInfoPost post) throws IOException {
+    public @ResponseBody RegisterReply detailsInfoPost(HttpSession session, @RequestBody detailsInfoPost post) {
+        Log.info(post.toString());
         RegisterReply rpl = new RegisterReply();
         return rpl;
     }

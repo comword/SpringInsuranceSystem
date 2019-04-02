@@ -65,11 +65,12 @@ public class JWTSvc {
 
     public Cookie getAuthCookie(HttpServletRequest request) {
         Cookie[] cks = request.getCookies();
-        for (Cookie c: cks) {
-            if(c.getName().equals(jwtConfig.getHeader()))
-                if(c.getValue().startsWith(jwtConfig.getPrefix()))
-                    return c;
-        }
+        if(cks!=null)
+            for (Cookie c: cks) {
+                if(c.getName().equals(jwtConfig.getHeader()))
+                    if(c.getValue().startsWith(jwtConfig.getPrefix()))
+                        return c;
+            }
         return null;
     }
 

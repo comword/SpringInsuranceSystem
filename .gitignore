@@ -1,7 +1,9 @@
 /target/
 /apps/
-.class
-.jar
+/plugins/EmployeeAdmin/target/
+/plugins/RegisterProvider/target/
+*.class
+*.jar
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

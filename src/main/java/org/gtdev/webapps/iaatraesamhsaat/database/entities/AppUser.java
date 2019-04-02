@@ -9,14 +9,13 @@ import javax.validation.constraints.NotBlank;
 import java.util.*;
 
 @Entity
-@Table(name = "is_users",
-        indexes = {@Index(columnList="userName", unique = true),
+@Table(indexes = {@Index(columnList="userName", unique = true),
             @Index(columnList="email", unique = true),
             @Index(columnList="displayName", unique = true)})
 @Data
 public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank
@@ -78,7 +77,7 @@ public class AppUser {
                 CascadeType.PERSIST,
                 CascadeType.MERGE
             })
-    @JoinTable(name = "is_usersGroup",
+    @JoinTable(name = "userGroup",
             joinColumns = { @JoinColumn(name = "appuser_id") },
             inverseJoinColumns = { @JoinColumn(name = "appgroup_id") })
     @ToString.Exclude
@@ -91,4 +90,8 @@ public class AppUser {
     public void setUserState(userState right) {
         stateId = (short) right.code;
     }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private UserDetails details;
 }
