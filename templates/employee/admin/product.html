@@ -78,23 +78,24 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky" style="background-color: #e9effa">
 
-                <ul class="nav flex-column" data-spy="affix" >
+                <ul class="nav flex-column" data-spy="affix">
+
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" href="/employee/admin#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                             Dashboard <span class="sr-only">(current)</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#claim_table">
+                        <a class="nav-link" href="/employee/admin#claim_table">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                             Claims
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/employee/admin/product#">
+                        <a class="nav-link" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                             Products
                         </a>
@@ -107,7 +108,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#record">
+                        <a class="nav-link" href="/employee/admin#record">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                             Records
                         </a>
@@ -160,243 +161,95 @@
         <br/>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
 
-            <!--第一部分: Dashboard及图表-->
+
             <h5 id="chart"></h5>
 
             <h1 class="text-left">Dashboard</h1>
             <h4 class="text-right" style=";color: #20c997"><small>Welcome to Hibernia-Sino Admin System, FZX!</small></h4>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            </div>
 
 
-            <!--第二部分：索赔申请table-->
-            <h5><small>Claims received per day (last week)</small></h5>
-            <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="1138" height="480" style="display: block; width: 1138px; height: 480px;"></canvas>
 
-            <h3 id="claim_table"></h3>
+            <h3 id="product_table"></h3>
             <br/>
             <br/>
             <br/>
-            <h2>Claims received</h2>
+            <h2>Insurance products</h2>
             <div class="table-responsive">
                 <table class="table table-striped table-sm" style="border-right: 1px solid #c5c7cc;border-left: 1px solid #c5c7cc;border-bottom: 1px solid #c5c7cc;">
                     <thead>
                     <tr>
-                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Claim Id</th>
-                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Customer Id</th>
-                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Application Date</th>
                         <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Insurance Type Id</th>
-                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Categories of items</th>
-                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Status</th>
-                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Email</th>
-                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Detail</th>
+                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Insurance Name</th>
+                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Time limit</th>
+                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Abstract</th>
+                        <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Indemnification standard</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>001</td>
-                        <td>1,001</td>
-                        <td>2019-03-09</td>
-                        <td>CA0002</td>
-                        <td>Clothes</td>
-                        <td>Accepted</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>
+                        <td>CA001</td>
+                        <td>Ireland xxxxxx</td>
+                        <td>7 Days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
                     </tr>
+
                     <tr>
-                        <td>002</td>
-                        <td>1,002</td>
-                        <td>2019-03-09</td>
-                        <td>BA01234</td>
-                        <td>Clothes</td>
-                        <td>Accepted</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
+                        <td>CA02</td>
+                        <td>Ireland lost</td>
+                        <td>7 Days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
                     <tr>
-                        <td>003</td>
-                        <td>1,003</td>
-                        <td>2019-03-09</td>
-                        <td>CA0002</td>
-                        <td>Electronic devices</td>
-                        <td>Unaccepted</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html" >Click</a></td>                    </tr>
+                        <td>CA003</td>
+                        <td>China cheap</td>
+                        <td>7 Days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
                     <tr>
-                        <td>004</td>
-                        <td>1,003</td>
-                        <td>2019-03-09</td>
-                        <td>CA0005</td>
-                        <td>Electronic devices</td>
-                        <td>Unaccepted</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html" >Click</a></td>                    </tr>
+                        <td>CA006</td>
+                        <td>Ireland </td>
+                        <td>7 Days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
                     <tr>
-                        <td>005</td>
-                        <td>1,004</td>
-                        <td>2019-03-09</td>
-                        <td>CA0007</td>
-                        <td>Electronic devices</td>
-                        <td>Unaccepted</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
+                        <td>CA012</td>
+                        <td>Usa 7 cities</td>
+                        <td>7 Days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
+
                     <tr>
-                        <td>006</td>
-                        <td>1,005</td>
-                        <td>2019-03-09</td>
-                        <td>CA0008</td>
-                        <td>Electronic devices</td>
-                        <td>Unaccepted</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
-                    <tr>
-                        <td>007</td>
-                        <td>1,006</td>
-                        <td>2019-03-09</td>
-                        <td>CA0009</td>
-                        <td>Electronic devices</td>
-                        <td>Unaccepted</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
-                    <tr>
-                        <td>008</td>
-                        <td>1,007</td>
-                        <td>2019-03-09</td>
-                        <td>CA0012</td>
-                        <td>Electronic devices</td>
-                        <td>Undetermined</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
-                    <tr>
-                        <td>009</td>
-                        <td>1,008</td>
-                        <td>2019-03-09</td>
-                        <td>CA0023</td>
-                        <td>Electronic devices</td>
-                        <td>Undetermined</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
-                    <tr>
-                        <td>010</td>
-                        <td>1,009</td>
-                        <td>2019-03-09</td>
-                        <td>CA0034</td>
-                        <td>Electronic devices</td>
-                        <td>Undetermined</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
-                    <tr>
-                        <td>011</td>
-                        <td>1,010</td>
-                        <td>2019-03-09</td>
-                        <td>CA0056</td>
-                        <td>Electronic devices</td>
-                        <td>Undetermined</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
-                    <tr>
-                        <td>012</td>
-                        <td>1,011</td>
-                        <td>2019-03-09</td>
-                        <td>CA00027</td>
-                        <td>Electronic devices</td>
-                        <td>Undetermined</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
-                    <tr>
-                        <td>013</td>
-                        <td>1,012</td>
-                        <td>2019-03-09</td>
-                        <td>CA00078</td>
-                        <td>Electronic devices</td>
-                        <td>Undetermined</td>
-                        <td>fuzixin000@gmail.com</td>
-                        <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>                    </tr>
+                        <td>CA001</td>
+                        <td>Japan</td>
+                        <td>5 Days</td>
+                        <td>Operation in Tianjin Lotus's market development, sales and after-sale maintenance, spare parts suppliers, insurance claims, second-hand cars services. </td>
+                        <td>We can help prevent this by using responsible approaches such as enhanced coordination of benefits, third-party liability verification, and electronic payment.</td>
+                    </tr>
                     </tbody>
                 </table>
+
             </div>
 
 
-            <!--第三部分：保险产品介绍及赔偿标准介绍-->
 
 
 
-            <!--第四部分：用户信息table-->
-
-
-
-
-            <!--第五部分：记录备案form-->
-            <h3 id = "record"></h3>
             <br/>
             <br/>
             <br/>
-            <h2>Records</h2>
-            <form>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputName">Name</label>
-                        <input type="text" class="form-control" id="inputName" placeholder="Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputProduct">Product Id</label>
-                    <input type="text" class="form-control" id="inputProduct" placeholder="CA0001">
-                </div>
-
-                <br/>
-                <label>Result</label>
-                <div class="form-row">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="Accepted" value="option1" checked>
-                        <label class="form-check-label" for="Accepted" style="float:right;margin-right:20px;font-size: 15px">
-                            Accepted
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="Unaccepted" value="option1" checked>
-                        <label class="form-check-label" for="Accepted" style="float:right;margin-right:20px;font-size: 15px">
-                            Unaccepted
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="Undetermined" value="option1" checked>
-                        <label class="form-check-label" for="Undetermined" style="float:right;margin-right:20px;font-size: 15px">
-                            Undetermined
-                        </label>
-                    </div>
-                </div>
-
-                <br/>
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Record</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-                </div>
-
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-2" >Submit form</button>
-                </div>
-            </form>
 
 
         </main>
     </div>
 </div>
-
-<br/>
-<br/>
-<br/>
 
 
 <!-- Bootstrap core JavaScript
@@ -406,43 +259,15 @@
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
+
+
 <!-- Icons -->
 <script src="/js/employee/feather.min.js"></script>
 <script>
     feather.replace()
 </script>
 
-<!-- Graphs -->
-<script src="/js/employee/Chart.min.js"></script>
-<script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            datasets: [{
-                data: [200, 213, 184, 240, 234, 240, 120],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            },
-            legend: {
-                display: false,
-            }
-        }
-    });
-</script>
+
 
 </body>
 </html>
