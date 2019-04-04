@@ -20,6 +20,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,27 +48,12 @@ public class UserAuthProvider implements AuthenticationProvider {
         if(u == null) //all failed
             throw new UsernameNotFoundException("User not found.");
         else {
-            try {
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                StringBuilder sb = new StringBuilder();
-                String salt = u.getSalt().toUpperCase();
-                for (int i = 0; i < salt.length(); i++){
-                    sb.append(password.charAt(i));
-                    sb.append(salt.charAt(i));
-                }
-                md.update(sb.toString().getBytes());
-                byte[] digest = md.digest();
-                String pwdMd5 = DatatypeConverter.printHexBinary(digest).toUpperCase();
-                if(pwdMd5.equals(u.getPassword())) {
-
-                } else
-                    throw new BadCredentialsException("Incorrect password or username.");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-                return null;
-            }
-            List<GrantedAuthority> grantedAuthorities = AuthorityUtils.createAuthorityList(getRolesByGroups(u.getGroups()));
-            return new UsernamePasswordAuthenticationToken(String.valueOf(u.getId()), u.getPassword(), grantedAuthorities);
+            String pwd = getPassword(password, u.getSalt());
+            if(pwd!=null && pwd.equals(u.getPassword())) {
+                List<GrantedAuthority> grantedAuthorities = AuthorityUtils.createAuthorityList(getRolesByGroups(u.getGroups()));
+                return new UsernamePasswordAuthenticationToken(String.valueOf(u.getId()), u.getPassword(), grantedAuthorities);
+            } else
+                throw new BadCredentialsException("Incorrect password or username.");
         }
     }
 
@@ -83,11 +69,44 @@ public class UserAuthProvider implements AuthenticationProvider {
         return false;
     }
 
-    String[] getRolesByGroups(List<AppGroup> gp) {
+    public String[] getRolesByGroups(List<AppGroup> gp) {
         Set<String> res = new HashSet<>();
         for(AppGroup g : gp)
             res.add(g.getGroupPrivilege().name());
         return res.toArray(new String[0]);
+    }
+
+    public static String getRandomSalt() {
+        byte[] array = new byte[32];
+        new Random().nextBytes(array);
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(array);
+            byte[] digest = md.digest();
+            return DatatypeConverter.printHexBinary(digest).toUpperCase();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getPassword(String pwd, String salt) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            StringBuilder sb = new StringBuilder();
+            pwd = pwd.toUpperCase();
+            salt = salt.toUpperCase();
+            for (int i = 0; i < salt.length(); i++) {
+                sb.append(pwd.charAt(i));
+                sb.append(salt.charAt(i));
+            }
+            md.update(sb.toString().getBytes());
+            byte[] digest = md.digest();
+            return DatatypeConverter.printHexBinary(digest).toUpperCase();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

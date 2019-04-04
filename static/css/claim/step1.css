@@ -1,51 +1,14 @@
-
-/*
-*                       _oo0oo_
-*                      o8888888o
-*                      88" . "88
-*                      (| -_- |)
-*                      0\  =  /0
-*                    ___/`---'\___
-*                  .' \|     |// '.
-*                 / \|||  :  |||// \
-*                / _||||| -:- |||||- \
-*               |   | \  -  /// |   |
-*               | \_|  ''\---/''  |_/ |
-*               \  .-\__  '-'  ___/-. /
-*             ___'. .'  /--.--\  `. .'___
-*          ."" '<  `.___\_<|>_/___.' >' "".
-*         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-*         \  \ `_.   \_ __\ /__ _/   .-` /  /
-*     =====`-.____`.___ \_____/___.-`___.-'=====
-*                       `=---='
-*
-*     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*
-*               Buddha Bless:  "No Bugs"
-*
-* ========================================================= */
-
-
-
 body{
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0px;
     padding: 0px;
     background-color: whitesmoke;
 }
-.navbar a{
-
-    font-size: 21px;
-    font-weight: bold;
-}
 
 .navbar-light{
-
     margin: 0px;
     box-shadow:12px 6px 12px 6px #ccc;
 }
-
-
 
 .navbar-light .navbar-brand:hover,
 .navbar-light .navbar-brand:focus {
@@ -54,8 +17,6 @@ body{
     transition-duration: 0.7s;
 
 }
-
-
 
 .navbar-light .navbar-nav > li > a:hover,
 .navbar-light .navbar-nav > li > a:focus {
@@ -69,18 +30,16 @@ body{
 
 }
 
-
 .dropdown-item:hover{
     background-color: rgba(234, 234, 234, 0.58);
     transition-duration: 0.8s;
 }
+
 .dropdown-item{
     color: rgba(0,0,0,.5)
 }
 
 .img-logo {
-    margin-top: -10px;
-    width: 60px;
     height: 40px;
 }
 
@@ -109,17 +68,10 @@ body{
 }
 #claim-title{
     font-weight: bolder;
-
-
 }
 
 .marginUnder{
     margin-bottom: 40px;
-}
-
-
-.form-group{
-
 }
 .col-form-label{
     padding: 0px;

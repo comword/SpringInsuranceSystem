@@ -1,4 +1,5 @@
 $.getScript('/js/md5.min.js');
+$.getScript('/js/register/translation-cn.js');
 let app_token, app_lang;
 function setInvalid(id){
     $(id).removeClass("is-valid")
@@ -10,6 +11,20 @@ function setValid(id){
     $(id).addClass("is-valid")
 }
 
+function reqBasicFrom(router, getdata){
+    $.ajax({
+        url: '/register/customer/basicInfo',
+        method: 'GET',
+        data: getdata,
+        success: function (data) {
+            loadBasicPage(router, data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
 window.onload = function() {
     const router = new VueRouter({
         mode: 'history',
@@ -18,18 +33,39 @@ window.onload = function() {
 
     const app = new Vue({
         router,
-        el: '#signup-form'
-    });
-    $.ajax({
-        url: '/register/basicInfo',
-        method: 'GET',
-        success: function (data) {
-            loadBasicPage(router, data);
-        },
-        error: function (error) {
-            console.log(error);
+        el: '#signup-form',
+        mounted: function () {
+            console.log(this.$route.path);
+            let self = this;
+            $.ajax({
+                url: '/login/tokenId',
+                method: 'GET',
+                success: function (data) {
+                    app_token = data["token"];
+                    app_lang = data["lang"];
+                    let getdata = {lang: app_lang, token: app_token};
+                    if(self.$route.path === "/register/customer/detailsForm")
+                        $.ajax({
+                            url: '/register/customer/detailsInfo',
+                            method: 'GET',
+                            data: getdata,
+                            success: function (data) {
+                                loadDetailPage(router, data);
+                            },
+                            error: function (error) {
+                                reqBasicFrom(router, getdata);
+                            }
+                        });
+                    else
+                        reqBasicFrom(router, getdata);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
     });
+
 };
 
 function loadBasicPage(router, data) {
@@ -58,17 +94,6 @@ function loadBasicPage(router, data) {
             } catch(e) {
                 localStorage.removeItem('signupForm');
             }
-            $.ajax({
-                url: '/login/tokenId',
-                method: 'GET',
-                success: function (data) {
-                    app_token = data["token"];
-                    app_lang = data["lang"];
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
             $("#signup-form").bootstrapMaterialDesign();
         },
         methods: {
@@ -128,7 +153,7 @@ function loadBasicPage(router, data) {
                 $("#progress").animate({ opacity: 1 });
                 $("#signup-form").data("bmd.bootstrapMaterialDesign", null);
                 $.ajax({
-                    url: '/register/basicInfo',
+                    url: '/register/customer/basicInfo',
                     method: 'POST',
                     data: JSON.stringify(postData),
                     contentType: "application/json; charset=UTF-8",
@@ -136,12 +161,16 @@ function loadBasicPage(router, data) {
                     cache: false,
                     processData: false,
                     success: function (data) {
-                        loadDetailPage(self.$router, data);
+                        $("#progress").animate({ opacity: 0 });
+                        if(checkRes(self, data))
+                            loadDetailPage(self.$router, data);
+                        else
+                            $(".is-valid").removeClass("is-valid");
                     },
                     error: function (error) {
                         $("#progress").animate({ opacity: 0 });
                         let err = JSON.parse(error.responseText);
-                        self.errors.push(err.errmsg);
+                        self.errors.push(_T(err.errmsg));
                         switch (err.errcode) {
                             case -1000:
                                 location.reload();
@@ -159,8 +188,15 @@ function loadBasicPage(router, data) {
     router.push( {path: '/register/customer/'+page.name} );
 }
 
+function checkRes(app, data) {
+    $.each(data.checkRes, function (i, value) {
+        app.errors.push(_T(value));
+    });
+    return app.errors.length === 0;
+
+}
+
 function loadDetailPage(router, data) {
-    $("#progress").animate({ opacity: 0 });
     let page = data.nextPage;
     let comp = Vue.component(page.name, {
         template: page.template,
@@ -169,7 +205,7 @@ function loadDetailPage(router, data) {
                 detailForm: {
                     phoneCountry: '',
                     phone: '',
-                    ID: '',
+                    id_num: '',
                     address:'',
                     address2: '',
                     country: '',
@@ -179,7 +215,7 @@ function loadDetailPage(router, data) {
                     card_name: '',
                     card_num: '',
                     card_expr: '',
-                    card_ccv: ''
+                    card_cvv: ''
                 },
                 errors: [],
                 provinces: []
@@ -231,9 +267,11 @@ function loadDetailPage(router, data) {
         methods: {
             validPhone: function(phone) {
                 if(phone.startsWith("+353")){
+                    $("#flagBtn").css({"backgroundPosition": "-1px -2670px"});
                     if(phone.length === 13)
                         return true;
                 } else if(phone.startsWith("+86")){
+                    $("#flagBtn").css({"backgroundPosition": "-1px -1072px"});
                     if(phone.length === 14)
                         return true;
                 }
@@ -248,7 +286,7 @@ function loadDetailPage(router, data) {
                 }
                 else
                     setValid('#phone');
-                if (!this.detailForm.ID) {
+                if (!this.detailForm.id_num) {
                     setInvalid('#idNum');
                     failed = true;
                 }
@@ -281,14 +319,14 @@ function loadDetailPage(router, data) {
                 if (failed)
                     return;
                 let postData = Object.assign({}, this.detailForm);
-                delete postData.phone;
+                delete postData.phoneCountry;
                 postData.lang = app_lang;
                 postData.token = app_token;
                 let self = this;
                 $("#progress").animate({ opacity: 1 });
                 $("#signup-form").data("bmd.bootstrapMaterialDesign", null);
                 $.ajax({
-                    url: '/register/detailsInfo',
+                    url: '/register/customer/detailsInfo',
                     method: 'POST',
                     data: JSON.stringify(postData),
                     contentType: "application/json; charset=UTF-8",
@@ -296,21 +334,37 @@ function loadDetailPage(router, data) {
                     cache: false,
                     processData: false,
                     success: function (data) {
-
+                        $("#progress").animate({ opacity: 0 });
+                        if(checkRes(self, data))
+                            loadFinishPage(self.$router, data);
+                        else
+                            $(".is-valid").removeClass("is-valid");
                     },
                     error: function (error) {
                         $("#progress").animate({ opacity: 0 });
                         let err = JSON.parse(error.responseText);
-                        self.errors.push(err.errmsg);
+                        self.errors.push(_T(err.errmsg));
                         switch (err.errcode) {
                             case -1000:
                                 location.reload();
+                                break;
+                            case -2001:
+                                self.$router.back();
                                 break;
                         }
                     }
                 });
             }
         }
+    });
+    router.addRoutes([{ path: '/register/customer/'+page.name, component: comp }]);
+    router.push( {path: '/register/customer/'+page.name} );
+}
+
+function loadFinishPage(router, data) {
+    let page = data.nextPage;
+    let comp = Vue.component(page.name, {
+        template: page.template
     });
     router.addRoutes([{ path: '/register/customer/'+page.name, component: comp }]);
     router.push( {path: '/register/customer/'+page.name} );

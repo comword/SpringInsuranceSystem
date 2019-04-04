@@ -18,6 +18,20 @@
         min-height: 90vh;
         position: relative;
     }
+    .slide-fade-enter-active {
+        transition: all .5s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .5s ease;
+    }
+    .slide-fade-enter {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    .slide-fade-leave-to {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
 }
 .progress-bar {
     -moz-animation: auxiliary-indeterminate-translate 2s infinite linear;

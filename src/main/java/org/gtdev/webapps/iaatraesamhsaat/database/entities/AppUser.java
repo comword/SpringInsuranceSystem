@@ -30,10 +30,6 @@ public class AppUser {
     @Column(nullable = false, unique=true, length = 30)
     private String displayName;
 
-//    @NotBlank
-//    @Column(nullable = false)
-//    private String backend;
-
     @NotBlank
     @Column(nullable = false, length = 32) //MD5
     private String password;
@@ -67,7 +63,6 @@ public class AppUser {
         }
     }
 
-    @NotBlank
     @Column(nullable = false, columnDefinition = "SMALLINT")
     @Type(type = "org.hibernate.type.ShortType")
     private short stateId;
@@ -93,5 +88,14 @@ public class AppUser {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    private UserDetails details;
+    private CustomerDetails details;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<CustomerPayment> payments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<InsurancePolicyRecord> insurancePolicies;
+
+    @Column(length = 100)
+    private String avatarPath;
 }

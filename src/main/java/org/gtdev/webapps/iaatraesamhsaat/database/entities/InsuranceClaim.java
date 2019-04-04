@@ -6,11 +6,18 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class UserDetails {
+public class InsuranceClaim {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(mappedBy = "details")
+    @ManyToOne(optional = false)
+    @JoinColumn
+    private InsurancePolicyRecord policy;
+
+    @ManyToOne(optional = false)
+    @JoinColumn
     private AppUser user;
+
+
 }

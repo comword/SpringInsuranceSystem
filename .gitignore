@@ -2,6 +2,7 @@
 /apps/
 /plugins/EmployeeAdmin/target/
 /plugins/RegisterProvider/target/
+/plugins/Claims/target/
 *.class
 *.jar
 !.mvn/wrapper/maven-wrapper.jar
