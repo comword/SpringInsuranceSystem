@@ -1,7 +1,5 @@
 package org.gtdev.webapps.iaatraesamhsaat.empadmport;
 
-import org.pf4j.Extension;
-import org.pf4j.ExtensionPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,62 +8,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
-@Extension
 @Controller
-public class DashboardController implements ExtensionPoint {
-    private Logger Log = LoggerFactory.getLogger(DashboardController.class);
+public class DashboardController {
+    private Logger Log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private LocaleResolver localeResolver;
 
-    @GetMapping("/employee/admin")
-    public String login(HttpServletRequest request) {
+    @GetMapping("/employee/admin/dashboard")
+    public String funcDashboard(HttpServletRequest request) {
 //        Locale l = localeResolver.resolveLocale(request);
 //        if(l.equals(Locale.SIMPLIFIED_CHINESE))
 //            return "employee/admin/admin";
 //        else
-            return "employee/admin/admin";
+            return "employee/admin/dashboard";
     }
 
-
-    @GetMapping("/employee/admin/detail")
-    public String detail(HttpServletRequest request) {
+    @GetMapping("/employee/admin/claims")
+    public String funcClaims(HttpServletRequest request) {
 //        Locale l = localeResolver.resolveLocale(request);
 //        if(l.equals(Locale.SIMPLIFIED_CHINESE))
 //            return "employee/admin/admin";
 //        else
-        return "employee/admin/detail";
+        return "employee/admin/claims";
     }
-
-    @GetMapping("/employee/admin/product")
-    public String product(HttpServletRequest request) {
-//        Locale l = localeResolver.resolveLocale(request);
-//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
-//            return "employee/admin/admin";
-//        else
-        return "employee/admin/product";
-    }
-
-    @GetMapping("/employee/admin/customer")
-    public String customer(HttpServletRequest request) {
-//        Locale l = localeResolver.resolveLocale(request);
-//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
-//            return "employee/admin/admin";
-//        else
-        return "employee/admin/customer";
-    }
-
-    @GetMapping("/employee/login/login")
-    public String sign(HttpServletRequest request) {
-//        Locale l = localeResolver.resolveLocale(request);
-//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
-//            return "employee/admin/admin";
-//        else
-        return "employee/login/login";
-    }
-
-
 
 }

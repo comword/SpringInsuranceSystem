@@ -10,8 +10,7 @@ import java.util.*;
 
 @Entity
 @Table(indexes = {@Index(columnList="userName", unique = true),
-            @Index(columnList="email", unique = true),
-            @Index(columnList="displayName", unique = true)})
+            @Index(columnList="email", unique = true)})
 @Data
 public class AppUser {
     @Id
@@ -27,7 +26,7 @@ public class AppUser {
     private String email;
 
     @NotBlank
-    @Column(nullable = false, unique=true, length = 30)
+    @Column(nullable = false, length = 30)
     private String displayName;
 
     @NotBlank

@@ -21,7 +21,7 @@ public class InsurancePolicyProducts {
     @Column(nullable = false, length = 50)
     private String insuranceChineseName;
 
-    @Column(length = 100)
+    @Column(columnDefinition = "TINYTEXT")
     private String agreementPath;
 
     @Column(columnDefinition = "TEXT")

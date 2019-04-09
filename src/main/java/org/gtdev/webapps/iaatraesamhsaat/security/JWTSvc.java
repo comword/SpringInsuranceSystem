@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 @Service
 public class JWTSvc {
 
-    @Data
     @Getter
     @Configuration
     public static class JwtConfig {
@@ -52,11 +51,11 @@ public class JWTSvc {
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .claim("token", request.getSession().getId())
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
                 .compact();
-        //response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
         Cookie c = new Cookie(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 //        c.setSecure(true);
         c.setHttpOnly(true);
@@ -74,8 +73,11 @@ public class JWTSvc {
         return null;
     }
 
-    public Authentication getAuthentication(Cookie c) {
-        String token = c.getValue().replace(jwtConfig.getPrefix(), "");
+    public Authentication getAuthentication(HttpServletRequest request) {
+        Cookie c = getAuthCookie(request);
+        if(c==null)
+            return null;
+        String token = getAuthCookie(request).getValue().replace(jwtConfig.getPrefix(), "");
         try {
             Claims claims = Jwts.parser()
                     .setSigningKey(jwtConfig.getSecret().getBytes())
@@ -85,14 +87,17 @@ public class JWTSvc {
             if(username!=null) {
                 @SuppressWarnings("unchecked")
                 List<String> authorities = (List<String>) claims.get("authorities");
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                        username, null, authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-                SecurityContextHolder.getContext().setAuthentication(auth);
-                return auth;
+                String sessionToken = (String) claims.get("token");
+                if(sessionToken.equals(request.getSession().getId())) {
+                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                            username, null, authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                    return auth;
+                }
             }
         } catch (Exception e) {
-            SecurityContextHolder.clearContext();
         }
+        SecurityContextHolder.clearContext();
         return null;
     }
 

@@ -66,7 +66,11 @@ window.onload = function() {
                             if (data.redirect!=null)
                                 window.location.replace(data.redirect);
                             else
-                                window.location.replace("/customer/admin");
+                                window.location.replace("/");
+                        } else if(data.rescode===-1002) { // BadCredentials
+
+                        } else if(data.rescode===-1003) { // UsernameNotFound
+
                         }
                     },
                     error: function (error) {

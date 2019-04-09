@@ -2,8 +2,6 @@ package org.gtdev.webapps.iaatraesamhsaat.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.session.ReactiveMapSessionRepository;
 import org.springframework.session.ReactiveSessionRepository;
 import org.springframework.session.config.annotation.web.server.EnableSpringWebSession;
@@ -12,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 
 import java.util.Locale;
@@ -25,8 +22,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**","/js/**","/images/**")
-                .addResourceLocations("file:static/css/", "file:static/js/", "file:static/images/");
+        registry.addResourceHandler("/css/**","/js/**","/images/**", "/libs/**")
+                .addResourceLocations("file:static/css/", "file:static/js/", "file:static/images/", "file:static/libs/");
     }
 
     @Bean
@@ -64,10 +61,4 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
-
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/login").setViewName("login");
-//        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//    }
 }

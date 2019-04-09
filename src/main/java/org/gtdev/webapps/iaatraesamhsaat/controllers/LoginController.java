@@ -47,12 +47,9 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(HttpServletRequest request) {
-        Cookie c = JWTSvc.getAuthCookie(request);
-        if (c != null){
-            Authentication auth = JWTSvc.getAuthentication(c);
-            if(auth!=null){ //already authenticated
-                return "redirect:/";
-            }
+        Authentication auth = JWTSvc.getAuthentication(request);
+        if(auth!=null){ //already authenticated
+            return "redirect:/";
         }
         Locale l = localeResolver.resolveLocale(request);
         if(l.equals(Locale.SIMPLIFIED_CHINESE))
@@ -83,6 +80,7 @@ public class LoginController {
         try {
             auth = authManager.authenticate(authReq);
             if(auth.isAuthenticated()){
+                Log.info("User "+user.username+" login successfully.");
                 JWTSvc.successfulAuthentication(req, response, auth);
                 SecurityContext sc = SecurityContextHolder.getContext();
                 sc.setAuthentication(auth);

@@ -23,11 +23,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        Cookie c = jwtSvc.getAuthCookie(request);
-        if(c != null) {
-            Authentication authentication = jwtSvc.getAuthentication(c);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+        Authentication authentication = jwtSvc.getAuthentication(request);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
     }
 
