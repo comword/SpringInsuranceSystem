@@ -11,7 +11,7 @@ function setValid(id){
     $(id).addClass("is-valid")
 }
 
-function reqBasicFrom(router, getdata){
+function reqBasicForm(router, getdata){
     $.ajax({
         url: '/register/customer/basicInfo',
         method: 'GET',
@@ -53,11 +53,11 @@ window.onload = function() {
                                 loadDetailPage(router, data);
                             },
                             error: function (error) {
-                                reqBasicFrom(router, getdata);
+                                reqBasicForm(router, getdata);
                             }
                         });
                     else
-                        reqBasicFrom(router, getdata);
+                        reqBasicForm(router, getdata);
                 },
                 error: function (error) {
                     console.log(error);
@@ -94,7 +94,7 @@ function loadBasicPage(router, data) {
             } catch(e) {
                 localStorage.removeItem('signupForm');
             }
-            $("#signup-form").bootstrapMaterialDesign();
+            // $("#signup-form").bootstrapMaterialDesign();
         },
         methods: {
             validEmail: function (email) {
@@ -151,7 +151,7 @@ function loadBasicPage(router, data) {
                 postData.token = app_token;
                 let self = this;
                 $("#progress").animate({ opacity: 1 });
-                $("#signup-form").data("bmd.bootstrapMaterialDesign", null);
+                // $("#signup-form").data("bmd.bootstrapMaterialDesign", null);
                 $.ajax({
                     url: '/register/customer/basicInfo',
                     method: 'POST',
@@ -226,7 +226,7 @@ function loadDetailPage(router, data) {
                 this.detailForm.phoneCountry = '+86';
             else
                 this.detailForm.phoneCountry = '+353';
-            $("#signup-form").bootstrapMaterialDesign();
+            // $("#signup-form").bootstrapMaterialDesign();
         },
         watch: {
             'detailForm.phoneCountry': function(newVal, oldVal) {
@@ -277,6 +277,9 @@ function loadDetailPage(router, data) {
                 }
                 return false;
             },
+            back_1: function () {
+                this.$router.replace("/register/customer/basicForm");
+            },
             next_2: function () {
                 this.errors = [];
                 let failed = false;
@@ -324,7 +327,7 @@ function loadDetailPage(router, data) {
                 postData.token = app_token;
                 let self = this;
                 $("#progress").animate({ opacity: 1 });
-                $("#signup-form").data("bmd.bootstrapMaterialDesign", null);
+                // $("#signup-form").data("bmd.bootstrapMaterialDesign", null);
                 $.ajax({
                     url: '/register/customer/detailsInfo',
                     method: 'POST',

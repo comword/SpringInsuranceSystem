@@ -95,7 +95,7 @@ public class CustomerRegisterController {
     public ResponseEntity<String> basicInfoGet(String token, String lang) throws IOException {
         RegisterReply rpl = new RegisterReply();
         Locale l = getLocale(lang);
-        rpl.nextPage.put("name", "basicFrom");
+        rpl.nextPage.put("name", "basicForm");
         rpl.nextPage.put("template", loadHTMLFile(l, "templates/register/customer-basic"));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);

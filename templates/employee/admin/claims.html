@@ -9,29 +9,30 @@
     <link rel="icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon-precomposed" href="/images/favicon-touch.png">
     <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
-    <title>Employee-Claims</title>
+    <title>Employee Claims</title>
     <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+<!--    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">-->
     <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
+    <a class="navbar-brand" href="#">Hibernia-Sino</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Hibernia-Sino</a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="#">Dashboard</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="claims">Claims</a>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Claim</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="users">Users</a>
+                <a class="nav-link" href="#">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="settings">Settings</a>
+                <a class="nav-link" href="#">Settings</a>
             </li>
         </ul>
         <li class="navbar-nav dropdown">
@@ -44,18 +45,17 @@
                 <a class="dropdown-item" href="?lang=zh-CN">Chinese</a>
             </div>
         </li>
+        <ul class="navbar-nav">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Sign out</a>
+            </li>
+        </ul>
     </div>
-    <ul class="navbar-nav navbar-right">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="/login">Sign out</a>
-        </li>
-    </ul>
-</nav>
 </nav>
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-right" id="left-nav-bar">
-        <p class="pull-left visible-xs">
-            <button type="button" class="btn btn-outline-secondary" data-toggle="offcanvas">Side</button>
+        <p class="pull-left visible-xs" style="margin-top: 5px;">
+            <button type="button" class="btn btn-sm" data-toggle="offcanvas">Side</button>
         </p>
         <nav class="col-md-3 col-lg-2 bg-light sidebar-offcanvas" id="sidebar">
             <div class="sidebar-sticky">
@@ -298,7 +298,6 @@
                     </label>
                 </div>
             </div>
-
             <br/>
             <div class="form-row">
                 <div class="form-group col-md-2">
@@ -306,8 +305,6 @@
                     <input type="text" class="form-control" id="inputZip">
                 </div>
             </div>
-
-
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Record</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
@@ -319,13 +316,13 @@
         </form>
     </div>
 </div>
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/vue.js"></script>
-<script src="/js/vue-router.js"></script>
-<script src="/js/employee/feather.min.js"></script>
-<script src="/js/employee/Chart.min.js"></script>
-<script src="/js/employee/claims.js"></script>
+<script type="text/javascript" src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!--<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>-->
+<script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
 </body>
 </html>

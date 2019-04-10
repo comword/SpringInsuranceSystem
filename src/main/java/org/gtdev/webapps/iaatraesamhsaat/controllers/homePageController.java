@@ -21,7 +21,7 @@ public class HomePageController {
     public String home(HttpServletRequest request) {
         Locale l = localeResolver.resolveLocale(request);
         if(l.equals(Locale.SIMPLIFIED_CHINESE))
-            return "homePage/home";
+            return "homePage/home-cn";
         else
             return "homePage/home";
     }

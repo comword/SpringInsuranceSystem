@@ -7,9 +7,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(indexes = {@Index(columnList="groupName", unique = true)})
@@ -45,6 +43,9 @@ public class AppGroup {
                 }
             }
             return right;
+        }
+        public int getPriv() {
+            return priv;
         }
     }
 

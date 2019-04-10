@@ -1,32 +1,20 @@
-﻿package org.gtdev.webapps.iaatraesamhsaat.controllers;
-
+package org.gtdev.webapps.iaatraesamhsaat.claimfunc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.*;
 
-
 @Controller
-@RequestMapping(value = "/upload")
 public class ClaimResponseController {
-    private static Logger log= LoggerFactory.getLogger(HelloController.class);
-    Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-
-
-
-
+    private Logger log= LoggerFactory.getLogger(this.getClass());
     /*    返回JSON
             {firstName:''},
             {lastName:''},
@@ -34,15 +22,11 @@ public class ClaimResponseController {
             {policyNum:''},
             {phone:''}
        传回JSON
-
-
        */
-    @RequestMapping(value="/searchInsurance")
+    @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.GET)
     @ResponseBody
-    public Object search(@RequestBody Map<String,Object> map1) throws JSONException {
-
+    public String search(@RequestBody Map<String, Object> map1) throws JSONException {
         JSONObject result = new JSONObject();
-
 //      这个是数据搜寻是否成功
         result.put("message", "更新成功了");
         result.put("resCode", "777");//随便定义的响应参数
@@ -61,19 +45,17 @@ public class ClaimResponseController {
         result.put("country", "中国");
         result.put("zipCode", "100777");
 
-
         result.put("gender", "男");
         result.put("certificateNum", "230103199802200919");
         result.put("email", "1300358325@qq.com");
         result.put("city", "哈尔滨");
-
-
         return result.toString();
     }
 
-    @RequestMapping(value = "/UpLoadImage")
+    @RequestMapping(value = "/claim/newclaim/image", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile[] file) throws Exception{
+    public Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile[] file) {
+        Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("status", 400);
         String phone =request.getParameter("phone");// 接受上传图片时的额外参数 对应 uploadExtraData:function()
         System.out.println(phone);
@@ -82,9 +64,9 @@ public class ClaimResponseController {
             List<String> fileName =new ArrayList<String>();
             PrintWriter out = null;
             try {
-                    resultMap.put("status", 200);
-                    resultMap.put("message", "上传成功！");
-                    resultMap.put("hasPhoto",true);
+                resultMap.put("status", 200);
+                resultMap.put("message", "上传成功！");
+                resultMap.put("hasPhoto",true);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -99,11 +81,9 @@ public class ClaimResponseController {
         return resultMap;
     }
 
-
-
-    @RequestMapping(value="/UpLoadClaimItemInfo")
+    @RequestMapping(value="/claim/newclaim/ClaimItemInfo",  method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadInfo(@RequestBody Map<String,Object> map1) throws JSONException {
+    public String uploadInfo(@RequestBody Map<String,Object> map1) throws JSONException {
 
         JSONObject result = new JSONObject();
 
@@ -116,11 +96,5 @@ public class ClaimResponseController {
         result.put("claimOrderNum","816385292874222");
         return result.toString();
     }
-
-
-
-
-
-
 }
 

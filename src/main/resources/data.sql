@@ -60,8 +60,12 @@ INSERT INTO `provinces` (`code`, `chinese_name`, `english_name`) VALUES
 ('IE-WH', '西米斯郡', 'Country Westmeath'),
 ('IE-WX', '韦克斯福德郡', 'Country Wexford'),
 ('IE-WW', '威克娄郡', 'Country Wicklow');
-
-INSERT INTO `app_user` (`id`, `display_name`, `email`, `last_login`, `password`, `salt`, `state_id`, `user_name`) VALUES ('1', 'test0', 'test0@hibernia-sino.com', CURRENT_TIMESTAMP, '9C65F0D2A545B128C5CDF12B9F522E0B', '2A6F3275294956C46F038BBC365E2561', '1', 'test0');
 INSERT INTO `app_group` (`id`, `gp_privilege_id`, `group_name`) VALUES ('1', '80', 'Customers');
+INSERT INTO `app_group` (`id`, `gp_privilege_id`, `group_name`) VALUES ('2', '60', 'Employees');
+INSERT INTO `customer_details` (`id`, `address`, `address2`, `first_name`, `id_number`, `last_name`, `phone_number`, `province`, `zip_code`) VALUES
+(1, 'No.100 Pingleyuan Chaoyang Distinct', '', 'Tong', '1234567890', 'Ge', '+8615501101001', 'CN-BJ', '102049');
+INSERT INTO `app_user` (`id`, `display_name`, `email`, `last_login`, `password`, `salt`, `state_id`, `user_name`, `details_id`) VALUES ('1', 'customer0', 'customer0@hibernia-sino.com', CURRENT_TIMESTAMP, '9C65F0D2A545B128C5CDF12B9F522E0B', '2A6F3275294956C46F038BBC365E2561', '1', 'customer0', '1');
+INSERT INTO `app_user` (`id`, `display_name`, `email`, `last_login`, `password`, `salt`, `state_id`, `user_name`) VALUES ('2', 'staff0', 'staff0@hibernia-sino.com', CURRENT_TIMESTAMP, '368D087BA8E014EBACBF2901F0F9474F', 'D1F60DC68055AC247A129553737AED78', '1', 'staff0');
 INSERT INTO `user_group` (`appuser_id`, `appgroup_id`) VALUES ('1', '1');
+INSERT INTO `user_group` (`appuser_id`, `appgroup_id`) VALUES ('2', '2');
 

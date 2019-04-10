@@ -3,6 +3,7 @@ package org.gtdev.webapps.iaatraesamhsaat.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.AppGroup;
 import org.gtdev.webapps.iaatraesamhsaat.security.JWTSvc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
@@ -45,11 +49,27 @@ public class LoginController {
     @Autowired
     private JWTSvc JWTSvc;
 
+    private boolean isAdmin(Authentication auth) {
+        boolean isAdmin = false;
+        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+        for (GrantedAuthority grantedAuthority : authorities){
+            if (AppGroup.gpPrivilege.valueOf(grantedAuthority.getAuthority()).getPriv()<=60) {
+                isAdmin = true;
+                break;
+            }
+        }
+        return isAdmin;
+    }
+
     @GetMapping("/login")
     public String login(HttpServletRequest request) {
         Authentication auth = JWTSvc.getAuthentication(request);
         if(auth!=null){ //already authenticated
-            return "redirect:/";
+            boolean isAdmin = isAdmin(auth);
+            if(isAdmin)
+                return "redirect:/employee/admin/dashboard";
+            else
+                return "redirect:/";
         }
         Locale l = localeResolver.resolveLocale(request);
         if(l.equals(Locale.SIMPLIFIED_CHINESE))
@@ -87,6 +107,8 @@ public class LoginController {
                 HttpSession session = req.getSession(true);
                 session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
                 res.rescode = 0;
+                if(isAdmin(auth))
+                    res.redirect = "/employee/admin/dashboard";
             }
         } catch (BadCredentialsException e) {
             res.rescode = -1002;

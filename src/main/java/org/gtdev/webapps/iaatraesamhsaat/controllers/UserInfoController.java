@@ -25,7 +25,7 @@ public class UserInfoController {
         String email;
     }
 
-    @GetMapping("userinfo/username")
+    @GetMapping("/userinfo/username")
     public @ResponseBody statusReply userStatus(HttpSession session) {
         statusReply rpl = new statusReply();
         AppUser user = (AppUser) session.getAttribute("user");
@@ -39,7 +39,7 @@ public class UserInfoController {
         }
         if (user != null) {
             session.setAttribute("user", user);
-            rpl.status = user.getStateId();
+            rpl.status = 1;
             rpl.userName = user.getUserName();
             rpl.displayName = user.getDisplayName();
             rpl.email = user.getEmail();
