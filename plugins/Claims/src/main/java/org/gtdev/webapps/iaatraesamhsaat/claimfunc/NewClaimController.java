@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 @Controller
 public class NewClaimController {
@@ -15,7 +16,11 @@ public class NewClaimController {
 
     @GetMapping("/claim/newclaim")
     public String newClaimPage(HttpServletRequest request) {
-        return "claim/claimPage";
+        Locale l = localeResolver.resolveLocale(request);
+        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+            return "claim/claimPage-cn";
+        else
+            return "claim/claimPage";
     }
 
 }

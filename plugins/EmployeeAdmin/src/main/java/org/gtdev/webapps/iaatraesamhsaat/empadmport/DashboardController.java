@@ -34,4 +34,76 @@ public class DashboardController {
         return "employee/admin/claims";
     }
 
+    @GetMapping("/employee/admin")
+    public String login(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/admin/admin";
+    }
+
+
+    @GetMapping("/employee/admin/detail")
+    public String detail(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/admin/detail";
+    }
+
+    @GetMapping("/employee/admin/product")
+    public String product(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/admin/product";
+    }
+
+    @GetMapping("/employee/admin/customer")
+    public String customer(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/admin/customer";
+    }
+
+    @GetMapping("/employee/login/login")
+    public String sign(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/login/login";
+    }
+
+    @GetMapping("/claim/claim_attachment")
+    public String feedback(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/admin/claim/claim_attachment";
+    }
+
+    @GetMapping("/claim/claim_feedback")
+    public String atachment(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/admin/claim/claim_feedback";
+    }
+
+    @GetMapping("/employee/admin/product_detail")
+    public String product_detail(HttpServletRequest request) {
+//        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "employee/admin/admin";
+//        else
+        return "employee/admin/product_detail";
+    }
 }

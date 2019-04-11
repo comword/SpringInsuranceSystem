@@ -33,41 +33,37 @@ body{
     padding: 0px;
     background-color: whitesmoke;
 }
-.navbar a{
 
-    font-size: 21px;
-    font-weight: bold;
-}
 
-.navbar-light{
+/*.navbar-light{*/
 
-    margin: 0px;
-    box-shadow:12px 6px 12px 6px #ccc;
-}
+    /*margin: 0px;*/
+    /*box-shadow:12px 6px 12px 6px #ccc;*/
+/*}*/
 
 
 
-.navbar-light .navbar-brand:hover,
-.navbar-light .navbar-brand:focus {
-    border-radius: 0px 0px 5px 5px;
-    background-color: rgba(234, 234, 234, 0.58);
-    transition-duration: 0.7s;
+/*.navbar-light .navbar-brand:hover,*/
+/*.navbar-light .navbar-brand:focus {*/
+    /*border-radius: 0px 0px 5px 5px;*/
+    /*background-color: rgba(234, 234, 234, 0.58);*/
+    /*transition-duration: 0.7s;*/
 
-}
+/*}*/
 
 
 
-.navbar-light .navbar-nav > li > a:hover,
-.navbar-light .navbar-nav > li > a:focus {
-    border-radius: 0px 0px 5px 5px;
-    background-color: rgba(234, 234, 234, 0.58);
-    transition-duration: 0.7s;
-}
+/*.navbar-light .navbar-nav > li > a:hover,*/
+/*.navbar-light .navbar-nav > li > a:focus {*/
+    /*border-radius: 0px 0px 5px 5px;*/
+    /*background-color: rgba(234, 234, 234, 0.58);*/
+    /*transition-duration: 0.7s;*/
+/*}*/
 
-.navbar-light .navbar-nav > li > .dropdown {
-    border-radius: 0px 0px 8px 8px;
+/*.navbar-light .navbar-nav > li > .dropdown {*/
+    /*border-radius: 0px 0px 8px 8px;*/
 
-}
+/*}*/
 
 
 .dropdown-item:hover{
@@ -113,17 +109,11 @@ body{
 
 
 }
-
 .marginUnder{
     margin-bottom: 40px;
 }
 
-
-.form-group{
-
-}
 .col-form-label{
-    padding: 0px;
     margin-right: 2%;
 }
 .form-body{
@@ -133,12 +123,10 @@ body{
     margin-left: 45%;
 }
 .input-group{
-    margin-left: 0px;
-    padding-left: 0px;
+    padding: 0;
 }
 .infMargin{
     margin-top: 10px;
-
 }
 .orderNum{
     color:#007bff;
@@ -168,7 +156,7 @@ body{
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
     opacity: 0;
 }
 
@@ -209,4 +197,27 @@ body{
         margin-right: auto;
         width: 100%
     }
+}
+
+.upload-file .btn{
+    padding: 10px;
+    margin: 0 5px 0 5px;
+}
+
+.upload-file .btn.btn-sm{
+    padding: 10px;
+    margin: unset;
+}
+
+.dropdown-country-flagsbutton {
+    background: url('/images/flags.png') no-repeat 0 0;
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: 24px 3876px;
+    width: 24px;
+    height: 16px;
+    position: absolute;
+    left: 8px;
+    top: 9px;
+    margin: 0;
 }

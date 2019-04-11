@@ -7,36 +7,52 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     <title>Create new claim</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
     <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link th:href="@{/css/claim/stepModel.css}" href="../../static/css/claim/stepModel.css" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/claim/claimStep.css}" href="../../static/css/claim/stepModel.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/claim/claimStep.css}" href="../../static/css/claim/claimStep.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/MDB/css/mdb.css}" href="../../static/libs/MDB/css/mdb.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/fileUpload/css/fileinput.css}" href="../../static/libs/fileUpload/css/fileinput.css" media="all" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark blue darken-3 scrolling-navbar font-weight-bold ">
+<script>
+    let navbar_indicator_template =
+        '<ul class="navbar-nav nav-flex-icons">' +
+        '<li class="nav-item avatar dropdown">' +
+        '<a class="nav-link dropdown-toggle" id="avatarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+        '{{username}}' +
+        '<img v-bind:src="avatarPath" style="width: 40px;height: 40px; margin-left: 5px;" class="rounded-circle z-depth-0" alt="avatar image">' +
+        '</a>' +
+        '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="avatarDropdown">' +
+        '<a class="dropdown-item" href="#">Dashboard</a>' +
+        '<a class="dropdown-item" href="#">Profile</a>' +
+        '<div class="dropdown-divider"></div>' +
+        '<a class="dropdown-item" href="/logout">Logout</a>' +
+        '</div>' +
+        '</li>' +
+        '</ul>';
+</script>
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" id="menu-nav">
     <a class="navbar-brand navbar-left"  href="#"><img class="img-logo" th:src="@{/images/Hibernia-Sino-logo.png}"></a>
-    <a class="navbar-brand" href="#">Hibernia-Sino</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand " href="#" style="color: black">Hibernia-Sino</a>
+    <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Abstract</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Insurance</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Claim</a>
-            </li>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#insurance">Insurance</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#claim">Claim</a>
+                </li>
+            </ul>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" style="color: black" aria-haspopup="true" aria-expanded="false">
                     Features
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -51,10 +67,10 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="#" style="color: black">About</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" style="color: black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Language
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -63,55 +79,24 @@
                     <a href="?lang=zh-CN" class="dropdown-item">Chinese</a>
                 </div>
             </li>
-            <!--<a class="navbar-right" herf="#"><span class="glyphicon glyphicon-user"></span> Register</a>-->
-            <!--<a class="navbar-right" herf="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>-->
         </ul>
-
-        <ul class="navbar-nav ml-auto nav-flex-icons">
-            <li class="nav-item avatar dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" style="width: 40px;height: 40px;" class="rounded-circle z-depth-0" alt="avatar image">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-55">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-
-
-        <!--<div  class="md-form" style="margin-top:16px;">-->
-        <!--<input type="text" id="form1" class="form-control">-->
-        <!--<label for="form1">Example label</label>-->
-        <!--</div>-->
-        <!--</div>-->
-
-
-        <!--<ul v-show="isSearch!==999" id="enre" class="navbar-nav ml-auto">-->
-        <!--<li class="nav-item" ><a class="nav-link" href="#"><i class="fas fa-user"></i> Register</a></li>-->
-        <!--<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-in-alt"></i> Login</a></li>-->
-
-        <!--</ul>-->
+        <navbar-indicator v-bind:username="username"></navbar-indicator>
     </div>
 </nav>
 
 <div class="main-whole">
-    <div class="main-page col-xs-8 col-md-8 ">
+    <div class="main-page col-md-9">
         <div class="text-center title-div">
-            <h1 id="claim-title" th:text="#{claim.title}" >Claim</h1>
+            <h1 id="claim-title">Claim</h1>
             <h3>In order to use this service, you have to complete these processes.</h3>
         </div>
-
         <form id="form-frame" class="form cf">
-
             <div class="wizard">
                 <div class="wizard-inner">
                     <div class="connecting-line"></div>
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="nav-item">
-                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1" class="nav-link " v-bind:class="{  'active': step>=1}">
+                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1" class="nav-link " v-bind:class="{'active': step>=1}">
                 <span class="round-tab">
                   <i class="fa fa-book"></i>
                 </span>
@@ -149,42 +134,38 @@
                 </div>
 
                 <div class="tab-content">
-                    <div  v-bind:class="{  'active': step==1}" class="tab-pane" role="tabpanel" id="step1">
-                        <div class="marginUnder"><h1 class="text-md-center">Step 1</h1></div>
+                    <div  v-bind:class="{'active': step==1}" class="tab-pane" role="tabpanel" id="step1">
+                        <div class="marginUnder"><h1 class="text-md-center">Agreement</h1></div>
                         <div  class="container-fluid form-body">
-                            <!--<clause></clause>-->
-                            <div th:utext="#{claim.clause}"></div>
+                            <div></div>
                         </div>
-
-                        <ul class="text-md-center ul-inf-button">
-
-                            <li class="col-md-4"><button id="clause" type="button"  v-on:click="step+=1" class="btn btn-lg btn-primary step-button">Agree</button></li>
-                        </ul>
+                        <div class="text-md-center ul-inf-button">
+                            <li class="col-md-4"><button id="clause" type="button" v-on:click="step+=1" class="btn btn-lg btn-primary step-button">Agree</button></li>
+                        </div>
                     </div>
-                    <div v-bind:class="{  'active': step==2}" class="tab-pane " role="tabpanel" id="step2">
-                        <div class="marginUnder"><h1 class="text-md-center">Step 2</h1></div>
+                    <div v-bind:class="{'active': step==2}" class="tab-pane" role="tabpanel" id="step2">
+                        <div class="marginUnder"><h1 class="text-md-center">Your insurance policy</h1></div>
                         <div class="container-fluid form-body">
                             <transition name="fade">
-                                <div class="col-xs-8 form-group row" v-show="isSearch===222" >
-                                    <div  class="alert alert-danger col-center-block" >
-                                        <strong>查询失败!</strong> 请重新输入信息。
+                                <div class="col-xs-8 form-group row" v-show="isSearch===222">
+                                    <div  class="alert alert-danger col-center-block">
+                                        <strong>The insurance was not found!</strong> Please reenter the information
                                     </div>
                                 </div>
                             </transition>
                             <form class="needs-validation" novalidate>
-
                                 <div class="form-group row">
-                                    <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="firstName">First Name:</label>
-                                    <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
-                                        <input v-model="submit.firstName" type="text" class="form-control  col-xs-8 col-md-12 " id="firstName" placeholder="Enter First Name" required>
+                                    <label class="col-form-label col-xs-8 col-md-3" for="firstName">First Name:</label>
+                                    <div class="col-md-8">
+                                        <input v-model="submit.firstName" type="text" class="form-control  col-xs-8 col-md-12" id="firstName" placeholder="Enter First Name" required>
                                         <div class="invalid-feedback" style="width: 100%;">
                                             Please enter a valid first name
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="lastName">Last Name:</label>
-                                    <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
+                                    <label class="col-form-label col-xs-8 col-md-3" for="lastName">Last Name:</label>
+                                    <div class="col-md-8">
                                         <input v-model="submit.lastName" type="text" class="form-control  col-xs-8 col-md-12" id="lastName" placeholder="Enter Last Name" required>
                                         <div class="invalid-feedback" style="width: 100%;">
                                             Please enter a valid last name
@@ -192,8 +173,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label  v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="zipCode">Zip Code:</label>
-                                    <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
+                                    <label class="col-form-label col-xs-8 col-md-3" for="zipCode">Zip Code:</label>
+                                    <div class="col-md-8">
                                         <input v-model="submit.zipCode" type="text" class="form-control  col-xs-8 col-md-12" id="zipCode" placeholder="Enter Zip Code" required>
                                         <div class="invalid-feedback">
                                             Please enter a valid zip code
@@ -201,8 +182,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="policyNum">Policy Number:</label>
-                                    <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
+                                    <label class="col-form-label col-xs-8 col-md-3" for="policyNum">Policy Number:</label>
+                                    <div class="col-md-8">
                                         <input v-model="submit.policyNum" type="text" class="form-control  col-xs-8 col-md-12" id="policyNum" placeholder="Enter Policy Number" required>
                                         <div class="invalid-feedback">
                                             Please enter a valid policy number
@@ -211,12 +192,12 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="phone">Phone Number:</label>
-                                    <div class="input-group col-xs-8 col-md-4">
+                                    <label class="col-form-label col-xs-8 col-md-3" for="phone">Phone Number:</label>
+                                    <div class="col-md-8" style="display: flex;">
                                         <div class="input-group-prepend">
                                             <div class="dropdown">
-                                                <button class="btn btn-md dropdown-toggle" type="button" id="dropdownCountryBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span style="padding-right: 20px;"><div id="flagBtn" class="dropdown-country-flagsbutton" style="background-position: -1px -2670px;"></div></span>
+                                                <button class="btn btn-md dropdown-toggle" type="button" id="dropdownCountryBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 0;">
+                                                    <span style="padding-right: 10px;"><div id="flagBtn" class="dropdown-country-flagsbutton" style="background-position: -1px -2670px;"></div></span>
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownCountryBtn">
                                                     <a class="dropdown-item dropdown-country-relative" href="#">
@@ -239,43 +220,43 @@
                                 <div class="row" style="margin: 0px auto;display: table;">
                                     <button id="search" class="btn btn-lg btn-primary step-button" type="button" >Search</button>
                                 </div>
-
                             </form>
-
                         </div>
                     </div>
-                    <div v-bind:class="{  'active': step==3}" class="tab-pane" role="tabpanel" id="step3">
-                        <div class="marginUnder"> <h1 class="text-md-center">Step 3</h1></div>
+                    <div v-bind:class="{'active': step==3}" class="tab-pane" role="tabpanel" id="step3">
+                        <div class="marginUnder"> <h1 class="text-md-center">Confirm</h1></div>
                         <div class="Fxc">
                             <div  id="accordion" >
-                                <div class="card ">
+                                <div class="card">
                                     <div class="card-header bg-primary">
                                         <a class="card-link  text-white" data-toggle="collapse" href="#collapseOne">
-                                            保单基本信息
+                                            Policy information
                                         </a>
                                     </div>
                                     <div id="collapseOne" class="collapse show" data-parent="#accordion">
                                         <div class="card-body">
                                             <div class="row">
                                                 <!--<div class="dateStart">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2">保险起期： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Start Data:</div>
                                                 <div  class="infMargin col-md-4" >{{ info.startDate }}</div>
+                                            </div>
+                                            <div class="row">
                                                 <!--</div>-->
                                                 <!--<div class="dateEnd">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2">保险止期： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">End Date:</div>
                                                 <div class="infMargin col-md-4">{{ info.endDate }}</div>
                                                 <!--</div>-->
                                             </div>
 
                                             <div class="row">
                                                 <!--<div class="destination">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin  insurnInf col-xs-12 col-md-2">旅游目的地：</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Destination:</div>
                                                 <div class="infMargin col-md-4">{{ info.destination }}</div>
                                                 <!--</div>-->
                                             </div>
                                             <div class="row">
                                                 <!--<div class="method">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2">收益方式： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Beneficiary:</div>
                                                 <div class="infMargin col-md-4">{{ info.method }}</div>
                                                 <!--</div>-->
                                             </div>
@@ -285,86 +266,71 @@
                                 <div class="card">
                                     <div class="card-header bg-primary">
                                         <a class="collapsed card-link  text-white " data-toggle="collapse" href="#collapseTwo">
-                                            投保人信息
+                                            Policyholder information
                                         </a>
                                     </div>
                                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
                                             <div class="row">
-                                                <!--<div class="dateStart">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2">姓名： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Name:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.name }}</div>
-                                                <!--</div>-->
-                                                <!--<div class="dateEnd">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2">性别： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Gender:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.gender }}</div>
-                                                <!--</div>-->
                                             </div>
 
                                             <div class="row">
-                                                <!--<div class="destination">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">证件类型： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Type:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.certificate }}</div>
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">证件号码： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Number:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.certificateNum }}</div>
-                                                <!--</div>-->
                                             </div>
                                             <div class="row">
-                                                <!--<div class="method">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">出生日期： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Birthday:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.birthDay }}</div>
-                                                <!--</div>-->
                                             </div>
                                             <div class="row">
-                                                <!--<div class="destination">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">联系电话： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Phone:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.phone }}</div>
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">电子邮箱： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Email:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.email }}</div>
-                                                <!--</div>-->
                                             </div>
                                             <div class="row">
-                                                <!--<div class="destination">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">所在国家： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Country:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.country }}</div>
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">所在城市： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">City:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.city }}</div>
-                                                <!--</div>-->
                                             </div>
                                             <div class="row">
-                                                <!--<div class="destination">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-2 ">邮编： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Zip:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.zipCode }}</div>
-                                                <!--</div>-->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <ul class="text-md-center ul-inf-button">
+                        <div class="text-md-center ul-inf-button">
                             <li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>
-                            <li class="col-md-4"><button type="button"  v-on:click="step+=1" class="btn btn-lg btn-primary step-button">Next</button></li>
-                        </ul>
-
+                            <li class="col-md-4"><button type="button" v-on:click="step+=1" class="btn btn-lg btn-primary step-button">Next</button></li>
+                        </div>
 
                     </div>
-                    <div   v-bind:class="{  'active': step==4}" class="tab-pane" role="tabpanel" id="step4">
-                        <div class="marginUnder"><h1 class="text-md-center">Step 4</h1></div>
-                        <div class="row">
-                            <div class="container-fluid form-body">
-                                <transition name="fade">
-                                    <div class="col-xs-8 form-group row" v-show="claimSubErr===222" >
-                                        <div  class="alert alert-danger col-center-block" >
-                                            <strong>没有照片!</strong> 请重新上传照片。
-                                        </div>
+                    <div v-bind:class="{'active': step==4}" class="tab-pane" role="tabpanel" id="step4">
+                        <div class="marginUnder"><h1 class="text-md-center">Your details</h1></div>
+                        <div class="container-fluid form-body">
+                            <transition name="fade">
+                                <div class="col-xs-8 form-group row" v-show="claimSubErr===222" >
+                                    <div class="alert alert-danger" style="width: 100%;">
+                                        <strong>No photos!</strong> Please upload photos again.
                                     </div>
-                                </transition>
-                                <form class="needs-validation" novalidate>
+                                </div>
+                            </transition>
+                            <form class="needs-validation" novalidate>
+                                <div class="container-fluid">
                                     <div class="form-group row">
-                                        <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="itemType">物品种类:</label>
-                                        <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
-                                            <select  v-model="claimSubmit.itemType" class=" form-control custom-select col-xs-8 col-md-12" id="itemType" required>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemType">Item Type:</label>
+                                        <div class="col-md-8">
+                                            <select v-model="claimSubmit.itemType" class=" form-control custom-select col-xs-8 col-md-12" id="itemType" required>
                                                 <option selected value="cloth">cloth</option>
                                                 <option value="digital-product">digital product</option>
                                                 <option value="document">document</option>
@@ -376,17 +342,17 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="itemName">丢失物品名称:</label>
-                                        <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
-                                            <input v-model="claimSubmit.itemName" type="text" class="form-control  col-xs-8 col-md-12 " id="itemName" placeholder="如 AJ1 黑脚趾" required>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemName">Item Name:</label>
+                                        <div class="col-md-8">
+                                            <input v-model="claimSubmit.itemName" type="text" class="form-control  col-xs-8 col-md-12 " id="itemName" placeholder="Ipad Pro 11.9" required>
                                             <div class="invalid-feedback" style="width: 100%;">
                                                 Please enter a valid item name
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="itemName">物品价格:</label>
-                                        <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemName">Item Price:</label>
+                                        <div class="col-md-8">
                                             <input v-model="claimSubmit.itemPrice" type="text" class="form-control  col-xs-8 col-md-12 " id="itemPrice" placeholder="500/666.0/999.00" required>
                                             <div class="invalid-feedback" style="width: 100%;">
                                                 Please enter a valid item price
@@ -394,72 +360,68 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="itemDesc">丢失物品描述:</label>
-                                        <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
-                                            <textarea  v-model="claimSubmit.itemDescription" class="form-control  col-xs-8 col-md-12" id="itemDesc" placeholder="" required></textarea>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemDesc">Item Description:</label>
+                                        <div class="col-md-8">
+                                            <textarea  v-model="claimSubmit.itemDescription" class="form-control col-xs-8 col-md-12" id="itemDesc" placeholder="" required></textarea>
                                             <div class="invalid-feedback" style="width: 100%;">
                                                 Please enter a valid item describe
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label v-bind:class="{'text-right': !isMobile}" class="col-form-label col-xs-8 col-md-4 " for="itemEmail">联系邮箱:</label>
-                                        <div class="col-md-4" style="padding-left: 0px;padding-right: 0px">
-                                            <input v-model="claimSubmit.contactEmail" type="email" class="form-control  col-xs-8 col-md-12" id="itemEmail" placeholder="123@example.com" required>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemEmail">Email:</label>
+                                        <div class="col-md-8">
+                                            <input v-model="claimSubmit.contactEmail" type="email" class="form-control col-xs-8 col-md-12" id="itemEmail" placeholder="123@example.com" required>
                                             <div class="invalid-feedback" style="width: 100%;">
                                                 Please enter a valid email
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-4">丢失物品图片上传:</label>
-                                        <div class="col-sm-12  col-md-12">
-                                            <input class="is-invalid" id="input-id" name="file" multiple="multiple" type="file" data-show-caption="true" data-theme="fas" required>
-                                            <div class="form-control invalid-feedback" style="width: 100%;">
-                                                Please submit photo
-                                            </div>
+                                </div>
+                                <div class="form-group row upload-file">
+                                    <label class="col-form-label col-md-4">Item Photo:</label>
+                                    <div class="col-sm-12 col-md-12">
+                                        <input class="is-invalid" id="input-id" name="file" multiple="multiple" type="file" data-show-caption="true" data-theme="fas" required>
+                                        <div class="form-control invalid-feedback" style="width: 100%;">
+                                            Please submit photo
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
-                        <ul class="text-md-center ul-inf-button">
-                            <ul class="text-md-center ul-inf-button">
-                                <li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>
-                                <li class="col-md-4"><button type="button" id="submit" class="btn btn-lg btn-primary step-button">Submit</button></li>
-                            </ul>
-                        </ul>
+                        <div class="text-md-center ul-inf-button">
+                            <li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>
+                            <li class="col-md-4"><button type="button" id="submit" class="btn btn-lg btn-primary step-button">Submit</button></li>
+                        </div>
                     </div>
 
-                    <div  v-bind:class="{  'active': step==5}" class="tab-pane" role="tabpanel" id="step5">
+                    <div  v-bind:class="{'active': step==5}" class="tab-pane" role="tabpanel" id="step5">
                         <div class="marginUnder">
                             <div class="alert alert-primary">
-                                当前状态
-                                <h1 style="color: #155724;"><strong>理赔受理中</strong></h1>
-                                系统已自动发起理赔，审核通过后72小时理赔款将通过支付宝或者预留银行卡号支付到卖家的支付宝账户中。
+                                Current Status
+                                <h1 style="color: #155724;"><strong>Claim is being accepted</strong></h1>
+                                The system has automatically initiated the claim settlement, and the claim payment will be paid to the seller's alipay account through alipay or the reserved bank card number within 72 hours after the approval.
                             </div>
                         </div>
-
-
                         <div id="claimOrder">
                             <div class="card ">
                                 <div class="card-header bg-primary">
-                                    <a class="card-link  text-white"  data-toggle="collapse" href="#collapse1">
-                                        保单详情
+                                    <a class="card-link text-white" data-toggle="collapse" href="#collapse1">
+                                        Claim Informaion
                                     </a>
                                 </div>
                                 <div id="collapse1" class="collapse show" data-parent="#claimOrder">
                                     <div class="card-body">
                                         <div class="row">
                                             <!--<div class="dateStart">-->
-                                            <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-6">订单编号： </div>
+                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Claim Order No： </div>
                                             <div class="orderNum infMargin col-md-6">{{claimOrder.claimOrderNum}}</div>
                                             <!--</div>-->
                                         </div>
                                         <div class="row">
                                             <!--<div class="dateEnd">-->
-                                            <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-6">预计获得赔付金额： </div>
-                                            <div class="orderMon infMargin col-md-6">{{result.claimOrderPrice}}元 <a href="#" v-on:click="showDetail = !showDetail">详情</a></div>
+                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Estimated Compensation： </div>
+                                            <div class="orderMon infMargin col-md-6">{{result.claimOrderPrice}} <a href="#" v-on:click="showDetail = !showDetail">Details</a></div>
                                             <!--</div>-->
                                         </div>
                                     </div>
@@ -467,27 +429,27 @@
                                 <div v-show::="showDetail" id="detail" class="card ">
                                     <div class="card-header bg-primary">
                                         <a class="card-link  text-white"  data-toggle="collapse" href="#collapse2">
-                                            赔付金额详情
+                                            Compensation Details
                                         </a>
                                     </div>
                                     <div id="collapse2" class="collapse show" data-parent="#claimOrder">
                                         <div class="card-body">
                                             <div class="row">
                                                 <!--<div class="dateStart">-->
-                                                <div v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-6">物品种类： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-6">Item Type： </div>
                                                 <div class="orderNum infMargin col-md-6">{{claimSubmit.itemType}}</div>
                                                 <!--</div>-->
                                             </div>
                                             <div class="row">
                                                 <!--<div class="dateEnd">-->
-                                                <div  v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-6">原物品赔付金额： </div>
-                                                <div class="orderMon infMargin col-md-6">1.00元</div>
+                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">Item Price： </div>
+                                                <div class="orderMon infMargin col-md-6">${{claimSubmit.itemPrice}}</div>
                                                 <!--</div>-->
                                             </div>
                                             <div class="row">
                                                 <!--<div class="dateEnd">-->
-                                                <div  v-bind:class="{'text-right': !isMobile}" class="infMargin insurnInf col-xs-12 col-md-6">保价金额： </div>
-                                                <div class="orderMon infMargin col-md-6">10.00元</div>
+                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">Compensation Ratio： </div>
+                                                <div class="orderMon infMargin col-md-6">0.7</div>
                                                 <!--</div>-->
                                             </div>
                                         </div>
@@ -496,7 +458,6 @@
 
                                 </div>
                             </div>
-
                             <ul class="text-md-center ul-inf-button">
                                 <!--<li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>-->
                                 <li class="col-md-8"><button type="button"  v-on:click="" class="btn btn-lg btn-primary step-button">Finish</button></li>
@@ -525,8 +486,8 @@
             <div class="col-md-6 mt-md-0 mt-3">
 
                 <!-- Content -->
-                <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae harum esse fugiat. Itaque, culpa?</p>
+                <h5 class="text-uppercase font-weight-bold">File Your Claim</h5>
+                <p>Start your claim online, or with the Hibernia-Sino® mobile web. You can also file your claim by calling 800-SF-CLAIM (800-732-5246) 24/7, or contact your agent, if you prefer.</p>
 
             </div>
             <!-- Grid column -->
@@ -537,8 +498,8 @@
             <div class="col-md-6 mb-md-0 mb-3">
 
                 <!-- Content -->
-                <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id excepturi hic.</p>
+                <h5 class="text-uppercase font-weight-bold">Payments</h5>
+                <p>Payments are based on the terms of your policy. State Farm may pay the repairer directly, send payments to your bank account, or send them to you by mail.</p>
 
             </div>
             <!-- Grid column -->
@@ -552,7 +513,7 @@
         <div class="row">
 
             <!-- Grid column -->
-            <div class="col-md-12 py-5">
+            <div class="col-md-12 py-2">
                 <div class="mb-5 flex-center">
 
                     <!-- Facebook -->
@@ -590,7 +551,7 @@
     <!-- Footer Elements -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <div class="footer-copyright text-center py-2">© 2019 Copyright:
         <a href="#"> Group3: FG-TEAM</a>
     </div>
     <!-- Copyright -->
@@ -614,11 +575,11 @@
 <script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script type="text/javascript" th:src="@{/libs/MDB/js/mdb.js}" src="../../static/libs/MDB/js/mdb.js"></script>
 <script src="../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
-<script src="../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script src="../../static/js/vue-resource.min.js" th:src="@{/js/vue-resource.min.js}"></script>
 <script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/piexif.js}"  src="../../static/libs/fileUpload/js/plugins/piexif.js"></script>
-<script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/sortable.js}" src="../../static/libs/fileUpload/js/plugins/sortable.js"  ></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/sortable.js}" src="../../static/libs/fileUpload/js/plugins/sortable.js"></script>
 <script type="text/javascript" th:src="@{/libs/fileUpload/js/fileinput.js}" src="../../static/libs/fileUpload/js/fileinput.js"  ></script>
 <script type="text/javascript" th:src="@{/libs/fileUpload/themes/fas/theme.js}" src="../../static/libs/fileUpload/themes/fas/theme.js" ></script>
-<script type="text/javascript" th:src="@{/libs/fileUpload/js/locales/zh.js}" src="../../static/libs/fileUpload/js/locales/zh.js" ></script>
+<!--<script type="text/javascript" th:src="@{/libs/fileUpload/js/locales/zh.js}" src="../../static/libs/fileUpload/js/locales/zh.js" ></script>-->
 <script type="text/javascript" th:src="@{/js/claim/claimStep.js}" src="../../static/js/claim/claimStep.js"></script>
 </html>

@@ -14,7 +14,7 @@ import java.util.*;
 
 @Controller
 public class ClaimResponseController {
-    private Logger log= LoggerFactory.getLogger(this.getClass());
+    private Logger log= LoggerFactory.getLogger(ClaimResponseController.class);
     /*    返回JSON
             {firstName:''},
             {lastName:''},
@@ -23,7 +23,7 @@ public class ClaimResponseController {
             {phone:''}
        传回JSON
        */
-    @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.GET)
+    @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.POST)
     @ResponseBody
     public String search(@RequestBody Map<String, Object> map1) throws JSONException {
         JSONObject result = new JSONObject();
@@ -35,20 +35,20 @@ public class ClaimResponseController {
 //      这个是保单信息
         result.put("startDate", "2019-03-29");
         result.put("endDate", "2019-03-30");
-        result.put("destination", "爱尔兰 Ireland");
-        result.put("method", "法定继承人");
+        result.put("destination", "Ireland");
+        result.put("method", "legal heir");
 //      这个是详细信息
-        result.put("name", "冯鑫驰");
-        result.put("certificate", "身份证");
+        result.put("name", "Xinchi Feng");
+        result.put("certificate", "identification card");
         result.put("birthDay", "1998-02-20");
         result.put("phone", "18645068587");
-        result.put("country", "中国");
+        result.put("country", "China");
         result.put("zipCode", "100777");
 
-        result.put("gender", "男");
+        result.put("gender", "male");
         result.put("certificateNum", "230103199802200919");
         result.put("email", "1300358325@qq.com");
-        result.put("city", "哈尔滨");
+        result.put("city", "Beijing");
         return result.toString();
     }
 

@@ -23,7 +23,7 @@ public class ClaimPlugin extends SpringPlugin {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         SpringPluginManager pluginManager = (SpringPluginManager) getWrapper().getPluginManager();
         applicationContext.setParent(pluginManager.getApplicationContext());
-        applicationContext.setId(pluginManager.getApplicationContext().getId() + ":ClaimPlugin");
+        applicationContext.setId(pluginManager.getApplicationContext().getId() + ":ClaimsPlugin");
         applicationContext.setClassLoader(getWrapper().getPluginClassLoader());
         //applicationContext.register(CustomerLRController.class);
         applicationContext.refresh();
@@ -42,6 +42,7 @@ public class ClaimPlugin extends SpringPlugin {
         public List<Object> mvcControllers() {
             return new ArrayList<Object>() {{
                 add(new NewClaimController());
+                add(new ClaimResponseController());
             }};
         }
     }

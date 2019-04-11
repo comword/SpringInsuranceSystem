@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.AppGroupRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.AppUserRepository;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.CustomerDetailsRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.ProvincesRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.entities.*;
 import org.gtdev.webapps.iaatraesamhsaat.security.UserAuthProvider;
@@ -42,6 +43,9 @@ public class CustomerRegisterController {
 
     @Autowired
     private AppGroupRepository groupRepo;
+
+    @Autowired
+    private CustomerDetailsRepository customerDetailsRepository;
 
     @GetMapping("/register/customer/**")
     public String registerCustomer() {
@@ -198,9 +202,12 @@ public class CustomerRegisterController {
         if(basicInfo == null) //return to basic page
             return errorBuilder(-2003, "Could not obtain basic info from session, please restart registration.", HttpStatus.PRECONDITION_FAILED);
         RegisterReply rpl = new RegisterReply();
+        if(customerDetailsRepository.existsByIdNumberOrPhoneNumber(post.getId_num(), post.getPhone()))
+            return errorBuilder(-2010, "Your ID number or phone number is already been registered, please recover your previous account or contact us.", HttpStatus.CONFLICT);
         //Save the new user to database if not existing
         if(!userRepo.existsAppUserByUserName(basicInfo.getUsername()) && !userRepo.existsAppUserByEmail(basicInfo.getEmail()))
             saveUserInfo(basicInfo, post);
+        //In case of resubmitting, just return success page.
         rpl.nextPage.put("name", "successPage");
         rpl.nextPage.put("template", loadHTMLFile(getLocale(post.getLang()), "templates/register/success"));
         HttpHeaders headers = new HttpHeaders();

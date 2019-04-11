@@ -1,7 +1,22 @@
+let app_lang;
+Vue.component('navbar-indicator', {
+    props: ['username'],
+    data: function () {
+        return {
+            avatarPath: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg'
+        }
+    },
+    mounted: function () {
+
+    },
+    template: navbar_indicator_template
+});
 var main = new Vue({
     el:".main-whole",
     data:{
-        step:stepBack,
+        step:1,
+        islogin: false,
+        username: '',
         isMobile: false,
         showDetail:false,
         html: "wait",
@@ -24,6 +39,7 @@ var main = new Vue({
             {contactEmail:''},
             {hasPhoto: false}
         ],
+        claimOrder:[],
         result:[
             {claimOrderNum: ''},
             {claimOrderPrice: NaN}
@@ -43,7 +59,7 @@ var main = new Vue({
             var re = /^\d+(\.\d{1,2})?$/;
             return re.test(price);
         },
-       setInvalid: function (id) {
+        setInvalid: function (id) {
            $(id).addClass("is-invalid");
            $(id).removeClass("is-valid");
         },
@@ -65,10 +81,25 @@ function getClaimPrice(){
 }
 
 $(document).ready(function(){
+    const navbar = new Vue({
+        el: '#menu-nav',
+        data: {
+            username: ''
+        },
+        mounted: function () {
+            let self = this;
+            this.$http.get('/userinfo/username').then(response => {
+                if(response.body.status === 1) { //have login
+                    self.username = response.body.displayName;
+                } else {
+                    //window.location.href = "/login";
+                }
+            });
+        }
+    });
     $("#search").click(function (){
         var info = main.submit;
         var isCorrect = true;
-
 
         /*   验证是否为空   */
         if(!info.firstName){
@@ -112,8 +143,6 @@ $(document).ready(function(){
             return;
         }
 
-
-
         /*   查询数据库保险信息   */
         var d = {};
         d.firstName = info.firstName;
@@ -122,7 +151,7 @@ $(document).ready(function(){
         d.policyNum = info.policyNum;
         d.phone = info.phone;
 
-        $.ajax({ url: "/dev/upload/searchInsurance",
+        $.ajax({ url: "newclaim/insurance",
             data: JSON.stringify(d),
             //type、contentType必填,指明传参方式
             type: "POST",
@@ -134,22 +163,23 @@ $(document).ready(function(){
                     alert("nice");
                     main.step = main.step+1;
                     main.isSearch = 777;
-                    alert("nice");
                     // main.info = JSON.parse(response);
-
                 }
                 else{
                     main.isSearch = 222;
-                    alert("fuck");
                 }
-            } });
+            },
+            error:function(jqXHR){
+                console.log("Error："+ jqXHR.status);
+            }
+
+        });
     });
 
 
     $("#submit").click(function (){
         var info = main.claimSubmit;
         var isCorrect = true;
-
 
         /*   验证是否为空   */
         if(!info.itemType){
@@ -208,7 +238,7 @@ $(document).ready(function(){
         d.itemDescription = info.itemDescription;
         d.contactEmail = info.contactEmail;
 
-        $.ajax({ url: "/dev/upload/UpLoadClaimItemInfo",
+        $.ajax({ url: "newclaim/ClaimItemInfo",
             data: JSON.stringify(d),
             //type、contentType必填,指明传参方式
             type: "POST",
@@ -222,14 +252,16 @@ $(document).ready(function(){
                     main.isSearch = 777;
                     main.result.claimOrderNum = main.claimOrder.claimOrderNum;
                     getClaimPrice();
-                    alert("nice");
                 }
                 else{
                     main.isSearch = 222;
-                    alert("fuck");
                 }
 
-            } });
+            },
+            error:function(jqXHR){
+                alert("Error："+ jqXHR.status);
+            }
+        });
 
     });
 
@@ -255,7 +287,7 @@ function initFileInput(ctrlName) {
     var control = $('#' + ctrlName);
     control.fileinput({
         language: 'zh', //设置语言
-        uploadUrl: "/dev/upload/UpLoadImage", //上传的地址
+        uploadUrl: "newclaim/image", //上传的地址
         allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
         uploadExtraData:function(){//向后台传递参数
             var extraInfo={
@@ -274,10 +306,10 @@ function initFileInput(ctrlName) {
         maxFileCount: 5, //允许同时上传的最大文件个数
         enctype: 'multipart/form-data',
         validateInitialCount:true,
-        msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+        msgFilesTooMany: "Max number of Files({n}) Current number of Files{m}！"
 
     }).on('filepreupload', function(event, data, previewId, index) {     //上传中
-        console.log('文件正在上传');
+        console.log('File is uploading');
     }).on("fileuploaded", function (event, data, previewId, index) {    //一个文件上传成功
         var form = data.form, files = data.files, extra = data.extra,
             response = data.response, reader = data.reader;
@@ -285,7 +317,7 @@ function initFileInput(ctrlName) {
         console.log(response.status);//打印出路径
         main.claimSubmit.hasPhoto = response.hasPhoto;
     }).on('fileerror', function(event, data, msg) {  //一个文件上传失败
-        console.log('文件上传失败！'+data.status);
+        console.log('upload failed！'+data.status);
     })
 };
 

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#1d2d44">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/images/favicon-touch.png">
+    <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <!--    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">-->
+    <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
+    <a class="navbar-brand" href="#">Hibernia-Sino</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/dashboard#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/claims#">Claim</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/customer#">Customers</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/employee/admin/product#">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+        </ul>
+        <li class="navbar-nav dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" id="langDrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Languages
+            </a>
+            <div class="dropdown-menu" aria-labelledby="langDrop">
+                <a class="dropdown-item" href="?lang=en-US">English</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="?lang=zh-CN">Chinese</a>
+            </div>
+        </li>
+        <ul class="navbar-nav">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Sign out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row row-offcanvas row-offcanvas-right" id="left-nav-bar">
+        <p class="pull-left visible-xs" style="margin-top: 5px;">
+            <button type="button" class="btn btn-sm" data-toggle="offcanvas" style="background-color: #1c2331;color: #e5f2fa">Side</button>
+        </p>
+        <nav class="col-md-3 col-lg-2 bg-light sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-sticky">
+
+                <ul class="nav flex-column mb-2">
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/employee/admin/product#" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            Back to Claims
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" id="main">
+        <br/>
+        <br/>
+        <h2>Insurance detail</h2>
+
+        <br/>
+        <br/>
+        <br/>
+        <h2>Indemnification standard</h2>
+        <br/>
+        <br/>
+        <br/>
+
+
+    </div>
+
+
+</div>
+
+<script type="text/javascript" src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!--<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>-->
+<script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
+
+</body>
+</html>
+>
