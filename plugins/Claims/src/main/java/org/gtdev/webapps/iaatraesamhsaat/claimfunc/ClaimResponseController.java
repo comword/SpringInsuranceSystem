@@ -1,7 +1,13 @@
 package org.gtdev.webapps.iaatraesamhsaat.claimfunc;
 
+import lombok.Data;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsuranceClaimRepository;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsurancePolicyRecordRepository;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.CustomerDetails;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsurancePolicyRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -14,42 +20,76 @@ import java.util.*;
 
 @Controller
 public class ClaimResponseController {
+    @Autowired
+    private InsurancePolicyRecordRepository insurancePolicyRecordRepository;
+
+    @Autowired
+    private InsuranceClaimRepository insuranceClaimRepository;
+
     private Logger log= LoggerFactory.getLogger(ClaimResponseController.class);
-    /*    返回JSON
-            {firstName:''},
-            {lastName:''},
-            {zipCode:''},
-            {policyNum:''},
-            {phone:''}
-       传回JSON
-       */
+
+    @Data
+    private static class insuranceRequest {
+        private String firstName, lastName, policyNum, phone;
+    }
+
     @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.POST)
     @ResponseBody
-    public String search(@RequestBody Map<String, Object> map1) throws JSONException {
+    public String search(@RequestBody insuranceRequest req) throws JSONException {
+        log.info("Searching insurance: " + req.toString());
         JSONObject result = new JSONObject();
-//      这个是数据搜寻是否成功
-        result.put("message", "更新成功了");
-        result.put("resCode", "777");//随便定义的响应参数
-//        result.put("resCode","222");              //随便定义的响应参数
+        Optional<InsurancePolicyRecord> ipr = insurancePolicyRecordRepository.findById(req.getPolicyNum());
+        if(!ipr.isPresent()){
+            result.put("message", "The insurance policy record was not found, please try again.");
+            result.put("resCode", "-2100");
+        } else {
+            // Check customer's name
+            CustomerDetails details = ipr.get().getCustomer();
+            if(!details.getFirstName().equals(req.getFirstName()) || !details.getLastName().equals(req.getLastName())) {
+                result.put("message", "The insured individual in policy record has a different name, please try again.");
+                result.put("resCode", "-2101");
+                return result.toString();
+            }
+            result.put("startDate", ipr.get().getStartDatetime());
+            result.put("endDate", ipr.get().getEndDatetime());
+            result.put("destination", ipr.get().getDestination());
 
-//      这个是保单信息
-        result.put("startDate", "2019-03-29");
-        result.put("endDate", "2019-03-30");
-        result.put("destination", "Ireland");
-        result.put("method", "legal heir");
-//      这个是详细信息
-        result.put("name", "Xinchi Feng");
-        result.put("certificate", "identification card");
-        result.put("birthDay", "1998-02-20");
-        result.put("phone", "18645068587");
-        result.put("country", "China");
-        result.put("zipCode", "100777");
+            result.put("name", details.getFirstName()+";"+details.getLastName());
+            result.put("idNum", details.getIdNumber());
+            result.put("phone", req.getPhone());
+            result.put("country", details.getCountryStr());
+            result.put("email", details.getUser().getEmail());
+            result.put("city", details.getProvince());
 
-        result.put("gender", "male");
-        result.put("certificateNum", "230103199802200919");
-        result.put("email", "1300358325@qq.com");
-        result.put("city", "Beijing");
+            result.put("resCode", 0);
+            result.put("message", "OK");
+
+            result.put("idType", "ID card");
+            result.put("birthDay", "1992-10-21");
+            result.put("gender", "Male");
+        }
         return result.toString();
+//        result.put("message", "OK");
+//        result.put("resCode", "777");
+////        result.put("resCode","222");
+//
+//        result.put("startDate", "2019-03-29");
+//        result.put("endDate", "2019-03-30");
+//        result.put("destination", "Ireland");
+//        result.put("method", "legal heir");
+
+//        result.put("name", "fffffff");
+//        result.put("idType", "ID card");
+//        result.put("birthDay", "1992-10-21");
+//        result.put("phone", "18611111111");
+//        result.put("country", "China");
+//        result.put("zipCode", "100000");
+//
+//        result.put("gender", "male");
+//        result.put("idNum", "123131312313131321");
+//        result.put("email", "test0@hibernia-sino.com");
+//        result.put("city", "Beijing");
+//        return result.toString();
     }
 
     @RequestMapping(value = "/claim/newclaim/image", method = RequestMethod.POST)
@@ -89,7 +129,7 @@ public class ClaimResponseController {
 
 //      这个是数据搜寻是否成功
         result.put("message", "更新成功了");
-        result.put("resCode", "777");             //随便定义的响应参数
+        result.put("resCode", 0);             //随便定义的响应参数
 //        result.put("resCode","222");              //随便定义的响应参数
 
 //      这个是保单索赔信息 要与保险单号关联

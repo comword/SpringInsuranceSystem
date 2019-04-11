@@ -11,12 +11,12 @@ import java.util.List;
 @Entity
 public class InsurancePolicyRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(nullable = false, length = 20)
+    private String id;
 
     @ManyToOne(optional = false)
     @JoinColumn
-    private AppUser user;
+    private CustomerDetails customer;
 
     @ManyToOne(optional = false)
     @JoinColumn
@@ -38,4 +38,8 @@ public class InsurancePolicyRecord {
     @NotBlank
     @Column(nullable = false)
     private float totalPaid;
+
+    @NotBlank
+    @Column(nullable = false, length = 20)
+    private String destination;
 }

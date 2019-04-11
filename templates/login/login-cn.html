@@ -23,13 +23,19 @@
             本应用程序需要浏览器的JavaScript支持. 请访问<a href="http://enable-javascript.com/" target="_blank" rel="noreferrer">此网页</a>开启JavaScript，并刷新此页面.</div>
     </div>
 </noscript>
-<form class="form-signin">
+<form class="form-signin" id="form-signin">
     <div class="text-center mb-4">
         <h1>Hibernia-Sino</h1>
     </div>
     <div class="text-center mb-4">
         <h1>登录</h1>
     </div>
+    <p v-if="errors.length">
+        <b>请检查以下错误：</b>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
+    </ul>
+    </p>
     <div class="form-label-group mb-4">
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="loginForm.username" required autofocus>
         <label for="inputEmail">电子邮件</label>

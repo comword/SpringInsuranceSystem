@@ -92,9 +92,6 @@ public class AppUser {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<CustomerPayment> payments;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<InsurancePolicyRecord> insurancePolicies;
-
     @Column(length = 100)
     private String avatarPath;
 }

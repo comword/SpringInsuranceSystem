@@ -1,5 +1,6 @@
 $.getScript('/js/md5.min.js');
-let app_token;
+$.getScript('/js/login/translation-cn.js');
+let app_lang;
 function setInvalid(id){
     $(id).removeClass("is-valid")
     $(id).addClass("is-invalid")
@@ -20,7 +21,6 @@ window.onload = function() {
                 rem: false,
                 token: ''
             },
-            lang: '',
             errors: []
         },
         mounted: function () {
@@ -30,7 +30,7 @@ window.onload = function() {
                 method: 'GET',
                 success: function (data) {
                     self.loginForm.token = data["token"];
-                    self.lang = data["lang"];
+                    app_lang = data["lang"];
                 },
                 error: function (error) {
                     console.log(error);
@@ -39,6 +39,7 @@ window.onload = function() {
         },
         methods: {
             login: function () {
+                this.errors = [];
                 let failed = false;
                 if (!this.loginForm.username) {
                     setInvalid('#inputUsername');
@@ -67,15 +68,12 @@ window.onload = function() {
                                 window.location.replace(data.redirect);
                             else
                                 window.location.replace("/");
-                        } else if(data.rescode===-1002) { // BadCredentials
-
-                        } else if(data.rescode===-1003) { // UsernameNotFound
-
-                        }
+                        } else
+                            self.errors.push(_T(data.errmsg));
                     },
                     error: function (error) {
                         let err = JSON.parse(error.responseText);
-                        self.errors.push(err.errmsg);
+                        self.errors.push(_T(err.errmsg));
                         switch (err.errcode) {
                             case -1001:
                                 location.reload();

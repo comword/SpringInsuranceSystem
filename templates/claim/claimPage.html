@@ -147,10 +147,10 @@
                         <div class="marginUnder"><h1 class="text-md-center">Your insurance policy</h1></div>
                         <div class="container-fluid form-body">
                             <transition name="fade">
-                                <div class="col-xs-8 form-group row" v-show="isSearch===222">
-                                    <div  class="alert alert-danger col-center-block">
-                                        <strong>The insurance was not found!</strong> Please reenter the information
-                                    </div>
+                                <div class="col-xs-8 form-group row" v-if="errors.length">
+                                    <ul class="list-group col-center-block col-md-11">
+                                        <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
+                                    </ul>
                                 </div>
                             </transition>
                             <form class="needs-validation" novalidate>
@@ -169,15 +169,6 @@
                                         <input v-model="submit.lastName" type="text" class="form-control  col-xs-8 col-md-12" id="lastName" placeholder="Enter Last Name" required>
                                         <div class="invalid-feedback" style="width: 100%;">
                                             Please enter a valid last name
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label col-xs-8 col-md-3" for="zipCode">Zip Code:</label>
-                                    <div class="col-md-8">
-                                        <input v-model="submit.zipCode" type="text" class="form-control  col-xs-8 col-md-12" id="zipCode" placeholder="Enter Zip Code" required>
-                                        <div class="invalid-feedback">
-                                            Please enter a valid zip code
                                         </div>
                                     </div>
                                 </div>
@@ -237,13 +228,13 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <!--<div class="dateStart">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Start Data:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Start date:</div>
                                                 <div  class="infMargin col-md-4" >{{ info.startDate }}</div>
                                             </div>
                                             <div class="row">
                                                 <!--</div>-->
                                                 <!--<div class="dateEnd">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-3">End Date:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">End date:</div>
                                                 <div class="infMargin col-md-4">{{ info.endDate }}</div>
                                                 <!--</div>-->
                                             </div>
@@ -280,9 +271,9 @@
 
                                             <div class="row">
                                                 <div class="infMargin insurnInf col-xs-12 col-md-2">Type:</div>
-                                                <div class="infMargin col-xs-12 col-md-4">{{ info.certificate }}</div>
+                                                <div class="infMargin col-xs-12 col-md-4">{{ info.idType }}</div>
                                                 <div class="infMargin insurnInf col-xs-12 col-md-2">Number:</div>
-                                                <div class="infMargin col-xs-12 col-md-4">{{ info.certificateNum }}</div>
+                                                <div class="infMargin col-xs-12 col-md-4">{{ info.idNum }}</div>
                                             </div>
                                             <div class="row">
                                                 <div class="infMargin insurnInf col-xs-12 col-md-2">Birthday:</div>
@@ -330,7 +321,7 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-xs-8 col-md-3" for="itemType">Item Type:</label>
                                         <div class="col-md-8">
-                                            <select v-model="claimSubmit.itemType" class=" form-control custom-select col-xs-8 col-md-12" id="itemType" required>
+                                            <select v-model="claimSubmit.itemType" class="form-control browser-default custom-select" id="itemType" required>
                                                 <option selected value="cloth">cloth</option>
                                                 <option value="digital-product">digital product</option>
                                                 <option value="document">document</option>

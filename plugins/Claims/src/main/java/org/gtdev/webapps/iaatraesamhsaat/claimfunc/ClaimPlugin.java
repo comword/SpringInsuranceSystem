@@ -4,8 +4,6 @@ import org.pf4j.Extension;
 import org.pf4j.PluginWrapper;
 import org.pf4j.spring.SpringPlugin;
 import org.pf4j.spring.SpringPluginManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -41,7 +39,7 @@ public class ClaimPlugin extends SpringPlugin {
         @Override
         public List<Object> mvcControllers() {
             return new ArrayList<Object>() {{
-                add(new NewClaimController());
+                add(new NewClaimPageController());
                 add(new ClaimResponseController());
             }};
         }

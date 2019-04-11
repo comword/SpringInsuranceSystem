@@ -76,10 +76,8 @@ body {
 /*
 * Content
 */
-
 [role="main"] {
   padding-top: 48px; /* Space for fixed navbar */
-  margin-top: 75px;
 }
 
 /*
@@ -139,6 +137,7 @@ chartjs-render-monitor{
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
+    z-index: 1;
   }
 }
 

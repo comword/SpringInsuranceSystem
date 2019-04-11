@@ -13,7 +13,7 @@
 
 <title>Employee Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
-<!--    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">-->
+    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">
     <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
     <style type="text/css">/* Chart.js */
     @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
@@ -21,6 +21,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
+    <button class="navbar-toggler btn btn-flat btn-md" type="button" data-toggle="offcanvas" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle sidebar">
+        Side
+    </button>
     <a class="navbar-brand" href="#">Hibernia-Sino</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -61,15 +64,13 @@
     </div>
 </nav>
 
-
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-right" id="left-nav-bar">
-        <p class="pull-left visible-xs" style="margin-top: 5px;">
-            <button type="button" class="btn btn-sm" data-toggle="offcanvas">Side</button>
-        </p>
-        <nav class="col-md-3 col-lg-2 bg-light sidebar-offcanvas" id="sidebar">
+<!--        <p class="pull-left visible-xs" style="margin-top: 5px;">-->
+<!--            <button type="button" class="btn btn-sm" data-toggle="offcanvas">Side</button>-->
+<!--        </p>-->
+        <nav class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar">
             <div class="sidebar-sticky">
-
                 <ul class="nav flex-column" data-spy="affix" >
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
@@ -77,7 +78,6 @@
                             Dashboard
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="#claim_table">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
@@ -148,19 +148,23 @@
         </nav>
     </div>
 
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-
-            <h5 id="chart"></h5>
-
-            <h1 class="text-left">Dashboard</h1>
-            <h4 class="text-right" style=";color: #20c997"><small>Welcome to Hibernia-Sino Admin System!</small></h4>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+            <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
             </div>
-            <h5><small>Claims received per day (last week)</small></h5>
-            <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="1138" height="480" style="display: block; width: 1138px; height: 480px;"></canvas>
-
-        </main>
+            <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+            </div>
+        </div>
+        <h5 id="chart"></h5>
+        <h1 class="text-left">Dashboard</h1>
+        <h4 class="text-right" style=";color: #20c997"><small>Welcome to Hibernia-Sino Admin System!</small></h4>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        </div>
+        <h5><small>Claims received per day (last week)</small></h5>
+        <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="1138" height="480" style="display: block; width: 1138px; height: 480px;"></canvas>
+    </main>
 
 
 
@@ -168,7 +172,7 @@
 <script type="text/javascript" src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script type="text/javascript" src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<!--<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>-->
+<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>
 <script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
 <script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
 <script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>

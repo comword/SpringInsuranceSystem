@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 @Entity
@@ -45,4 +46,15 @@ public class CustomerDetails {
     @NotBlank
     @Column(nullable = false, length = 10)
     private String zipCode;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<InsurancePolicyRecord> insurancePolicies;
+
+    public String getCountryStr() {
+        if(province.startsWith("CN"))
+            return "China";
+        else if(province.startsWith("IE"))
+            return "Ireland";
+        return "";
+    }
 }

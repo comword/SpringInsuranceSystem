@@ -1,3 +1,4 @@
+$.getScript('/js/claim/translation-cn.js');
 let app_lang;
 Vue.component('navbar-indicator', {
     props: ['username'],
@@ -22,11 +23,10 @@ var main = new Vue({
         html: "wait",
         test: message,
         info: "",
-        isSearch: 0,
+        errors: [],
         submit: [
             {firstName:''},
             {lastName:''},
-            {zipCode:''},
             {policyNum:''},
             {phone:''}
         ],
@@ -98,10 +98,9 @@ $(document).ready(function(){
         }
     });
     $("#search").click(function (){
+        main.errors = [];
         var info = main.submit;
         var isCorrect = true;
-
-        /*   验证是否为空   */
         if(!info.firstName){
            isCorrect=false;
             main.setInvalid('#firstName');
@@ -115,13 +114,6 @@ $(document).ready(function(){
         }
         else{
             main.removeInvalid('#lastName');
-        }
-        if(!info.zipCode){
-            isCorrect=false;
-            main.setInvalid('#zipCode');
-        }
-        else{
-            main.removeInvalid('#zipCode');
         }
         if(!info.policyNum){
             isCorrect=false;
@@ -137,10 +129,6 @@ $(document).ready(function(){
         }
         else{
             main.removeInvalid('#phone');
-        }
-        if(!isCorrect){
-            main.isSearch = 0;
-            return;
         }
 
         /*   查询数据库保险信息   */
@@ -159,23 +147,17 @@ $(document).ready(function(){
             success: function(response){
                 main.info = new Function("return" + response)();
                 //前端调用成功后，可以处理后端传回的json格式数据。
-                if(main.info.resCode==="777"){
-                    alert("nice");
-                    main.step = main.step+1;
-                    main.isSearch = 777;
-                    // main.info = JSON.parse(response);
-                }
-                else{
-                    main.isSearch = 222;
-                }
+                if(main.info.resCode===0) {
+                    main.step = main.step + 1;
+                } else
+                    main.errors.push(_T(main.info.message));
             },
             error:function(jqXHR){
-                console.log("Error："+ jqXHR.status);
+                console.log("Error: "+ jqXHR.status);
             }
 
         });
     });
-
 
     $("#submit").click(function (){
         var info = main.claimSubmit;
@@ -226,11 +208,8 @@ $(document).ready(function(){
         else{
             main.claimSubErr = 0;
         }
-        if(!isCorrect){
+        if(!isCorrect)
             return;
-        }
-
-
         var d = {};
         d.itemType = info.itemType;
         d.itemName = info.itemName;
@@ -246,39 +225,20 @@ $(document).ready(function(){
             success: function(response){
                 main.claimOrder = new Function("return" + response)();
                 //前端调用成功后，可以处理后端传回的json格式数据。
-                if(main.claimOrder.resCode==="777"){
-                    alert("nice");
+                if(main.claimOrder.resCode===0){
                     main.step = main.step+1;
-                    main.isSearch = 777;
                     main.result.claimOrderNum = main.claimOrder.claimOrderNum;
                     getClaimPrice();
                 }
-                else{
-                    main.isSearch = 222;
-                }
-
             },
             error:function(jqXHR){
-                alert("Error："+ jqXHR.status);
+                console.log("Error: "+ jqXHR.status);
             }
         });
 
     });
 
-
-
-
-
-
-
 });
-
-
-
-
-
-
-
 
 $(function () {
     initFileInput("input-id");

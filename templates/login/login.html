@@ -31,6 +31,12 @@
     <div class="text-center mb-4">
         <h1>Sign in</h1>
     </div>
+    <p v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-danger" v-for="error in errors">{{ error }}</li>
+    </ul>
+    </p>
     <div class="form-label-group mb-4">
         <input v-on:keyup.enter="login" type="text" id="inputUsername" class="form-control" placeholder="Username or email address" v-model="loginForm.username" required autofocus>
         <label for="inputUsername">Username or email address</label>

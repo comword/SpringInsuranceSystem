@@ -69,3 +69,6 @@ INSERT INTO `app_user` (`id`, `display_name`, `email`, `last_login`, `password`,
 INSERT INTO `user_group` (`appuser_id`, `appgroup_id`) VALUES ('1', '1');
 INSERT INTO `user_group` (`appuser_id`, `appgroup_id`) VALUES ('2', '2');
 
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('1', NULL, 'Luggage insurance', '旅游行李险', '旅游行李险', 'Luggage insurance');
+INSERT INTO `insurance_policy_record` (`id`, `destination`, `end_datetime`, `start_datetime`, `total_paid`, `customer_id`, `insurance_product_id`) VALUES ('1', 'Ireland', '2019-06-01 00:00:00', '2019-03-01 00:00:00', '1234', '1', '1');
+
