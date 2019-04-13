@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-if="http://www.w3.org/1999/xhtml"
+      xmlns:v-show="http://www.w3.org/1999/xhtml" xmlns:v-html="http://www.w3.org/1999/xhtml"
+      xmlns:v-model="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>step1</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/claim/claimTrack.css}" href="../../static/css/claim/claimTrack.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/MDB/css/mdb.css}" href="../../static/libs/MDB/css/mdb.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/fileUpload/css/fileinput.css}" href="../../static/libs/fileUpload/css/fileinput.css" media="all" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+
+
+
+<script>
+    let navbar_indicator_template =
+        '<ul class="navbar-nav nav-flex-icons">' +
+        '<li class="nav-item avatar dropdown">' +
+        '<a class="nav-link dropdown-toggle" id="avatarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+        '{{username}}' +
+        '<img v-bind:src="avatarPath" style="width: 40px;height: 40px; margin-left: 5px;" class="rounded-circle z-depth-0" alt="avatar image">' +
+        '</a>' +
+        '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="avatarDropdown">' +
+        '<a class="dropdown-item" href="#">Dashboard</a>' +
+        '<a class="dropdown-item" href="#">Profile</a>' +
+        '<div class="dropdown-divider"></div>' +
+        '<a class="dropdown-item" href="/logout">Logout</a>' +
+        '</div>' +
+        '</li>' +
+        '</ul>';
+</script>
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" id="menu-nav">
+    <a class="navbar-brand navbar-left"  href="#"><img class="img-logo" th:src="@{/images/Hibernia-Sino-logo.png}"></a>
+    <a class="navbar-brand " href="#" style="color: black">Hibernia-Sino</a>
+    <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#insurance">Insurance</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#claim">Claim</a>
+                </li>
+            </ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" style="color: black" aria-haspopup="true" aria-expanded="false">
+                    Features
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-header">Insurance</div>
+                    <a href="#feature-tab" class="dropdown-item">Fast</a>
+                    <a href="#feature-tab" class="dropdown-item">Cheap</a>
+                    <a href="#feature-tab" class="dropdown-item">Convenient</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-header">Claim</div>
+                    <a href="#feature-tab" class="dropdown-item">Cheap</a>
+                    <a href="#feature-tab" class="dropdown-item">Convenient</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="color: black">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" style="color: black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Language
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a href="?lang=en-US" class="dropdown-item">English</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="?lang=zh-CN" class="dropdown-item">Chinese</a>
+                </div>
+            </li>
+        </ul>
+        <navbar-indicator v-bind:username="username"></navbar-indicator>
+    </div>
+</nav>
+
+
+
+<div class="main-whole">
+    <div class="main-page col-xs-8 col-md-8 ">
+        <div class="text-center title-div">
+            <h1 id="claim-title">Track</h1>
+            <h3>In order to use this service, you have to complete these processes.</h3>
+        </div>
+<hr>
+
+
+        <!-- Card -->
+        <div class="card">
+
+            <!-- Card image -->
+            <div class="view overlay">
+                <img class="card-img-top img-fluid" style=" width:100%; height: 200px" src="/images/claim/claimTrack/claimTrack.jpg" alt="Card image cap ">
+                <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+            <!-- Card content -->
+            <div class="card-body row flex-center">
+                <div class="col-md-12">
+                <!-- Title -->
+                <h4 class="card-title">Track Claim</h4>
+                </div>
+                <!-- Text -->
+                <div class=" col-md-6">
+                <div class="md-form md-outline">
+                    <i class="fas fa-scroll prefix"></i>
+                    <label for="policyNumber1" >Policy Order</label>
+                    <input v-model="submit.claimOrderNum" type="text" id="policyNumber1" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid policy number.
+                    </div>
+                    <transition name="fade">
+                        <div class="col-xs-8 form-group row" v-show="errors.length>=1">
+                            <ul class="list-group col-center-block col-md-11">
+                                <li class="list-group-item list-group-item-danger">{{ errors }}</li>
+                            </ul>
+                        </div>
+                    </transition>
+                </div>
+                </div>
+                <!-- Button -->
+                <div class="searchDiv">
+                    <button id="search" class="btn btn-light-blue btn-md">Search</button>
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- Card -->
+
+
+
+
+        <!--<div class="row flex-center">-->
+            <!--<div class=" col-md-6">-->
+            <!--<div class="md-form md-outline">-->
+                <!--<i class="fas fa-scroll prefix"></i>-->
+                <!--<label for="policyNumber" >Policy Order</label>-->
+                <!--<input type="text" id="policyNumber" class="form-control">-->
+                <!--&lt;!&ndash;<small id="emailHelp2" class="form-text text-muted">Using this to track your claim</small>&ndash;&gt;-->
+            <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row flex-center">-->
+            <!--<div class="col-md-4">-->
+            <!--<button class="btn btn-light-blue btn-md">Search</button>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <!-- Card -->
+        <transition name="fade">
+        <div class="card weather-card margin-Fxc" v-show="claimOrder.resCode==='0'">
+            <!-- Card content -->
+            <div class="card-body pb-3">
+                <!-- Title -->
+                <h4 class="card-title font-weight-bold">{{claimOrder.claimOrderNum}}</h4>
+                <!-- Text -->
+                <p class="card-text">{{nowTime}}</p>
+                <div class="d-flex justify-content-between">
+                    <h1  v-bind:class="color">{{title}}</h1>
+                    <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
+                </div>
+                <div class="d-flex justify-content-between mb-4">
+                    <p><i class="fas fa-hourglass-start fa-lg text-info pr-2"></i>7 Days</p>
+                </div>
+                <div class="progress md-progress" >
+                    <div class="progress-bar black" role="progressbar" v-bind:style="{ 'width': (claimOrder.step-1)/3*100+'%' }" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
+                    <li class="pl-4">First</li>
+                    <li>Second</li>
+                    <li>Third</li>
+                    <li class="pr-4">Fourth</li>
+                </ul>
+                <div class="collapse-content">
+                    <div class="collapse" id="collapseExample">
+                        <!-- Vertical Steppers -->
+                        <div class="row mt-1">
+                            <div class="col-md-12">
+                                <!-- Stepers Wrapper -->
+                                <ul class="stepper stepper-vertical">
+                                    <!-- First Step -->
+                                    <li v-bind:class="{'completed': claimOrder.step>'1'}" >
+                                        <a class="readless" href="#!">
+                                            <span class="circle">1</span>
+                                            <span class="label">Submitted</span>
+                                        </a>
+                                    </li>
+                                    <!-- Second Step -->
+                                    <li v-bind:class="{'completed': claimOrder.step>'2','active': claimOrder.step==='2'}" >
+                                        <!--Section Title -->
+                                        <a class="readless" href="#!">
+                                            <span class="circle">2</span>
+                                            <span class="label">Under Review</span>
+                                        </a>
+                                        <!-- Section Description -->
+                                        <div v-show="claimOrder.step==='2'" class="step-content grey lighten-3">
+                                            <p>The employee is currently reviewing the claim.A reply is expected three days from the date of submitting the claim.</p>
+                                            <p>1.The company may need more information from you.</p>
+                                            <p>2.The company notifies the approval or rejects the claim.</p>
+                                        </div>
+                                    </li>
+                                    <!-- Third Step -->
+                                    <!--<li class="warning">-->
+                                        <!--<a class="readless" href="#!">-->
+                                            <!--<span class="circle"><i class="fas fa-exclamation"></i></span>-->
+                                            <!--<span class="label">Extra Information</span>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                    <li v-bind:class="{'completed': claimOrder.step>'3','active': claimOrder.step==='3','warning': claimOrder.step==='3'} ">
+                                        <a class="readless" href="#!">
+                                            <span class="circle">3</span>
+                                            <span class="label">Extra Information</span>
+                                        </a>
+                                        <div v-show="claimOrder.step==='3'" class="step-content">
+                                            <p class="note note-warning"><strong>Note warning:</strong>
+                                                Company employees cannot determine whether to approve a claim based on this information alone.
+                                                So please provide more information to help us review the claim.</p>
+
+                                        </div>
+                                    </li>
+                                    <!-- Fourth Step -->
+                                    <li v-bind:class="{'active': claimOrder.step==='4'}">
+                                        <a class="readless" href="#!">
+                                            <span class="circle">4</span>
+                                            <span class="label">Finish</span>
+                                        </a>
+                                        <p v-show="claimOrder.result==='success'&&claimOrder.step==='4'" class="note note-success"><strong>Congratulation:</strong>
+                                            We have decided to approve this claim. Congratulations, your claim has been successful.The compensation will be sent to your bank card within three days.</p>
+                                        <p v-show="claimOrder.result!=='success'&&claimOrder.step==='4'" class="note note-danger"><strong>Regret:</strong>
+                                            We are very sorry that we have decided to reject this claim due to inaccurate claim information</p>
+                                    </li>
+
+                                </ul>
+                                <!-- /.Stepers Wrapper -->
+                            </div>
+                        </div>
+                        <!-- /.Vertical Steppers -->
+                    </div>
+                    <hr class="">
+                    <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 deep-purple-text collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+                </div>
+            </div>
+        </div>
+        <!-- Card -->
+        </transition>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="page-footer font-small cyan darken-3 pt-4">
+
+    <!-- Footer Elements -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">File Your Claim</h5>
+                <p>Start your claim online, or with the Hibernia-Sino® mobile web. You can also file your claim by calling 800-SF-CLAIM (800-732-5246) 24/7, or contact your agent, if you prefer.</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mb-md-0 mb-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">Payments</h5>
+                <p>Payments are based on the terms of your policy. State Farm may pay the repairer directly, send payments to your bank account, or send them to you by mail.</p>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+
+
+        <!-- Grid row-->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-12 py-5">
+                <div class="mb-5 flex-center">
+
+                    <!-- Facebook -->
+                    <a class="fb-ic">
+                        <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!-- Twitter -->
+                    <a class="tw-ic">
+                        <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!-- Google +-->
+                    <a class="gplus-ic">
+                        <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!--Linkedin -->
+                    <a class="li-ic">
+                        <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!--Instagram-->
+                    <a class="ins-ic">
+                        <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!--Pinterest-->
+                    <a class="pin-ic">
+                        <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+                    </a>
+                </div>
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row-->
+
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="#"> Group3: FG-TEAM</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+</body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var clause = [[#{claim.clause}]];
+    var message = [[${hello}]];
+    var stepBack = [[${step}]];
+    // console.log(message);
+
+    /*]]>*/
+</script>
+
+<script src="../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/libs/MDB/js/mdb.js}" src="../../static/libs/MDB/js/mdb.js"></script>
+<script src="../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<script src="../../static/js/vue-resource.min.js" th:src="@{/js/vue-resource.min.js}"></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/piexif.js}"  src="../../static/libs/fileUpload/js/plugins/piexif.js"></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/sortable.js}" src="../../static/libs/fileUpload/js/plugins/sortable.js"></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/fileinput.js}" src="../../static/libs/fileUpload/js/fileinput.js"  ></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/themes/fas/theme.js}" src="../../static/libs/fileUpload/themes/fas/theme.js" ></script>
+<script type="text/javascript" th:src="@{/js/claim/claimTrack.js}" src="../../static/js/claim/claimTrack.js"></script>
+</html>

@@ -23,4 +23,13 @@ public class NewClaimPageController {
             return "claim/claimPage";
     }
 
+    @GetMapping("/claim/claimTrack")
+    public String claimTrack(HttpServletRequest request) {
+        Locale l = localeResolver.resolveLocale(request);
+        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+            return "claim/claimTrack-cn";
+        else
+            return "claim/claimTrack";
+    }
+
 }

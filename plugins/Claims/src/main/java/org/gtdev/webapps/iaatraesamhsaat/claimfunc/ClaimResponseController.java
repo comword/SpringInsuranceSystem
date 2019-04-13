@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -33,6 +34,11 @@ public class ClaimResponseController {
         private String firstName, lastName, policyNum, phone;
     }
 
+    @Data
+    private static class claimRequest {
+        private String claimOrderNum;
+    }
+
     @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.POST)
     @ResponseBody
     public String search(@RequestBody insuranceRequest req) throws JSONException {
@@ -43,6 +49,7 @@ public class ClaimResponseController {
             result.put("message", "The insurance policy record was not found, please try again.");
             result.put("resCode", "-2100");
         } else {
+
             // Check customer's name
             CustomerDetails details = ipr.get().getCustomer();
             if(!details.getFirstName().equals(req.getFirstName()) || !details.getLastName().equals(req.getLastName())) {
@@ -97,12 +104,55 @@ public class ClaimResponseController {
     public Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile[] file) {
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("status", 400);
-        String phone =request.getParameter("phone");// 接受上传图片时的额外参数 对应 uploadExtraData:function()
-        System.out.println(phone);
+        String policyNum =request.getParameter("policyNum");// 接受上传图片时的额外参数 对应 uploadExtraData:function()
+        System.out.println(policyNum);
         if(file!=null&&file.length>0){
             //组合image名称，“;隔开”
             List<String> fileName =new ArrayList<String>();
             PrintWriter out = null;
+
+
+            try {
+                String[] typeImg={"gif","png","jpg"};
+                for(int k = 0; k < file.length; k++){
+                    if (!file[k].isEmpty()) {
+                        MultipartFile file1 = file[k];
+                        if(file1!=null){
+                            String origName=file1.getOriginalFilename();// 文件原名称
+                            System.out.println("上传的文件原名称:"+origName);
+                            // 判断文件类型
+                            String type=origName.indexOf(".")!=-1?origName.substring(origName.lastIndexOf(".")+1, origName.length()):null;
+                            if (type!=null) {
+                                boolean booIsType=false;
+                                for (int i = 0; i < typeImg.length; i++) {
+                                    if (typeImg[i].equals(type.toLowerCase())) {
+                                        booIsType=true;
+                                    }
+                                }
+                                //类型正确
+                                if (booIsType) {
+                                    //存放图片文件的路径
+                                    String path="D:\\tupian\\"+policyNum+"\\";
+                                    System.out.print("文件上传的路径"+path);
+                                    //组合名称
+                                    String fileSrc = path;
+                                    File targetFile=new File(fileSrc,origName);
+                                    //上传
+                                    if(!targetFile.exists()){
+                                        targetFile.getParentFile().mkdirs();//创建目录
+                                    }
+                                    System.out.println("完整路径:"+targetFile.getAbsolutePath());
+                                    file1.transferTo(targetFile);
+                                }
+                            }
+                        }
+                    }
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
             try {
                 resultMap.put("status", 200);
                 resultMap.put("message", "上传成功！");
@@ -135,6 +185,34 @@ public class ClaimResponseController {
 //      这个是保单索赔信息 要与保险单号关联
         result.put("claimOrderNum","816385292874222");
         return result.toString();
+
+    }
+    @RequestMapping(value="/claim/claimTrack/claimOrderNum",  method = RequestMethod.POST)
+    @ResponseBody
+    public String claimOrderNum(@RequestBody claimRequest req) throws JSONException {
+
+        JSONObject result = new JSONObject();
+//        result.put("resCode", 0);
+        log.info("Claim: " + req.toString());
+        if(req.claimOrderNum.equals("Fxck")){//如果没有找到索赔单号
+            result.put("resCode","-2002");
+            result.put("message","The claim order record was not found, please try again.");
+        }
+        else{//找到索赔单号
+            result.put("resCode","0");
+            result.put("claimOrderNum","FXC1904016666");//索赔单号
+//            result.put("step","2");//目前所在的阶段 审核中....
+//            result.put("step","3");             //目前所在的阶段 需要额外的信息
+            result.put("step","4");             //目前所在的阶段 成功或者失败
+            if(result.getString("step").equals("4")){
+                result.put("result","success");
+//                result.put("result","fail");
+            }
+        }
+        result.put("Fxc","fxck");
+        return result.toString();
     }
 }
+
+
 

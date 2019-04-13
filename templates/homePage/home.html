@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:https="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Hibernia-Sino Insurance Company</title>
@@ -15,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" href="../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">
     <link rel="stylesheet" type="text/css" href="../../static/css/homepage.css" th:href="@{/css/homepage.css}">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header>
@@ -38,7 +40,7 @@
             '</li>' +
             '</ul>';
     </script>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top  scrolling-navbar" role="navigation" id="menu-nav">
         <a class="navbar-brand navbar-left"  href="#"><img class="img-logo" src="/images/Hibernia-Sino-logo.png"/></a>
         <a class="navbar-brand" href="#">Hibernia-Sino</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +72,7 @@
         </div>
     </nav>
 </header>
-<div class="jumbotron" id="company" style="background-image: url(/images/homePage/slide6.jpg);" >
+<div class="jumbotron" id="company" style="background-image: url('images/homePage/newBackground.jpg');" >
     <div id = "company-screen" >
         <h1>Welcome to Hibernia Sino</h1>
         <p>A travel insurance company</p>
@@ -79,7 +81,13 @@
     </div>
 </div>
 
-<div id="ad-carousel" class="carousel slide" data-ride="carousel">
+
+
+
+
+
+
+<div id="ad-carousel" class="carousel slide carousel-fade margin-Fxc" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#ad-carousel" data-slide-to="0" class="active"></li>
         <li data-target="#ad-carousel" data-slide-to="1"></li>
@@ -87,7 +95,9 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/></svg>
+            <img class="d-block w-100" src="/images/homepage/newSlide1.jpg"
+                 alt="First slide">
+            <div class="mask rgba-black-light"></div>
             <div class="container">
                 <div class="carousel-caption text-left">
                     <h1>Example headline.</h1>
@@ -97,7 +107,9 @@
             </div>
         </div>
         <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/></svg>
+            <img class="d-block w-100" src="/images/homepage/newSlide1.jpg"
+                 alt="First slide">
+            <div class="mask rgba-black-light"></div>
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Another example headline.</h1>
@@ -107,7 +119,9 @@
             </div>
         </div>
         <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/></svg>
+            <img class="d-block w-100" src="/images/homepage/newSlide1.jpg"
+                 alt="First slide">
+            <div class="mask rgba-black-light"></div>
             <div class="container">
                 <div class="carousel-caption text-right">
                     <h1>One more for good measure.</h1>
@@ -127,48 +141,183 @@
     </a>
 </div>
 
-<div id="formEnter" class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-12">
-            <div class="caption">
-                <strong><h1>Travel Insurance</h1></strong>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-            <a href="#" class="thumbnail" v-on:mouseover="a=true" @mouseout="a=false" v-bind:class="{ 'enter-shadow': a}">
-                <img th:src="@{/images/homePage/people1.jpg}" style="height: 360px; width: 100%; display: block;" alt="">
-            </a>
-            <div class="caption text-center">
-                <h3>Travel Insurance</h3>
-                <p>We offer a quick method to have an insurance. An easy-to-understanding insurance description.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Purchase</a>
-                </p>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-            <a href="#" class="thumbnail" v-on:mouseover="b=true" @mouseout="b=false" v-bind:class="{ 'enter-shadow': b}">
-                <img alt="100%x180" th:src="@{/images/homePage/people2.jpg}" style="height: 360px; width: 100%; display: block;">
-            </a>
-            <div class="caption text-center">
-                <h3>Insurance Claim</h3>
-                <p>We offer a simple and fast way to claim and provide an easy-to-understand claim process map.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Go Claim</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<footer class="back">
-    <div class="text-center"><img class="center-block" style="height: 100px;" th:src="@{/images/Hibernia-Sino-logo-white.png}"></div>
-    <div class="text-center"><img style="height: 50px; width: 50px" th:src="@{/images/homePage/facebook.png}">
-        <img style="height: 50px; width: 50px" th:src="@{/images/homePage/twitter.png}">
-        <img style="height: 50px; width: 50px" th:src="@{/images/homePage/git.png}">
+<section class="margin-Fxc">
+
+    <!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-5">Travel Insurance</h2>
+    <!-- Section description -->
+    <p class="grey-text text-center w-responsive mx-auto mb-5">These are insurance services our company provide.</p>
+
+    <!--Grid row-->
+    <div class="card-deck row mx-1">
+
+
+    <!-- Card -->
+    <div class="card mb-4">
+
+        <!--Card image-->
+        <div class="view overlay">
+            <img class="card-img-top" src="/images/homePage/insurance.jpg" alt="Card image cap">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+
+        <!--Card content-->
+        <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title">Travel Insurance</h4>
+            <!--Text-->
+            <p class="card-text">We offer a quick method to have an insurance. An easy-to-understanding insurance description!</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-light-blue btn-md">PURCHASE</button>
+
+        </div>
+
     </div>
-    <h3>Contact Phones<br/>+44 186-4506-7431<br/>+86 147-4220-7617</h3>
+    <!-- Card -->
+
+    <!-- Card -->
+    <div class="card mb-4">
+
+        <!--Card image-->
+        <div class="view overlay">
+            <img class="card-img-top" src="/images/homePage/claim.jpg" alt="Card image cap">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+
+        <!--Card content-->
+        <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title">Insurance Claim</h4>
+            <!--Text-->
+            <p class="card-text">We offer a simple and fast way to claim and provide an easy-to-understand claim process map.</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-light-blue btn-md">GO CLAIM</button>
+
+        </div>
+
+    </div>
+    <!-- Card -->
+
+    <!-- Card -->
+    <div class="card mb-4">
+
+        <!--Card image-->
+        <div class="view overlay">
+            <img class="card-img-top" src="/images/homePage/track.jpg" alt="Card image cap">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+
+        <!--Card content-->
+        <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title">Claim Track</h4>
+            <!--Text-->
+            <p class="card-text">We offer a simple and fast way to claim and provide an easy-to-understand track claim process map.</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-light-blue btn-md">GO TRACK</button>
+
+        </div>
+
+    </div>
+    <!-- Card -->
+
+</div>
+<!-- Card deck -->
+</section>
+
+<footer class="page-footer font-small cyan darken-3 pt-4 margin-Fxc" >
+
+    <!-- Footer Elements -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">File Your Claim</h5>
+                <p>Start your claim online, or with the Hibernia-Sino® mobile web. You can also file your claim by calling 800-SF-CLAIM (800-732-5246) 24/7, or contact your agent, if you prefer.</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mb-md-0 mb-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">Payments</h5>
+                <p>Payments are based on the terms of your policy. State Farm may pay the repairer directly, send payments to your bank account, or send them to you by mail.</p>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+
+
+        <!-- Grid row-->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-12 py-5">
+                <div class="mb-5 flex-center">
+
+                    <!-- Facebook -->
+                    <a class="fb-ic">
+                        <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!-- Twitter -->
+                    <a class="tw-ic">
+                        <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!-- Google +-->
+                    <a class="gplus-ic">
+                        <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!--Linkedin -->
+                    <a class="li-ic">
+                        <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!--Instagram-->
+                    <a class="ins-ic">
+                        <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    </a>
+                    <!--Pinterest-->
+                    <a class="pin-ic">
+                        <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+                    </a>
+                </div>
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row-->
+
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="#"> Group3: FG-TEAM</a>
+    </div>
+    <!-- Copyright -->
+
 </footer>
+<!-- Footer -->
 <script src="../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
