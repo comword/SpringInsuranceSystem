@@ -53,21 +53,21 @@
             </ul>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" style="color: black" aria-haspopup="true" aria-expanded="false">
-                    Features
+                    特征
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <div class="dropdown-header">Insurance</div>
-                    <a href="#feature-tab" class="dropdown-item">Fast</a>
-                    <a href="#feature-tab" class="dropdown-item">Cheap</a>
-                    <a href="#feature-tab" class="dropdown-item">Convenient</a>
+                    <div class="dropdown-header">保险</div>
+                    <a href="#feature-tab" class="dropdown-item">快速</a>
+                    <a href="#feature-tab" class="dropdown-item">便宜</a>
+                    <a href="#feature-tab" class="dropdown-item">方便</a>
                     <div class="dropdown-divider"></div>
                     <div class="dropdown-header">Claim</div>
-                    <a href="#feature-tab" class="dropdown-item">Cheap</a>
-                    <a href="#feature-tab" class="dropdown-item">Convenient</a>
+                    <a href="#feature-tab" class="dropdown-item">便宜</a>
+                    <a href="#feature-tab" class="dropdown-item">方便</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: black">About</a>
+                <a class="nav-link" href="#" style="color: black">关于</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" style="color: black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -155,44 +155,35 @@
                             </transition>
                             <form class="needs-validation" novalidate>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-xs-8 col-md-3" for="firstName">First Name:</label>
+                                    <label class="col-form-label col-xs-8 col-md-3" for="firstName">名字:</label>
                                     <div class="col-md-8">
-                                        <input v-model="submit.firstName" type="text" class="form-control  col-xs-8 col-md-12" id="firstName" placeholder="Enter First Name" required>
+                                        <input v-model="submit.firstName" type="text" class="form-control  col-xs-8 col-md-12" id="firstName" placeholder="请输入名字" required>
                                         <div class="invalid-feedback" style="width: 100%;">
-                                            Please enter a valid first name
+                                            请提供一个有效的名字
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-xs-8 col-md-3" for="lastName">Last Name:</label>
+                                    <label class="col-form-label col-xs-8 col-md-3" for="lastName">姓氏:</label>
                                     <div class="col-md-8">
-                                        <input v-model="submit.lastName" type="text" class="form-control  col-xs-8 col-md-12" id="lastName" placeholder="Enter Last Name" required>
+                                        <input v-model="submit.lastName" type="text" class="form-control  col-xs-8 col-md-12" id="lastName" placeholder="请输入姓氏" required>
                                         <div class="invalid-feedback" style="width: 100%;">
-                                            Please enter a valid last name
+                                            请提供一个有效的姓氏
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-xs-8 col-md-3" for="zipCode">Zip Code:</label>
+                                    <label class="col-form-label col-xs-8 col-md-3" for="policyNum">保险单号:</label>
                                     <div class="col-md-8">
-                                        <input v-model="submit.zipCode" type="text" class="form-control  col-xs-8 col-md-12" id="zipCode" placeholder="Enter Zip Code" required>
+                                        <input v-model="submit.policyNum" type="text" class="form-control  col-xs-8 col-md-12" id="policyNum" placeholder="请输入保险单号" required>
                                         <div class="invalid-feedback">
-                                            Please enter a valid zip code
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label col-xs-8 col-md-3" for="policyNum">Policy Number:</label>
-                                    <div class="col-md-8">
-                                        <input v-model="submit.policyNum" type="text" class="form-control  col-xs-8 col-md-12" id="policyNum" placeholder="Enter Policy Number" required>
-                                        <div class="invalid-feedback">
-                                            Please enter a valid policy number
+                                            请提供一个有效的保险单号
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-form-label col-xs-8 col-md-3" for="phone">Phone Number:</label>
+                                    <label class="col-form-label col-xs-8 col-md-3" for="phone">电话号码:</label>
                                     <div class="col-md-8" style="display: flex;">
                                         <div class="input-group-prepend">
                                             <div class="dropdown">
@@ -211,53 +202,48 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input v-model="submit.phone" type="tel" class="form-control" id="phone"  placeholder="Phone number" required>
-                                        <div class="invalid-feedback" style="width: 100%;">
-                                            Please enter a valid phone number
-                                        </div>
+                                        <input v-model="submit.phone" type="tel" class="form-control" id="phone"  placeholder="电话号码" required>
+                                        <!--<div class="invalid-feedback" style="width: 100%;">-->
+                                        <!--请提供一个有效的电话号码-->
+                                    <!--</div>-->
                                     </div>
+
                                 </div>
                                 <div class="row" style="margin: 0px auto;display: table;">
-                                    <button id="search" class="btn btn-lg btn-primary step-button" type="button" >Search</button>
+                                    <button id="search" class="btn btn-lg btn-primary step-button" type="button" >查询</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div v-bind:class="{'active': step==3}" class="tab-pane" role="tabpanel" id="step3">
-                        <div class="marginUnder"> <h1 class="text-md-center">Confirm</h1></div>
+                        <div class="marginUnder"> <h1 class="text-md-center">确认信息</h1></div>
                         <div class="Fxc">
                             <div  id="accordion" >
                                 <div class="card">
                                     <div class="card-header bg-primary">
                                         <a class="card-link  text-white" data-toggle="collapse" href="#collapseOne">
-                                            Policy information
+                                            保险信息
                                         </a>
                                     </div>
                                     <div id="collapseOne" class="collapse show" data-parent="#accordion">
                                         <div class="card-body">
                                             <div class="row">
                                                 <!--<div class="dateStart">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Start Data:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">生效日期:</div>
                                                 <div  class="infMargin col-md-4" >{{ info.startDate }}</div>
                                             </div>
                                             <div class="row">
                                                 <!--</div>-->
                                                 <!--<div class="dateEnd">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-3">End Date:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">失效日期:</div>
                                                 <div class="infMargin col-md-4">{{ info.endDate }}</div>
                                                 <!--</div>-->
                                             </div>
 
                                             <div class="row">
                                                 <!--<div class="destination">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Destination:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-3">目的地:</div>
                                                 <div class="infMargin col-md-4">{{ info.destination }}</div>
-                                                <!--</div>-->
-                                            </div>
-                                            <div class="row">
-                                                <!--<div class="method">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Beneficiary:</div>
-                                                <div class="infMargin col-md-4">{{ info.method }}</div>
                                                 <!--</div>-->
                                             </div>
                                         </div>
@@ -266,43 +252,43 @@
                                 <div class="card">
                                     <div class="card-header bg-primary">
                                         <a class="collapsed card-link  text-white " data-toggle="collapse" href="#collapseTwo">
-                                            Policyholder information
+                                            投保人信息
                                         </a>
                                     </div>
                                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Name:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">姓名:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.name }}</div>
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Gender:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">性别:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.gender }}</div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Type:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">种类:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.idType }}</div>
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Number:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">号码:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.idNum }}</div>
                                             </div>
                                             <div class="row">
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Birthday:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">出生日期:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.birthDay }}</div>
                                             </div>
                                             <div class="row">
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Phone:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">电话号码:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.phone }}</div>
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Email:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">电子邮箱:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.email }}</div>
                                             </div>
                                             <div class="row">
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Country:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">国家:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.country }}</div>
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">City:</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">城市:</div>
                                                 <div class="infMargin col-xs-12 col-md-4">{{ info.city }}</div>
                                             </div>
                                             <div class="row">
-                                                <div class="infMargin insurnInf col-xs-12 col-md-2">Zip:</div>
-                                                <div class="infMargin col-xs-12 col-md-4">{{ info.zipCode }}</div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-2">邮编:</div>
+                                                <div class="infMargin col-xs-12 col-md-4">{{ info.zip }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -310,117 +296,119 @@
                             </div>
                         </div>
                         <div class="text-md-center ul-inf-button">
-                            <li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>
-                            <li class="col-md-4"><button type="button" v-on:click="step+=1" class="btn btn-lg btn-primary step-button">Next</button></li>
+                            <li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">返回</button></li>
+                            <li class="col-md-4"><button type="button" v-on:click="step+=1" class="btn btn-lg btn-primary step-button">确认</button></li>
                         </div>
 
                     </div>
                     <div v-bind:class="{'active': step==4}" class="tab-pane" role="tabpanel" id="step4">
-                        <div class="marginUnder"><h1 class="text-md-center">Your details</h1></div>
+                        <div class="marginUnder"><h1 class="text-md-center">填写信息</h1></div>
                         <div class="container-fluid form-body">
                             <transition name="fade">
                                 <div class="col-xs-8 form-group row" v-show="claimSubErr===222" >
                                     <div class="alert alert-danger" style="width: 100%;">
-                                        <strong>No photos!</strong> Please upload photos again.
+                                        <strong>没有上传照片</strong> 请重新上传！.
                                     </div>
                                 </div>
                             </transition>
                             <form class="needs-validation" novalidate>
                                 <div class="container-fluid">
                                     <div class="form-group row">
-                                        <label class="col-form-label col-xs-8 col-md-3" for="itemType">Item Type:</label>
-                                        <div class="col-md-8">
-                                            <select v-model="claimSubmit.itemType" class=" form-control custom-select col-xs-8 col-md-12" id="itemType" required>
-                                                <option selected value="cloth">cloth</option>
-                                                <option value="digital-product">digital product</option>
-                                                <option value="document">document</option>
-                                            </select>
-                                            <div class="invalid-feedback" style="width: 100%;">
-                                                Please enter a valid item type
-                                            </div>
+                                    <label class="col-form-label col-xs-8 col-md-3" for="itemType">物品种类:</label>
+                                    <div class="col-md-8">
+                                        <select class="form-control browser-default custom-select" id="itemType" required>
+                                            <option value="" disabled selected>选择物品种类</option>
+                                            <option selected value="cloth">衣服</option>
+                                            <option value="digital-product">数码产品</option>
+                                            <option value="document">重要文件</option>
+                                        </select>
+                                        <div class="invalid-feedback" style="width: 100%;">
+                                            请提供一个有效的物品种类
                                         </div>
                                     </div>
+                                    </div>
+
 
                                     <div class="form-group row">
-                                        <label class="col-form-label col-xs-8 col-md-3" for="itemName">Item Name:</label>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemName">物品名字:</label>
                                         <div class="col-md-8">
                                             <input v-model="claimSubmit.itemName" type="text" class="form-control  col-xs-8 col-md-12 " id="itemName" placeholder="Ipad Pro 11.9" required>
                                             <div class="invalid-feedback" style="width: 100%;">
-                                                Please enter a valid item name
+                                                请提供一个有效的物品名字
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-form-label col-xs-8 col-md-3" for="itemName">Item Price:</label>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemName">物品价格:</label>
                                         <div class="col-md-8">
                                             <input v-model="claimSubmit.itemPrice" type="text" class="form-control  col-xs-8 col-md-12 " id="itemPrice" placeholder="500/666.0/999.00" required>
                                             <div class="invalid-feedback" style="width: 100%;">
-                                                Please enter a valid item price
+                                                请提供一个有效的物品价格
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-form-label col-xs-8 col-md-3" for="itemDesc">Item Description:</label>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemDesc">物品描述:</label>
                                         <div class="col-md-8">
                                             <textarea  v-model="claimSubmit.itemDescription" class="form-control col-xs-8 col-md-12" id="itemDesc" placeholder="" required></textarea>
                                             <div class="invalid-feedback" style="width: 100%;">
-                                                Please enter a valid item describe
+                                                请提供一个有效的物品描述
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-form-label col-xs-8 col-md-3" for="itemEmail">Email:</label>
+                                        <label class="col-form-label col-xs-8 col-md-3" for="itemEmail">电子邮箱:</label>
                                         <div class="col-md-8">
                                             <input v-model="claimSubmit.contactEmail" type="email" class="form-control col-xs-8 col-md-12" id="itemEmail" placeholder="123@example.com" required>
                                             <div class="invalid-feedback" style="width: 100%;">
-                                                Please enter a valid email
+                                                请提供一个有效的电子邮箱
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row upload-file">
-                                    <label class="col-form-label col-md-4">Item Photo:</label>
+                                    <label class="col-form-label col-md-4">物品照片:</label>
                                     <div class="col-sm-12 col-md-12">
                                         <input class="is-invalid" id="input-id" name="file" multiple="multiple" type="file" data-show-caption="true" data-theme="fas" required>
                                         <div class="form-control invalid-feedback" style="width: 100%;">
-                                            Please submit photo
+                                            请提交照片
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="text-md-center ul-inf-button">
-                            <li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>
-                            <li class="col-md-4"><button type="button" id="submit" class="btn btn-lg btn-primary step-button">Submit</button></li>
+                            <li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">返回</button></li>
+                            <li class="col-md-4"><button type="button" id="submit" class="btn btn-lg btn-primary step-button">提交</button></li>
                         </div>
                     </div>
 
                     <div  v-bind:class="{'active': step==5}" class="tab-pane" role="tabpanel" id="step5">
                         <div class="marginUnder">
                             <div class="alert alert-primary">
-                                Current Status
-                                <h1 style="color: #155724;"><strong>Claim is being accepted</strong></h1>
-                                The system has automatically initiated the claim settlement, and the claim payment will be paid to the seller's alipay account through alipay or the reserved bank card number within 72 hours after the approval.
+                                当前状态
+                                <h1 style="color: #155724;"><strong>索赔已经被接受</strong></h1>
+                                系统自动启动理赔，理赔成功后72小时内通过支付宝或预留银行卡号支付至卖方支付宝账户。
                             </div>
                         </div>
                         <div id="claimOrder">
                             <div class="card ">
                                 <div class="card-header bg-primary">
                                     <a class="card-link text-white" data-toggle="collapse" href="#collapse1">
-                                        Claim Informaion
+                                        索赔信息
                                     </a>
                                 </div>
                                 <div id="collapse1" class="collapse show" data-parent="#claimOrder">
                                     <div class="card-body">
                                         <div class="row">
                                             <!--<div class="dateStart">-->
-                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Claim Order No： </div>
+                                            <div class="infMargin insurnInf col-xs-12 col-md-6">索赔单号： </div>
                                             <div class="orderNum infMargin col-md-6">{{claimOrder.claimOrderNum}}</div>
                                             <!--</div>-->
                                         </div>
                                         <div class="row">
                                             <!--<div class="dateEnd">-->
-                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Estimated Compensation： </div>
+                                            <div class="infMargin insurnInf col-xs-12 col-md-6">预估赔偿金： </div>
                                             <div class="orderMon infMargin col-md-6">{{result.claimOrderPrice}} <a href="#" v-on:click="showDetail = !showDetail">Details</a></div>
                                             <!--</div>-->
                                         </div>
@@ -429,26 +417,26 @@
                                 <div v-show::="showDetail" id="detail" class="card ">
                                     <div class="card-header bg-primary">
                                         <a class="card-link  text-white"  data-toggle="collapse" href="#collapse2">
-                                            Compensation Details
+                                            赔偿细节
                                         </a>
                                     </div>
                                     <div id="collapse2" class="collapse show" data-parent="#claimOrder">
                                         <div class="card-body">
                                             <div class="row">
                                                 <!--<div class="dateStart">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-6">Item Type： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-6">物品种类： </div>
                                                 <div class="orderNum infMargin col-md-6">{{claimSubmit.itemType}}</div>
                                                 <!--</div>-->
                                             </div>
                                             <div class="row">
                                                 <!--<div class="dateEnd">-->
-                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">Item Price： </div>
+                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">物品价格： </div>
                                                 <div class="orderMon infMargin col-md-6">${{claimSubmit.itemPrice}}</div>
                                                 <!--</div>-->
                                             </div>
                                             <div class="row">
                                                 <!--<div class="dateEnd">-->
-                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">Compensation Ratio： </div>
+                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">赔偿比率： </div>
                                                 <div class="orderMon infMargin col-md-6">0.7</div>
                                                 <!--</div>-->
                                             </div>
@@ -460,7 +448,7 @@
                             </div>
                             <ul class="text-md-center ul-inf-button">
                                 <!--<li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>-->
-                                <li class="col-md-8"><button type="button"  v-on:click="" class="btn btn-lg btn-primary step-button">Finish</button></li>
+                                <li class="col-md-8"><button type="button"  v-on:click="" class="btn btn-lg btn-primary step-button">结束</button></li>
                             </ul>
                         </div>
 
@@ -580,6 +568,6 @@
 <script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/sortable.js}" src="../../static/libs/fileUpload/js/plugins/sortable.js"></script>
 <script type="text/javascript" th:src="@{/libs/fileUpload/js/fileinput.js}" src="../../static/libs/fileUpload/js/fileinput.js"  ></script>
 <script type="text/javascript" th:src="@{/libs/fileUpload/themes/fas/theme.js}" src="../../static/libs/fileUpload/themes/fas/theme.js" ></script>
-<!--<script type="text/javascript" th:src="@{/libs/fileUpload/js/locales/zh.js}" src="../../static/libs/fileUpload/js/locales/zh.js" ></script>-->
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/locales/zh.js}" src="../../static/libs/fileUpload/js/locales/zh.js" ></script>
 <script type="text/javascript" th:src="@{/js/claim/claimStep.js}" src="../../static/js/claim/claimStep.js"></script>
 </html>

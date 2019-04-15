@@ -7,10 +7,10 @@ let translationCn = {
     "需要更多信息": "Additional information required",
     "索赔成功" : "Success!",
     "索赔失败" : "Failed!",
-    "索赔单号没有找到，请输入一个有效的索赔单号！":"The claim order record was not found, please try again."
-
 };
-
+let translationUs = {
+    "The claim order record was not found, please try again." : "索赔单号没有找到,请输入一个有效的索赔单号!"
+};
 
 Vue.component('navbar-indicator', {
     props: ['username'],
@@ -54,7 +54,6 @@ var main = new Vue({
     },
 
     methods:{
-
         getUrlKey(name){
             return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
         },
@@ -62,6 +61,15 @@ var main = new Vue({
             if(this.app_lang === "zh-CN")
                 return msg;
             return translationCn[msg];
+        },
+        _TUs(msg) {
+            if(this.app_lang !== "zh-CN")
+                return msg;
+            return translationUs[msg];
+        },
+        validPrice(num){
+            var re = /(^[1-9]\d*$)/;
+            return re.test(num);
         },
         timeFormate(timeStamp) {
             let year = new Date(timeStamp).getFullYear();
@@ -96,32 +104,32 @@ var main = new Vue({
     }
 });
 $(document).ready(function(){
-    // const navbar = new Vue({
-    //     el: '#menu-nav',
-    //     data: {
-    //         username: ''
-    //     },
-    //     mounted: function () {
-        //     let self = this;
-        //     this.$http.get('/userinfo/username').then(response => {
-        //         if(response.body.status === 1){ //have login
-        //         self.username = response.body.displayName;
-        //     }
-        //         else {
-        //         //window.location.href = "/login";
-        //     }
-        // });
-        // }
-    // });
+    const navbar = new Vue({
+        el: '#menu-nav',
+        data: {
+            islogin: false,
+            username: ''
+        },
+        mounted: function () {
+            let self = this;
+            this.$http.get('/userinfo/username').then(response => {
+                if(response.body.status === 1) { //have login
+                self.islogin = true;
+                self.username = response.body.displayName;
+            }
+        });
+        }
+    });
     });
 $("#search").click(function (){
     var info = main.submit;
     var isCorrect = true;
 
     /*   验证是否为空   */
-    if(!info.claimOrderNum){
+    if(!info.claimOrderNum || !main.validPrice(info.claimOrderNum)){
         isCorrect=false;
         main.setInvalid('#policyNumber1');
+        main.errors='';
     }
     else{
         main.removeInvalid('#policyNumber1');
@@ -139,7 +147,7 @@ $("#search").click(function (){
             main.claimOrder = new Function("return" + response)();
             //前端调用成功后，可以处理后端传回的json格式数据。
             if(main.claimOrder.resCode==='0'){
-                alert(main.claimOrder.Fxc);
+                main.errors='';
                 if(main.claimOrder.step==='2'){
                     main.color="text-info";
                     main.title=main._T("索赔受理中");//Claim is being reviewed
@@ -159,11 +167,13 @@ $("#search").click(function (){
                     }
                 }
             }
-            else
-                main.errors= main._T(main.claimOrder.message);
+            else{
+                main.errors= main._TUs(main.claimOrder.message);
+            }
         },
         error:function(jqXHR){
             console.log("Error: "+ jqXHR.status);
+            main.errors='';
         }
     });
 

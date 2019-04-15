@@ -3,6 +3,7 @@ package org.gtdev.webapps.iaatraesamhsaat.database.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
@@ -19,5 +20,11 @@ public class InsuranceClaim {
     @JoinColumn
     private AppUser user;
 
+    @NotBlank
+    @Column(nullable = false)
+    private String claimStep;
+
+    @Column
+    private String result;
 
 }

@@ -6,18 +6,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    <title>step1</title>
+    <title>跟踪您的理赔进度</title>
     <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link th:href="@{/css/claim/claimTrack.css}" href="../../static/css/claim/claimTrack.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/MDB/css/mdb.css}" href="../../static/libs/MDB/css/mdb.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/fileUpload/css/fileinput.css}" href="../../static/libs/fileUpload/css/fileinput.css" media="all" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
-
-
 </head>
 <body>
-
-
 
 <script>
     let navbar_indicator_template =
@@ -87,18 +83,13 @@
         <navbar-indicator v-bind:username="username"></navbar-indicator>
     </div>
 </nav>
-
-
-
 <div class="main-whole">
     <div class="main-page col-xs-8 col-md-8 ">
         <div class="text-center title-div">
             <h1 id="claim-title">进度</h1>
             <h3>在这里你可以查看任何的索赔进度</h3>
         </div>
-<hr>
-
-
+        <hr>
         <!-- Card -->
         <div class="card">
 
@@ -109,157 +100,132 @@
                     <div class="mask rgba-white-slight"></div>
                 </a>
             </div>
-
             <!-- Card content -->
             <div class="card-body row flex-center">
                 <div class="col-md-12">
-                <!-- Title -->
-                <h4 class="card-title">索赔进度</h4>
+                    <!-- Title -->
+                    <h4 class="card-title">索赔进度</h4>
                 </div>
                 <!-- Text -->
-                <div class=" col-md-6">
-                <div class="md-form md-outline">
-                    <i class="fas fa-scroll prefix"></i>
-                    <label for="policyNumber1" >索赔单号</label>
-                    <input v-model="submit.claimOrderNum" type="text" id="policyNumber1" class="form-control" required>
-                    <div class="invalid-feedback">
-                        请提供一个有效的索赔单号！
+                <transition name="fade">
+                    <div class="col-xs-12 col-md-8 form-group row" v-show="errors.length>=1">
+                        <ul class="list-group col-center-block col-md-11">
+                            <li class="list-group-item list-group-item-danger">{{ errors }}</li>
+                        </ul>
                     </div>
-                    <transition name="fade">
-                        <div class="col-xs-8 form-group row" v-show="errors.length>=1">
-                            <ul class="list-group col-center-block col-md-11">
-                                <li class="list-group-item list-group-item-danger">{{ errors }}</li>
-                            </ul>
+                </transition>
+                <div class=" col-md-6">
+                    <div class="md-form md-outline">
+                        <i class="fas fa-scroll prefix"></i>
+                        <label for="claimNumber1" >索赔单号</label>
+                        <input v-model="submit.claimOrderNum" type="text" id="claimNumber1" class="form-control" required>
+                        <div class="invalid-feedback">
+                            请提供一个有效的索赔单号！
                         </div>
-                    </transition>
-                </div>
+                    </div>
                 </div>
                 <!-- Button -->
                 <div class="searchDiv">
                     <button id="search" class="btn btn-light-blue btn-md">查询</button>
                 </div>
-
-
             </div>
-
         </div>
-        <!-- Card -->
-
-
-
-
-        <!--<div class="row flex-center">-->
-            <!--<div class=" col-md-6">-->
-            <!--<div class="md-form md-outline">-->
-                <!--<i class="fas fa-scroll prefix"></i>-->
-                <!--<label for="policyNumber" >Policy Order</label>-->
-                <!--<input type="text" id="policyNumber" class="form-control">-->
-                <!--&lt;!&ndash;<small id="emailHelp2" class="form-text text-muted">Using this to track your claim</small>&ndash;&gt;-->
-            <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row flex-center">-->
-            <!--<div class="col-md-4">-->
-            <!--<button class="btn btn-light-blue btn-md">Search</button>-->
-            <!--</div>-->
-        <!--</div>-->
-
 
         <!-- Card -->
         <transition name="fade">
-        <div class="card weather-card margin-Fxc" v-show="claimOrder.resCode==='0'">
-            <!-- Card content -->
-            <div class="card-body pb-3">
-                <!-- Title -->
-                <h4 class="card-title font-weight-bold">{{claimOrder.claimOrderNum}}</h4>
-                <!-- Text -->
-                <p class="card-text">{{nowTime}}</p>
-                <div class="d-flex justify-content-between">
-                    <h1  v-bind:class="color">{{title}}</h1>
-                    <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
-                </div>
-                <div class="d-flex justify-content-between mb-4">
-                    <p><i class="fas fa-hourglass-start fa-lg text-info pr-2"></i>已经7天</p>
-                </div>
-                <div class="progress md-progress" >
-                    <div class="progress-bar black" role="progressbar" v-bind:style="{ 'width': (claimOrder.step-1)/3*100+'%' }" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
-                    <li class="pl-4">第一步</li>
-                    <li>第二步</li>
-                    <li>第三步</li>
-                    <li class="pr-4">第四步</li>
-                </ul>
-                <div class="collapse-content">
-                    <div class="collapse" id="collapseExample">
-                        <!-- Vertical Steppers -->
-                        <div class="row mt-1">
-                            <div class="col-md-12">
-                                <!-- Stepers Wrapper -->
-                                <ul class="stepper stepper-vertical">
-                                    <!-- First Step -->
-                                    <li v-bind:class="{'completed': claimOrder.step>'1'}" >
-                                        <a class="readless" href="#!">
-                                            <span class="circle">1</span>
-                                            <span class="label">已提交</span>
-                                        </a>
-                                    </li>
-                                    <!-- Second Step -->
-                                    <li v-bind:class="{'completed': claimOrder.step>'2','active': claimOrder.step==='2'}" >
-                                        <!--Section Title -->
-                                        <a class="readless" href="#!">
-                                            <span class="circle">2</span>
-                                            <span class="label">索赔审核中</span>
-                                        </a>
-                                        <!-- Section Description -->
-                                        <div v-show="claimOrder.step==='2'" class="step-content grey lighten-3">
-                                            <p>保险索赔正在审核中。预计从索赔提交日期起三日内会给予答复</p>
-                                            <p>1.可能会需要您上传更多信息</p>
-                                            <p>2.或者直接同意或拒绝该次索赔</p>
-                                        </div>
-                                    </li>
-                                    <!-- Third Step -->
-                                    <!--<li class="warning">-->
-                                        <!--<a class="readless" href="#!">-->
-                                            <!--<span class="circle"><i class="fas fa-exclamation"></i></span>-->
-                                            <!--<span class="label">Extra Information</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                    <li v-bind:class="{'completed': claimOrder.step>'3','active': claimOrder.step==='3','warning': claimOrder.step==='3'} ">
-                                        <a class="readless" href="#!">
-                                            <span class="circle">3</span>
-                                            <span class="label">额外信息</span>
-                                        </a>
-                                        <div v-show="claimOrder.step==='3'" class="step-content">
-                                            <p class="note note-warning"><strong>注意:</strong>
-                                            您需要提供更多的信息来使得员工可以决定这次索赔是否通过</p>
-
-                                        </div>
-                                    </li>
-                                    <!-- Fourth Step -->
-                                    <li v-bind:class="{'active': claimOrder.step==='4'}">
-                                        <a class="readless" href="#!">
-                                            <span class="circle">4</span>
-                                            <span class="label">完成</span>
-                                        </a>
-                                        <p v-show="claimOrder.result==='success'&&claimOrder.step==='4'" class="note note-success"><strong>恭喜！</strong>
-                                            我们已经同意了该次索赔，索赔的赔偿金将会在三日内打入到您的银行卡中。</p>
-                                        <p v-show="claimOrder.result!=='success'&&claimOrder.step==='4'" class="note note-danger"><strong>抱歉！</strong>
-                                            根据您所提供的细节，本公司决定不批准该次的索赔。</p>
-                                    </li>
-
-                                </ul>
-                                <!-- /.Stepers Wrapper -->
-                            </div>
-                        </div>
-                        <!-- /.Vertical Steppers -->
+            <div class="card weather-card margin-Fxc" v-show="claimOrder.resCode==='0'">
+                <!-- Card content -->
+                <div class="card-body pb-3">
+                    <!-- Title -->
+                    <h4 class="card-title font-weight-bold">{{claimOrder.claimOrderNum}}</h4>
+                    <!-- Text -->
+                    <p class="card-text">{{nowTime}}</p>
+                    <div class="d-flex justify-content-between">
+                        <h1  v-bind:class="color">{{title}}</h1>
+                        <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
                     </div>
-                    <hr class="">
-                    <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 deep-purple-text collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+                    <div class="d-flex justify-content-between mb-4">
+                        <p><i class="fas fa-hourglass-start fa-lg text-info pr-2"></i>已经7天</p>
+                    </div>
+                    <div class="progress md-progress" >
+                        <div class="progress-bar black" role="progressbar" v-bind:style="{ 'width': (claimOrder.step-1)/3*100+'%' }" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
+                        <li class="pl-4">第一步</li>
+                        <li>第二步</li>
+                        <li>第三步</li>
+                        <li class="pr-4">第四步</li>
+                    </ul>
+                    <div class="collapse-content">
+                        <div class="collapse" id="collapseExample">
+                            <!-- Vertical Steppers -->
+                            <div class="row mt-1">
+                                <div class="col-md-12">
+                                    <!-- Stepers Wrapper -->
+                                    <ul class="stepper stepper-vertical">
+                                        <!-- First Step -->
+                                        <li v-bind:class="{'completed': claimOrder.step>'1'}" >
+                                            <a class="readless" href="#!">
+                                                <span class="circle">1</span>
+                                                <span class="label">已提交</span>
+                                            </a>
+                                        </li>
+                                        <!-- Second Step -->
+                                        <li v-bind:class="{'completed': claimOrder.step>'2','active': claimOrder.step==='2'}" >
+                                            <!--Section Title -->
+                                            <a class="readless" href="#!">
+                                                <span class="circle">2</span>
+                                                <span class="label">索赔审核中</span>
+                                            </a>
+                                            <!-- Section Description -->
+                                            <div v-show="claimOrder.step==='2'" class="step-content grey lighten-3">
+                                                <p>保险索赔正在审核中。预计从索赔提交日期起三日内会给予答复</p>
+                                                <p>1.可能会需要您上传更多信息</p>
+                                                <p>2.或者直接同意或拒绝该次索赔</p>
+                                            </div>
+                                        </li>
+                                        <!-- Third Step -->
+                                        <!--<li class="warning">-->
+                                        <!--<a class="readless" href="#!">-->
+                                        <!--<span class="circle"><i class="fas fa-exclamation"></i></span>-->
+                                        <!--<span class="label">Extra Information</span>-->
+                                        <!--</a>-->
+                                        <!--</li>-->
+                                        <li v-bind:class="{'completed': claimOrder.step>'3','active': claimOrder.step==='3','warning': claimOrder.step==='3'} ">
+                                            <a class="readless" href="#!">
+                                                <span class="circle">3</span>
+                                                <span class="label">额外信息</span>
+                                            </a>
+                                            <div v-show="claimOrder.step==='3'" class="step-content">
+                                                <p class="note note-warning"><strong>注意:</strong>
+                                                    您需要提供更多的信息来使得员工可以决定这次索赔是否通过</p>
+
+                                            </div>
+                                        </li>
+                                        <!-- Fourth Step -->
+                                        <li v-bind:class="{'active': claimOrder.step==='4'}">
+                                            <a class="readless" href="#!">
+                                                <span class="circle">4</span>
+                                                <span class="label">完成</span>
+                                            </a>
+                                            <p v-show="claimOrder.result==='success'&&claimOrder.step==='4'" class="note note-success"><strong>恭喜！</strong>
+                                                我们已经同意了该次索赔，索赔的赔偿金将会在三日内打入到您的银行卡中。</p>
+                                            <p v-show="claimOrder.result!=='success'&&claimOrder.step==='4'" class="note note-danger"><strong>抱歉！</strong>
+                                                根据您所提供的细节，本公司决定不批准该次的索赔。</p>
+                                        </li>
+
+                                    </ul>
+                                    <!-- /.Stepers Wrapper -->
+                                </div>
+                            </div>
+                            <!-- /.Vertical Steppers -->
+                        </div>
+                        <hr class="">
+                        <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 deep-purple-text collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Card -->
+            <!-- Card -->
         </transition>
     </div>
 </div>
@@ -297,8 +263,6 @@
 
         </div>
         <!-- Grid row -->
-
-
 
         <!-- Grid row-->
         <div class="row">
@@ -349,7 +313,6 @@
 
 </footer>
 <!-- Footer -->
-
 
 </body>
 <script th:inline="javascript">

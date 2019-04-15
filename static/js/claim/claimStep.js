@@ -253,7 +253,8 @@ function initFileInput(ctrlName) {
             var extraInfo={
                 phone: main.submit.phone,
                 firstName: main.submit.firstName,
-                fuck: main.html
+                fuck: main.html,
+                policy: main.submit.policyNum
             };
             return extraInfo;
         },

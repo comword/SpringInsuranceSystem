@@ -31,4 +31,22 @@ $(document).ready(function () {
             });
         }
     });
+    if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        $('.scrolling-navbar').removeClass('navbar-dark').addClass('navbar-light');
+    }
+    else{
+        var SCROLLING_NAVBAR_OFFSET_TOP = 50;
+        $(window).on('scroll', function () {
+            var $navbar = $('.navbar');
+
+            if ($navbar.length) {
+                if ($navbar.offset().top > SCROLLING_NAVBAR_OFFSET_TOP) {
+                    $('.scrolling-navbar').removeClass('navbar-dark').addClass('navbar-light');
+                } else {
+                    $('.scrolling-navbar').removeClass('navbar-light').addClass('navbar-dark');
+                }
+            }
+        });
+    }
+
 });

@@ -6,19 +6,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    <title>step1</title>
+    <title>Track your claim</title>
     <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link th:href="@{/css/claim/claimTrack.css}" href="../../static/css/claim/claimTrack.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/MDB/css/mdb.css}" href="../../static/libs/MDB/css/mdb.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/fileUpload/css/fileinput.css}" href="../../static/libs/fileUpload/css/fileinput.css" media="all" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
-
-
 </head>
 <body>
-
-
-
 <script>
     let navbar_indicator_template =
         '<ul class="navbar-nav nav-flex-icons">' +
@@ -88,16 +83,13 @@
     </div>
 </nav>
 
-
-
 <div class="main-whole">
     <div class="main-page col-xs-8 col-md-8 ">
         <div class="text-center title-div">
             <h1 id="claim-title">Track</h1>
             <h3>In order to use this service, you have to complete these processes.</h3>
         </div>
-<hr>
-
+        <hr>
 
         <!-- Card -->
         <div class="card">
@@ -113,26 +105,26 @@
             <!-- Card content -->
             <div class="card-body row flex-center">
                 <div class="col-md-12">
-                <!-- Title -->
-                <h4 class="card-title">Track Claim</h4>
+                    <!-- Title -->
+                    <h4 class="card-title">Track Claim</h4>
                 </div>
                 <!-- Text -->
-                <div class=" col-md-6">
-                <div class="md-form md-outline">
-                    <i class="fas fa-scroll prefix"></i>
-                    <label for="policyNumber1" >Policy Order</label>
-                    <input v-model="submit.claimOrderNum" type="text" id="policyNumber1" class="form-control" required>
-                    <div class="invalid-feedback">
-                        Please provide a valid policy number.
+                <transition name="fade">
+                    <div class="col-xs-12 col-md-8 form-group row" v-show="errors.length>=1">
+                        <ul class="list-group col-center-block col-md-11">
+                            <li class="list-group-item list-group-item-danger">{{ errors }}</li>
+                        </ul>
                     </div>
-                    <transition name="fade">
-                        <div class="col-xs-8 form-group row" v-show="errors.length>=1">
-                            <ul class="list-group col-center-block col-md-11">
-                                <li class="list-group-item list-group-item-danger">{{ errors }}</li>
-                            </ul>
+                </transition>
+                <div class=" col-md-6">
+                    <div class="md-form md-outline">
+                        <i class="fas fa-scroll prefix"></i>
+                        <label for="policyNumber1" >Claim Order No</label>
+                        <input v-model="submit.claimOrderNum" type="text" id="policyNumber1" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid claim order number.
                         </div>
-                    </transition>
-                </div>
+                    </div>
                 </div>
                 <!-- Button -->
                 <div class="searchDiv">
@@ -149,118 +141,118 @@
 
 
         <!--<div class="row flex-center">-->
-            <!--<div class=" col-md-6">-->
-            <!--<div class="md-form md-outline">-->
-                <!--<i class="fas fa-scroll prefix"></i>-->
-                <!--<label for="policyNumber" >Policy Order</label>-->
-                <!--<input type="text" id="policyNumber" class="form-control">-->
-                <!--&lt;!&ndash;<small id="emailHelp2" class="form-text text-muted">Using this to track your claim</small>&ndash;&gt;-->
-            <!--</div>-->
-            <!--</div>-->
+        <!--<div class=" col-md-6">-->
+        <!--<div class="md-form md-outline">-->
+        <!--<i class="fas fa-scroll prefix"></i>-->
+        <!--<label for="policyNumber" >Policy Order</label>-->
+        <!--<input type="text" id="policyNumber" class="form-control">-->
+        <!--&lt;!&ndash;<small id="emailHelp2" class="form-text text-muted">Using this to track your claim</small>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</div>-->
         <!--</div>-->
         <!--<div class="row flex-center">-->
-            <!--<div class="col-md-4">-->
-            <!--<button class="btn btn-light-blue btn-md">Search</button>-->
-            <!--</div>-->
+        <!--<div class="col-md-4">-->
+        <!--<button class="btn btn-light-blue btn-md">Search</button>-->
+        <!--</div>-->
         <!--</div>-->
 
 
         <!-- Card -->
         <transition name="fade">
-        <div class="card weather-card margin-Fxc" v-show="claimOrder.resCode==='0'">
-            <!-- Card content -->
-            <div class="card-body pb-3">
-                <!-- Title -->
-                <h4 class="card-title font-weight-bold">{{claimOrder.claimOrderNum}}</h4>
-                <!-- Text -->
-                <p class="card-text">{{nowTime}}</p>
-                <div class="d-flex justify-content-between">
-                    <h1  v-bind:class="color">{{title}}</h1>
-                    <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
-                </div>
-                <div class="d-flex justify-content-between mb-4">
-                    <p><i class="fas fa-hourglass-start fa-lg text-info pr-2"></i>7 Days</p>
-                </div>
-                <div class="progress md-progress" >
-                    <div class="progress-bar black" role="progressbar" v-bind:style="{ 'width': (claimOrder.step-1)/3*100+'%' }" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
-                    <li class="pl-4">First</li>
-                    <li>Second</li>
-                    <li>Third</li>
-                    <li class="pr-4">Fourth</li>
-                </ul>
-                <div class="collapse-content">
-                    <div class="collapse" id="collapseExample">
-                        <!-- Vertical Steppers -->
-                        <div class="row mt-1">
-                            <div class="col-md-12">
-                                <!-- Stepers Wrapper -->
-                                <ul class="stepper stepper-vertical">
-                                    <!-- First Step -->
-                                    <li v-bind:class="{'completed': claimOrder.step>'1'}" >
-                                        <a class="readless" href="#!">
-                                            <span class="circle">1</span>
-                                            <span class="label">Submitted</span>
-                                        </a>
-                                    </li>
-                                    <!-- Second Step -->
-                                    <li v-bind:class="{'completed': claimOrder.step>'2','active': claimOrder.step==='2'}" >
-                                        <!--Section Title -->
-                                        <a class="readless" href="#!">
-                                            <span class="circle">2</span>
-                                            <span class="label">Under Review</span>
-                                        </a>
-                                        <!-- Section Description -->
-                                        <div v-show="claimOrder.step==='2'" class="step-content grey lighten-3">
-                                            <p>The employee is currently reviewing the claim.A reply is expected three days from the date of submitting the claim.</p>
-                                            <p>1.The company may need more information from you.</p>
-                                            <p>2.The company notifies the approval or rejects the claim.</p>
-                                        </div>
-                                    </li>
-                                    <!-- Third Step -->
-                                    <!--<li class="warning">-->
-                                        <!--<a class="readless" href="#!">-->
-                                            <!--<span class="circle"><i class="fas fa-exclamation"></i></span>-->
-                                            <!--<span class="label">Extra Information</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                    <li v-bind:class="{'completed': claimOrder.step>'3','active': claimOrder.step==='3','warning': claimOrder.step==='3'} ">
-                                        <a class="readless" href="#!">
-                                            <span class="circle">3</span>
-                                            <span class="label">Extra Information</span>
-                                        </a>
-                                        <div v-show="claimOrder.step==='3'" class="step-content">
-                                            <p class="note note-warning"><strong>Note warning:</strong>
-                                                Company employees cannot determine whether to approve a claim based on this information alone.
-                                                So please provide more information to help us review the claim.</p>
-
-                                        </div>
-                                    </li>
-                                    <!-- Fourth Step -->
-                                    <li v-bind:class="{'active': claimOrder.step==='4'}">
-                                        <a class="readless" href="#!">
-                                            <span class="circle">4</span>
-                                            <span class="label">Finish</span>
-                                        </a>
-                                        <p v-show="claimOrder.result==='success'&&claimOrder.step==='4'" class="note note-success"><strong>Congratulation:</strong>
-                                            We have decided to approve this claim. Congratulations, your claim has been successful.The compensation will be sent to your bank card within three days.</p>
-                                        <p v-show="claimOrder.result!=='success'&&claimOrder.step==='4'" class="note note-danger"><strong>Regret:</strong>
-                                            We are very sorry that we have decided to reject this claim due to inaccurate claim information</p>
-                                    </li>
-
-                                </ul>
-                                <!-- /.Stepers Wrapper -->
-                            </div>
-                        </div>
-                        <!-- /.Vertical Steppers -->
+            <div class="card weather-card margin-Fxc" v-show="claimOrder.resCode==='0'">
+                <!-- Card content -->
+                <div class="card-body pb-3">
+                    <!-- Title -->
+                    <h4 class="card-title font-weight-bold">{{claimOrder.claimOrderNum}}</h4>
+                    <!-- Text -->
+                    <p class="card-text">{{nowTime}}</p>
+                    <div class="d-flex justify-content-between">
+                        <h1  v-bind:class="color">{{title}}</h1>
+                        <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
                     </div>
-                    <hr class="">
-                    <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 deep-purple-text collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+                    <div class="d-flex justify-content-between mb-4">
+                        <p><i class="fas fa-hourglass-start fa-lg text-info pr-2"></i>7 Days</p>
+                    </div>
+                    <div class="progress md-progress" >
+                        <div class="progress-bar black" role="progressbar" v-bind:style="{ 'width': (claimOrder.step-1)/3*100+'%' }" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
+                        <li class="pl-4">First</li>
+                        <li>Second</li>
+                        <li>Third</li>
+                        <li class="pr-4">Fourth</li>
+                    </ul>
+                    <div class="collapse-content">
+                        <div class="collapse" id="collapseExample">
+                            <!-- Vertical Steppers -->
+                            <div class="row mt-1">
+                                <div class="col-md-12">
+                                    <!-- Stepers Wrapper -->
+                                    <ul class="stepper stepper-vertical">
+                                        <!-- First Step -->
+                                        <li v-bind:class="{'completed': claimOrder.step>'1'}" >
+                                            <a class="readless" href="#!">
+                                                <span class="circle">1</span>
+                                                <span class="label">Submitted</span>
+                                            </a>
+                                        </li>
+                                        <!-- Second Step -->
+                                        <li v-bind:class="{'completed': claimOrder.step>'2','active': claimOrder.step==='2'}" >
+                                            <!--Section Title -->
+                                            <a class="readless" href="#!">
+                                                <span class="circle">2</span>
+                                                <span class="label">Under Review</span>
+                                            </a>
+                                            <!-- Section Description -->
+                                            <div v-show="claimOrder.step==='2'" class="step-content grey lighten-3">
+                                                <p>The employee is currently reviewing the claim.A reply is expected three days from the date of submitting the claim.</p>
+                                                <p>1.The company may need more information from you.</p>
+                                                <p>2.The company notifies the approval or rejects the claim.</p>
+                                            </div>
+                                        </li>
+                                        <!-- Third Step -->
+                                        <!--<li class="warning">-->
+                                        <!--<a class="readless" href="#!">-->
+                                        <!--<span class="circle"><i class="fas fa-exclamation"></i></span>-->
+                                        <!--<span class="label">Extra Information</span>-->
+                                        <!--</a>-->
+                                        <!--</li>-->
+                                        <li v-bind:class="{'completed': claimOrder.step>'3','active': claimOrder.step==='3','warning': claimOrder.step==='3'} ">
+                                            <a class="readless" href="#!">
+                                                <span class="circle">3</span>
+                                                <span class="label">Extra Information</span>
+                                            </a>
+                                            <div v-show="claimOrder.step==='3'" class="step-content">
+                                                <p class="note note-warning"><strong>Note warning:</strong>
+                                                    Company employees cannot determine whether to approve a claim based on this information alone.
+                                                    So please provide more information to help us review the claim.</p>
+
+                                            </div>
+                                        </li>
+                                        <!-- Fourth Step -->
+                                        <li v-bind:class="{'active': claimOrder.step==='4'}">
+                                            <a class="readless" href="#!">
+                                                <span class="circle">4</span>
+                                                <span class="label">Finish</span>
+                                            </a>
+                                            <p v-show="claimOrder.result==='success'&&claimOrder.step==='4'" class="note note-success"><strong>Congratulation:</strong>
+                                                We have decided to approve this claim. Congratulations, your claim has been successful.The compensation will be sent to your bank card within three days.</p>
+                                            <p v-show="claimOrder.result!=='success'&&claimOrder.step==='4'" class="note note-danger"><strong>Regret:</strong>
+                                                We are very sorry that we have decided to reject this claim due to inaccurate claim information</p>
+                                        </li>
+
+                                    </ul>
+                                    <!-- /.Stepers Wrapper -->
+                                </div>
+                            </div>
+                            <!-- /.Vertical Steppers -->
+                        </div>
+                        <hr class="">
+                        <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 deep-purple-text collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Card -->
+            <!-- Card -->
         </transition>
     </div>
 </div>
@@ -350,7 +342,6 @@
 
 </footer>
 <!-- Footer -->
-
 
 </body>
 <script th:inline="javascript">

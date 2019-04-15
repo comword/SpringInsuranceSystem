@@ -203,9 +203,9 @@
                                             </div>
                                         </div>
                                         <input v-model="submit.phone" type="tel" class="form-control" id="phone"  placeholder="Phone number" required>
-                                        <div class="invalid-feedback" style="width: 100%;">
-                                            Please enter a valid phone number
-                                        </div>
+                                        <!--<div class="invalid-feedback" style="width: 100%;">-->
+                                            <!--Please enter a valid phone number-->
+                                        <!--</div>-->
                                     </div>
                                 </div>
                                 <div class="row" style="margin: 0px auto;display: table;">
@@ -243,12 +243,6 @@
                                                 <!--<div class="destination">-->
                                                 <div class="infMargin insurnInf col-xs-12 col-md-3">Destination:</div>
                                                 <div class="infMargin col-md-4">{{ info.destination }}</div>
-                                                <!--</div>-->
-                                            </div>
-                                            <div class="row">
-                                                <!--<div class="method">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-3">Beneficiary:</div>
-                                                <div class="infMargin col-md-4">{{ info.method }}</div>
                                                 <!--</div>-->
                                             </div>
                                         </div>
@@ -293,7 +287,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="infMargin insurnInf col-xs-12 col-md-2">Zip:</div>
-                                                <div class="infMargin col-xs-12 col-md-4">{{ info.zipCode }}</div>
+                                                <div class="infMargin col-xs-12 col-md-4">{{ info.zip }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -405,13 +399,13 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <!--<div class="dateStart">-->
-                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Claim Order No： </div>
+                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Claim Order No: </div>
                                             <div class="orderNum infMargin col-md-6">{{claimOrder.claimOrderNum}}</div>
                                             <!--</div>-->
                                         </div>
                                         <div class="row">
                                             <!--<div class="dateEnd">-->
-                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Estimated Compensation： </div>
+                                            <div class="infMargin insurnInf col-xs-12 col-md-6">Estimated Compensation: </div>
                                             <div class="orderMon infMargin col-md-6">{{result.claimOrderPrice}} <a href="#" v-on:click="showDetail = !showDetail">Details</a></div>
                                             <!--</div>-->
                                         </div>
@@ -426,22 +420,16 @@
                                     <div id="collapse2" class="collapse show" data-parent="#claimOrder">
                                         <div class="card-body">
                                             <div class="row">
-                                                <!--<div class="dateStart">-->
-                                                <div class="infMargin insurnInf col-xs-12 col-md-6">Item Type： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-6">Item Type: </div>
                                                 <div class="orderNum infMargin col-md-6">{{claimSubmit.itemType}}</div>
-                                                <!--</div>-->
                                             </div>
                                             <div class="row">
-                                                <!--<div class="dateEnd">-->
-                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">Item Price： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-6">Item Price: </div>
                                                 <div class="orderMon infMargin col-md-6">${{claimSubmit.itemPrice}}</div>
-                                                <!--</div>-->
                                             </div>
                                             <div class="row">
-                                                <!--<div class="dateEnd">-->
-                                                <div  class="infMargin insurnInf col-xs-12 col-md-6">Compensation Ratio： </div>
+                                                <div class="infMargin insurnInf col-xs-12 col-md-6">Compensation Ratio: </div>
                                                 <div class="orderMon infMargin col-md-6">0.7</div>
-                                                <!--</div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -451,7 +439,7 @@
                             </div>
                             <ul class="text-md-center ul-inf-button">
                                 <!--<li class="col-md-4"><button type="button" v-on:click="step-=1" class="btn btn-lg btn-primary step-button">Back</button></li>-->
-                                <li class="col-md-8"><button type="button"  v-on:click="" class="btn btn-lg btn-primary step-button">Finish</button></li>
+                                <li class="col-md-8"><button type="button" class="btn btn-lg btn-primary step-button">Finish</button></li>
                             </ul>
                         </div>
 

@@ -1,9 +1,12 @@
 package org.gtdev.webapps.iaatraesamhsaat.claimfunc;
 
+
 import lombok.Data;
+import org.gtdev.webapps.iaatraesamhsaat.configs.AppConfig;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsuranceClaimRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsurancePolicyRecordRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.entities.CustomerDetails;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsuranceClaim;
 import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsurancePolicyRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +29,9 @@ public class ClaimResponseController {
 
     @Autowired
     private InsuranceClaimRepository insuranceClaimRepository;
+
+    @Autowired
+    private AppConfig.DataPathConfig dataPathConfig;
 
     private Logger log= LoggerFactory.getLogger(ClaimResponseController.class);
 
@@ -65,6 +71,7 @@ public class ClaimResponseController {
             result.put("idNum", details.getIdNumber());
             result.put("phone", req.getPhone());
             result.put("country", details.getCountryStr());
+            result.put("zip",details.getZipCode());
             result.put("email", details.getUser().getEmail());
             result.put("city", details.getProvince());
 
@@ -104,13 +111,12 @@ public class ClaimResponseController {
     public Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile[] file) {
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("status", 400);
-        String policyNum =request.getParameter("policyNum");// 接受上传图片时的额外参数 对应 uploadExtraData:function()
-        System.out.println(policyNum);
+        String policyNum =request.getParameter("policy");// 接受上传图片时的额外参数 对应 uploadExtraData:function()
+        log.info("The policy number: "+policyNum);
         if(file!=null&&file.length>0){
             //组合image名称，“;隔开”
             List<String> fileName =new ArrayList<String>();
             PrintWriter out = null;
-
 
             try {
                 String[] typeImg={"gif","png","jpg"};
@@ -119,7 +125,7 @@ public class ClaimResponseController {
                         MultipartFile file1 = file[k];
                         if(file1!=null){
                             String origName=file1.getOriginalFilename();// 文件原名称
-                            System.out.println("上传的文件原名称:"+origName);
+                            log.info("File original name: "+origName);
                             // 判断文件类型
                             String type=origName.indexOf(".")!=-1?origName.substring(origName.lastIndexOf(".")+1, origName.length()):null;
                             if (type!=null) {
@@ -132,8 +138,8 @@ public class ClaimResponseController {
                                 //类型正确
                                 if (booIsType) {
                                     //存放图片文件的路径
-                                    String path="D:\\tupian\\"+policyNum+"\\";
-                                    System.out.print("文件上传的路径"+path);
+                                    String path = dataPathConfig.getUploadPath() + File.pathSeparator + policyNum + File.pathSeparator;
+                                    log.info("文件上传的路径"+path);
                                     //组合名称
                                     String fileSrc = path;
                                     File targetFile=new File(fileSrc,origName);
@@ -141,7 +147,7 @@ public class ClaimResponseController {
                                     if(!targetFile.exists()){
                                         targetFile.getParentFile().mkdirs();//创建目录
                                     }
-                                    System.out.println("完整路径:"+targetFile.getAbsolutePath());
+                                    log.info("完整路径:" + targetFile.getAbsolutePath());
                                     file1.transferTo(targetFile);
                                 }
                             }
@@ -187,29 +193,31 @@ public class ClaimResponseController {
         return result.toString();
 
     }
+
+
+
     @RequestMapping(value="/claim/claimTrack/claimOrderNum",  method = RequestMethod.POST)
     @ResponseBody
     public String claimOrderNum(@RequestBody claimRequest req) throws JSONException {
-
+        Optional<InsuranceClaim> ic = insuranceClaimRepository.findById(Long.parseLong(req.claimOrderNum));
         JSONObject result = new JSONObject();
 //        result.put("resCode", 0);
         log.info("Claim: " + req.toString());
-        if(req.claimOrderNum.equals("Fxck")){//如果没有找到索赔单号
+        if(!ic.isPresent()){//如果没有找到索赔单号
             result.put("resCode","-2002");
             result.put("message","The claim order record was not found, please try again.");
         }
         else{//找到索赔单号
             result.put("resCode","0");
-            result.put("claimOrderNum","FXC1904016666");//索赔单号
-//            result.put("step","2");//目前所在的阶段 审核中....
+            result.put("claimOrderNum",ic.get().getId());//索赔单号
+//            result.put("step","2");             //目前所在的阶段 审核中....
 //            result.put("step","3");             //目前所在的阶段 需要额外的信息
-            result.put("step","4");             //目前所在的阶段 成功或者失败
+            result.put("step",ic.get().getClaimStep());             //目前所在的阶段 成功或者失败
             if(result.getString("step").equals("4")){
-                result.put("result","success");
+                result.put("result",ic.get().getResult());
 //                result.put("result","fail");
             }
         }
-        result.put("Fxc","fxck");
         return result.toString();
     }
 }

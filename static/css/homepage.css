@@ -1,4 +1,4 @@
-.navbar-default{
+.navbar-default {
     margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
@@ -14,9 +14,11 @@
 .caption {
     margin: 1rem;
 }
+
 #menu-wrapper{
     width: 100%;
 }
+
 .dark-matter {
     margin-left: auto;
     margin-right: auto;
