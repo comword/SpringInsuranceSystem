@@ -3,11 +3,11 @@ package org.gtdev.webapps.iaatraesamhsaat.claimfunc;
 
 import lombok.Data;
 import org.gtdev.webapps.iaatraesamhsaat.configs.AppConfig;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.AppUserRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsuranceClaimRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsurancePolicyRecordRepository;
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.CustomerDetails;
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsuranceClaim;
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsurancePolicyRecord;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.LostItemRepository;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,15 @@ import java.util.*;
 
 @Controller
 public class ClaimResponseController {
-    @Autowired
-    private InsurancePolicyRecordRepository insurancePolicyRecordRepository;
 
+    @Autowired
+    private AppUserRepository userRepository;
     @Autowired
     private InsuranceClaimRepository insuranceClaimRepository;
-
+    @Autowired
+    private InsurancePolicyRecordRepository insurancePolicyRecordRepository;
+    @Autowired
+    private LostItemRepository lostItemRepository;
     @Autowired
     private AppConfig.DataPathConfig dataPathConfig;
 
@@ -43,6 +46,11 @@ public class ClaimResponseController {
     @Data
     private static class claimRequest {
         private String claimOrderNum;
+    }
+
+    @Data
+    private static class claimSubmitRequest {
+        private String itemType,itemName,itemPrice,itemDescription,contactEmail,policyNum,username;
     }
 
     @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.POST)
@@ -138,7 +146,8 @@ public class ClaimResponseController {
                                 //类型正确
                                 if (booIsType) {
                                     //存放图片文件的路径
-                                    String path = dataPathConfig.getUploadPath() + File.pathSeparator + policyNum + File.pathSeparator;
+//                                    String path = dataPathConfig.getUploadPath() + File.pathSeparator + policyNum + File.pathSeparator;
+                                    String path="D:\\tupian\\"+policyNum+"\\";
                                     log.info("文件上传的路径"+path);
                                     //组合名称
                                     String fileSrc = path;
@@ -179,8 +188,31 @@ public class ClaimResponseController {
 
     @RequestMapping(value="/claim/newclaim/ClaimItemInfo",  method = RequestMethod.POST)
     @ResponseBody
-    public String uploadInfo(@RequestBody Map<String,Object> map1) throws JSONException {
+    public String uploadInfo(@RequestBody claimSubmitRequest csr) throws JSONException {
+//        LostItem lostItem = new LostItem();
+//        lostItem.setItemType(csr.getItemName());
+//        lostItem.setItemName(csr.getItemName());
+//        lostItem.setItemPrice(csr.getItemPrice());
+//        lostItem.setItemDescription(csr.getItemDescription());
+//        lostItem.setContactEmail(csr.getContactEmail());
+        LostItem lostItem = CreateLostItem(csr);
+        LostItem savedLostItem = lostItemRepository.save(lostItem);
+        log.info("The savedLostItem: "+savedLostItem.getId());
 
+        InsurancePolicyRecord ipr = insurancePolicyRecordRepository.findInsurancePolicyRecordById(csr.getPolicyNum());
+        InsuranceClaim ic = new InsuranceClaim();
+        ic.setPolicy(ipr);
+        ic.setClaimStep("2");
+        if(!csr.getUsername().equals("")){
+            AppUser au = userRepository.findAppUserByUserName(csr.getUsername());
+            ic.setUser(au);
+        }
+        else{
+            ic.setUser(null);
+        }
+        ic.setLostItem(savedLostItem);
+        InsuranceClaim savedIc = insuranceClaimRepository.save(ic);
+        log.info(""+savedIc.getId());
         JSONObject result = new JSONObject();
 
 //      这个是数据搜寻是否成功
@@ -189,7 +221,7 @@ public class ClaimResponseController {
 //        result.put("resCode","222");              //随便定义的响应参数
 
 //      这个是保单索赔信息 要与保险单号关联
-        result.put("claimOrderNum","816385292874222");
+        result.put("claimOrderNum",savedIc.getId());
         return result.toString();
 
     }
@@ -220,6 +252,19 @@ public class ClaimResponseController {
         }
         return result.toString();
     }
+
+
+
+
+     public LostItem CreateLostItem(claimSubmitRequest csr){
+         LostItem lostItem = new LostItem();
+         lostItem.setItemType(csr.getItemName());
+         lostItem.setItemName(csr.getItemName());
+         lostItem.setItemPrice(csr.getItemPrice());
+         lostItem.setItemDescription(csr.getItemDescription());
+         lostItem.setContactEmail(csr.getContactEmail());
+        return lostItem;
+     }
 }
 
 

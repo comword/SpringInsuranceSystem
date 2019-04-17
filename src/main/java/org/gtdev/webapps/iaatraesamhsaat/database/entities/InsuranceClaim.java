@@ -16,7 +16,7 @@ public class InsuranceClaim {
     @JoinColumn
     private InsurancePolicyRecord policy;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn
     private AppUser user;
 
@@ -26,5 +26,10 @@ public class InsuranceClaim {
 
     @Column
     private String result;
+
+    @OneToOne
+    @JoinColumn
+    private LostItem lostItem;
+
 
 }
