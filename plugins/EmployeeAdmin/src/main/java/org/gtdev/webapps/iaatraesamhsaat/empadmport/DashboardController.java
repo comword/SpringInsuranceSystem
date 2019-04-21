@@ -54,8 +54,9 @@ public class DashboardController {
 //        req
 //        AppUser appUser = appUserRepository.findAppUserById(Long.parseLong(req.pageNo));
         List<AppUser> appUsers =  appUserRepository.findAll();
+        log.info("是否为空"+appUsers.isEmpty());
         String json = parseJson(appUsers);
-        log.info(json);
+        log.info("JSON"+json);
 //        JSONObject result = new JSONObject();
 //        result.put("resCode", 0);
 //        log.info("Claim: " + req.toString());
@@ -74,7 +75,7 @@ public class DashboardController {
 ////                result.put("result","fail");
 //            }
 //        }
-
+//        return "Fxc";
         return json;
     }
 
@@ -180,7 +181,12 @@ public class DashboardController {
             jsonObject.put("CustomerId", info.getId());
             jsonObject.put("CustomerName", info.getUserName());
             jsonObject.put("Email", info.getEmail());
+
+//            if(info.getDetails().getPhoneNumber()){
+//                jsonObject.put("Phone", "null");
+//            }else {
             jsonObject.put("Phone", info.getDetails().getPhoneNumber());
+//            }
             array.put(jsonObject);
         }
         return array.toString();

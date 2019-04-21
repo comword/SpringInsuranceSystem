@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <!--    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">-->
     <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
@@ -149,10 +150,8 @@
             <table class="table table-striped table-sm" style="border-right: 1px solid #c5c7cc;border-left: 1px solid #c5c7cc;border-bottom: 1px solid #c5c7cc;">
                 <thead>
                 <tr>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Customer Id</th>
+                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>{{Customer_Id}}</th>
                     <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Customer Name</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Gender</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Personal ID</th>
                     <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Phone</th>
                     <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Email</th>
                 </tr>
@@ -160,17 +159,16 @@
 
                 <tbody>
 
-                <tr v-for="person in people">
-                    <td>{{ person.customerId }}</td>
-                    <td>{{ person.name }}</td>
-                    <td>{{ person.gender }}</td>
-                    <td>{{ person.personalId }}</td>
-                    <td>{{ person.phone }}</td>
-                    <td>{{ person.email }}</td>
+                <tr v-for="person in info" >
+                    <td>{{ person.CustomerId }}</td>
+                    <td>{{ person.CustomerName }}</td>
+                    <td>{{ person.Phone }}</td>
+                    <td>{{ person.Email }}</td>
                 </tr>
 
                 </tbody>
             </table>
+
         </div>
 
     </div>
@@ -180,14 +178,14 @@
 
 
 
-<script type="text/javascript" src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript" src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
-<script type="text/javascript" src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <!--<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>-->
 <script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
 <script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
 <script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
 <script type="text/javascript" src="../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
-<script src="/js/employee/show_customer.js"></script>
+<script src="../../../static/js/employee/show_customer.js" th:src="@{/js/employee/show_customer.js}"></script>
 </body>
 </html>

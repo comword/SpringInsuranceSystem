@@ -41,6 +41,8 @@ public class ClaimPlugin extends SpringPlugin {
             return new ArrayList<Object>() {{
                 add(new NewClaimPageController());
                 add(new ClaimResponseController());
+                add(new CustomerPageController());
+                add(new CustomerResponseController());
             }};
         }
     }
