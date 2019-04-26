@@ -22,11 +22,8 @@ Vue.component('navbar-indicator', {
 
 
 
-// SideNav Button Initialization
-$(".button-collapse").sideNav();
-// SideNav Scrollbar Initialization
-var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-// var ps = new PerfectScrollbar(sideNavScrollbar);
+
+
 
 var claim = new Vue({
     el: '#main',
@@ -54,13 +51,10 @@ var claim = new Vue({
             let date =new Date(timeStamp).getDate() < 10? "0" + new Date(timeStamp).getDate(): new Date(timeStamp).getDate();
             let hh =new Date(timeStamp).getHours() < 10? "0" + new Date(timeStamp).getHours(): new Date(timeStamp).getHours();
             let mm =new Date(timeStamp).getMinutes() < 10? "0" + new Date(timeStamp).getMinutes(): new Date(timeStamp).getMinutes();
-            // let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
-            this.nowTime = year + this._T("年") + month + this._T("月") + date +this._T("日")+" "+hh+":"+mm;
-        },
-        nowTimes(){
-            this.timeFormate(new Date());
-            setInterval(this.nowTimes,10*1000);
+            let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
+            return year + "/" + month + "/" + date + "/ " + hh + ":" + mm + ":" + ss;
         }
+
     },
     mounted:function () {
         if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
@@ -68,7 +62,6 @@ var claim = new Vue({
         }
     }
 });
-$(document).ready(function () {
     const navbar = new Vue({
         el: '#menu-nav',
         data: {
@@ -79,63 +72,55 @@ $(document).ready(function () {
             this.$http.get('/userinfo/username').then(response => {
                 if(response.body.status === 1) { //have login
                 self.username = response.body.displayName;
-                main.username = self.username;
-            } else {
-                //window.location.href = "/login";
+                claim.username = self.username;
+                    $('#dtMaterialDesignExample').DataTable({
+                            "ajax": {
+                                "url": "page/uploadClaimInfo",
+                                "type": "POST",
+                                "contentType": "application/json",
+                                "data": function (d) {
+                                    d = {};
+                                    d.customer = claim.username;
+                                    return JSON.stringify(d);
+                                }
+                            },
+                            "columns": [
+                                { "data": "claimID" },
+                                { "data": "InsuranceId" },
+                                { "data": "InsuranceName" },
+                                { "data": "Step" },
+                                { "data": "button"}
+                            ],
+                            "scrollX": true
+                        }
+                    );
+                    $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
+                        $(this).parent().append($(this).children());
+                    });
+                    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
+                        $('input').attr("placeholder", "Search");
+                        $('input').removeClass('form-control-sm');
+                    });
+                    $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
+                    $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
+                    $('#dtMaterialDesignExample_wrapper select').removeClass(
+                        'custom-select custom-select-sm form-control form-control-sm');
+                    $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
+                    $('#dtMaterialDesignExample_wrapper .mdb-select').materialSelect();
+                    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
+                    // SideNav Button Initialization
+                    $(".button-collapse").sideNav();
+// SideNav Scrollbar Initialization
+                    var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+                    var ps = new PerfectScrollbar(sideNavScrollbar);
+
+                } else {
+                window.location.href = "/login";
             }
         });
         }
     });
 
-
-
-
-    var d = {};
-    // $.ajax({ url: "page/uploadClaimInfo",
-    //     data: JSON.stringify(d),
-    //     //type、contentType必填,指明传参方式
-    //     type: "POST",
-    //     contentType: "application/json;charset=utf-8",
-    //     success: function(response){
-    //         claim.info = new Function("return" + response)();
-    //
-    //         // customer.people.splice(1,0,customer.info[0]);
-    //     },
-    //     error:function(jqXHR){
-    //         console.log("Error: "+ jqXHR.status);
-    //     }
-    //
-    // });
-
-    $('#dtMaterialDesignExample').DataTable({
-            "ajax": {
-                "url": "page/uploadClaimInfo",
-                "type": "POST"
-            },
-            "columns": [
-                { "data": "claimID" },
-                { "data": "InsuranceId" },
-                { "data": "InsuranceName" },
-                { "data": "Step" },
-                { "data": "button"}
-            ]
-        }
-    );
-    $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
-        $(this).parent().append($(this).children());
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
-        $('input').attr("placeholder", "Search");
-        $('input').removeClass('form-control-sm');
-    });
-    $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
-    $('#dtMaterialDesignExample_wrapper select').removeClass(
-        'custom-select custom-select-sm form-control form-control-sm');
-    $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
-    $('#dtMaterialDesignExample_wrapper .mdb-select').materialSelect();
-    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
-});
 function clicke(x){
     var id=x.parentNode.parentNode.firstChild.textContent;
     var d = {};
@@ -169,6 +154,9 @@ function clicke(x){
                         claim.title=claim._T("索赔失败");//Failed
                     }
                 }
+                claim.claimOrder.StartDate = claim.timeFormate(parseInt(claim.claimOrder.date));
+                var date = new Date();
+                claim.claimOrder.NowDate = claim.timeFormate(date.getTime());
             }
             else{
                 claim.errors= claim._TUs(claim.claimOrder.message);

@@ -3,8 +3,12 @@ package org.gtdev.webapps.iaatraesamhsaat.empadmport;
 import lombok.Data;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.AppUserRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsuranceClaimRepository;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsurancePolicyProductsRepository;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsurancePolicyRecordRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.entities.AppUser;
 import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsuranceClaim;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsurancePolicyProducts;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.LostItem;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
@@ -26,7 +30,10 @@ public class DashboardController {
 
     @Autowired
     private AppUserRepository appUserRepository;
-
+    @Autowired
+    private InsurancePolicyProductsRepository insurancePolicyProductsRepository;
+    @Autowired
+    private InsuranceClaimRepository insuranceClaimRepository;
     @Autowired
     private LocaleResolver localeResolver;
 
@@ -35,6 +42,11 @@ public class DashboardController {
     private static class adminRequest {
         private String pageNo;
     }
+    @Data
+    private static class ClaimIDRequest {
+        private String claimID;
+    }
+
 
     @GetMapping("/employee/admin/dashboard")
     public String funcDashboard(HttpServletRequest request) {
@@ -46,41 +58,6 @@ public class DashboardController {
 
             return "employee/admin/dashboard";
     }
-
-
-    @RequestMapping(value="/employee/admin/customer/request",  method = RequestMethod.POST)
-    @ResponseBody
-    public String claimOrderNum(@RequestBody adminRequest req) throws JSONException {
-//        req
-//        AppUser appUser = appUserRepository.findAppUserById(Long.parseLong(req.pageNo));
-        List<AppUser> appUsers =  appUserRepository.findAll();
-        log.info("是否为空"+appUsers.isEmpty());
-        String json = parseJson(appUsers);
-        log.info("JSON"+json);
-//        JSONObject result = new JSONObject();
-//        result.put("resCode", 0);
-//        log.info("Claim: " + req.toString());
-//        if(!ic.isPresent()){//如果没有找到索赔单号
-//            result.put("resCode","-2002");
-//            result.put("message","The claim order record was not found, please try again.");
-//        }
-//        else{//找到索赔单号
-//            result.put("resCode","0");
-//            result.put("claimOrderNum",ic.get().getId());//索赔单号
-////            result.put("step","2");             //目前所在的阶段 审核中....
-////            result.put("step","3");             //目前所在的阶段 需要额外的信息
-//            result.put("step",ic.get().getClaimStep());             //目前所在的阶段 成功或者失败
-//            if(result.getString("step").equals("4")){
-//                result.put("result",ic.get().getResult());
-////                result.put("result","fail");
-//            }
-//        }
-//        return "Fxc";
-        return json;
-    }
-
-
-
 
     @GetMapping("/employee/admin/claims")
     public String funcClaims(HttpServletRequest request) {
@@ -125,11 +102,6 @@ public class DashboardController {
 //        if(l.equals(Locale.SIMPLIFIED_CHINESE))
 //            return "employee/admin/admin";
 //        else
-
-
-
-
-
         return "employee/admin/customer";
     }
 
@@ -169,11 +141,129 @@ public class DashboardController {
         return "employee/admin/product_detail";
     }
 
+    @RequestMapping(value="/employee/admin/customer/request",  method = RequestMethod.POST)
+    @ResponseBody
+    public String claimOrderNum() throws JSONException {
+        List<AppUser> appUsers =  appUserRepository.findAll();
+        log.info("是否为空"+appUsers.isEmpty());
+        String json = parseJson(appUsers);
+        log.info("JSON"+json);
+        return json;
+    }
+
+
+    @RequestMapping(value="/employee/admin/product/request",  method = RequestMethod.POST)
+    @ResponseBody
+    public String ResponseProduct() throws JSONException {
+        List<InsurancePolicyProducts> insurancePolicyProducts =  insurancePolicyProductsRepository.findAll();
+        log.info("是否为空"+insurancePolicyProducts.isEmpty());
+        String json = ippParseJson(insurancePolicyProducts);
+        log.info("JSON"+json);
+        return json;
+    }
+
+    @RequestMapping(value="/employee/admin/claim/request",  method = RequestMethod.POST)
+    @ResponseBody
+    public String ResponseClaim() throws JSONException {
+        List<InsuranceClaim> insuranceClaims = insuranceClaimRepository.findAll();
+        log.info("是否为空"+insuranceClaims.isEmpty());
+        String json = icParseJson(insuranceClaims);
+        log.info("JSON"+json);
+        return json;
+    }
+    @RequestMapping(value="/employee/admin/detail/request",  method = RequestMethod.POST)
+    @ResponseBody
+    public String ResponseClaim(@RequestBody ClaimIDRequest req) throws JSONException {
+        Long id = Long.parseLong(req.getClaimID());
+        Optional<InsuranceClaim> oicd = insuranceClaimRepository.findById(id);
+        log.info("是否为空"+oicd.isPresent());
+        InsuranceClaim icd = oicd.get();
+        String json = icdParseJson(icd);
+        log.info("JSON"+json);
+        return json;
+    }
+
+    public String icdParseJson(InsuranceClaim info) throws JSONException {
+        JSONObject jsonObject = null;
+        jsonObject = new JSONObject();
+        jsonObject.put("ClaimID", info.getId());
+        if(info.getUser()==null){
+            jsonObject.put("CustomerID", "unknown");
+            jsonObject.put("CustomerName", "unknown");
+        }
+        else{
+            jsonObject.put("CustomerID", info.getUser().getId());
+            jsonObject.put("CustomerName", info.getUser().getUserName());
+        }
+        LostItem lostItem = info.getLostItem();
+        jsonObject.put("InsuranceName", info.getPolicy().getInsuranceProduct().getInsuranceName());
+        jsonObject.put("StartTime", info.getDate());
+        jsonObject.put("Status", info.getClaimStep());
+        jsonObject.put("ItemName", lostItem.getItemName());
+        jsonObject.put("ItemName", lostItem.getItemType());
+        jsonObject.put("ItemPrice", lostItem.getItemPrice());
+        jsonObject.put("ItemDescription", lostItem.getItemDescription());
+        jsonObject.put("Email", lostItem.getContactEmail());
+
+        return jsonObject.toString();
+    }
+
+
+    public String icParseJson(List<InsuranceClaim> items) throws JSONException {
+        if (items == null) return "";
+        JSONObject array = new JSONObject();
+        JSONObject jsonObject = null;
+        JSONArray data = new JSONArray();
+        InsuranceClaim info = null;
+        for (int i = 0; i < items.size(); i++) {
+            info = items.get(i);
+            jsonObject = new JSONObject();
+            jsonObject.put("ClaimID", info.getId());
+            jsonObject.put("InsuranceName", info.getPolicy().getInsuranceProduct().getInsuranceName());
+            jsonObject.put("StartTime", info.getDate());
+            if(info.getUser()== null){
+                jsonObject.put("CustomerID", "null");
+
+            }
+            else{
+                jsonObject.put("CustomerID", info.getUser().getId());
+
+            }
+            jsonObject.put("Email", info.getLostItem().getContactEmail());
+            jsonObject.put("ItemType", info.getLostItem().getItemType());
+            jsonObject.put("Status", info.getClaimStep());
+            jsonObject.put("Detail", "<button class=\"btn btn-info btn-rounded\" id=\"detail\"  data-toggle=\"modal\" data-target=\"#exampleModalPreview\" onclick = \"clicke(this);\"><i class=\"fas fa-magic mr-1\"></i>Details</button>");
+            data.put(jsonObject);
+        }
+        array.put("data",data);
+        return array.toString();
+    }
+
+    public String ippParseJson(List<InsurancePolicyProducts> items) throws JSONException {
+        if (items == null) return "";
+        JSONObject array = new JSONObject();
+        JSONObject jsonObject = null;
+        JSONArray data = new JSONArray();
+        InsurancePolicyProducts info = null;
+        for (int i = 0; i < items.size(); i++) {
+            info = items.get(i);
+            jsonObject = new JSONObject();
+            jsonObject.put("InsuranceID", info.getId());
+            jsonObject.put("InsuranceName", info.getInsuranceName());
+            jsonObject.put("Abstract", info.getInsuranceAbstract());
+            data.put(jsonObject);
+        }
+        array.put("data",data);
+        return array.toString();
+    }
+
+
 
     public String parseJson(List<AppUser> items) throws JSONException {
         if (items == null) return "";
-        JSONArray array = new JSONArray();
+        JSONObject array = new JSONObject();
         JSONObject jsonObject = null;
+        JSONArray data = new JSONArray();
         AppUser info = null;
         for (int i = 0; i < items.size(); i++) {
             info = items.get(i);
@@ -187,8 +277,9 @@ public class DashboardController {
 //            }else {
             jsonObject.put("Phone", info.getDetails().getPhoneNumber());
 //            }
-            array.put(jsonObject);
+            data.put(jsonObject);
         }
+        array.put("data",data);
         return array.toString();
     }
 

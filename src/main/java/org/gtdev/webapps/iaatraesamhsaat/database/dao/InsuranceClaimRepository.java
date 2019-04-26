@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface InsuranceClaimRepository extends JpaRepository<InsuranceClaim, Long> {
     Optional<InsuranceClaim> findById(Long id);
     List<InsuranceClaim> findAllByUser(AppUser user);
+    List<InsuranceClaim> findAll();
 }

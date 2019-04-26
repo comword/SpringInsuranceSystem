@@ -1,38 +1,6 @@
 var customer = new Vue({
     el: '#vue_customer',
     data: {
-        people: [{
-            CustomerId: 'C1',
-            CustomerName: 'Fu Zixin',
-            gender: 'Male',
-            personalId:'110103199903091235',
-            Phone:'18600812186',
-            Email:'fuzixin000@gmail.com'
-        },
-            {
-                CustomerId: 'C2',
-                CustomerName: 'Fu Zixin',
-                gender: 'Male',
-                personalId:'110103199903091235',
-                Phone:'18600812186',
-                Email:'fuzixin000@gmail.com'
-            },
-            {
-                CustomerId: 'C3',
-                CustomerName: 'Fu Zixin',
-                gender: 'Male',
-                personalId:'110103199903091235',
-                Phone:'18600812186',
-                Email:'fuzixin000@gmail.com'
-            },
-            {
-                CustomerId: 'C4',
-                CustomerName: 'Fu Zixin',
-                gender: 'Male',
-                personalId:'110103199903091235',
-                Phone:'18600812186',
-                Email:'fuzixin000@gmail.com'
-            }],
         info:[],
         test:[
             {fxc:"Fxc"},
@@ -62,4 +30,34 @@ $.ajax({ url: "customer/request",
     }
 
 });
+    $('#dtMaterialDesignExample').DataTable({
+            "ajax": {
+                "url": "customer/request",
+                "data": [],
+                "type": "POST"
+            },
+            "columns": [
+                { "data": "CustomerId" },
+                { "data": "CustomerName" },
+                { "data": "Phone"},
+                { "data": "Email"}
+            ]
+        }
+    );
+    $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
+        $(this).parent().append($(this).children());
+    });
+    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('input').each(function () {
+        $('input').attr("placeholder", "Search");
+        $('input').removeClass('form-control-sm');
+    });
+    $('#dtMaterialDesignExample_wrapper .dataTables_length').addClass('d-flex flex-row');
+    $('#dtMaterialDesignExample_wrapper .dataTables_filter').addClass('md-form');
+    $('#dtMaterialDesignExample_wrapper select').removeClass(
+        'custom-select custom-select-sm form-control form-control-sm');
+    $('#dtMaterialDesignExample_wrapper select').addClass('mdb-select');
+    $('#dtMaterialDesignExample_wrapper .mdb-select').materialSelect();
+    $('#dtMaterialDesignExample_wrapper .dataTables_filter').find('label').remove();
+
+
 });

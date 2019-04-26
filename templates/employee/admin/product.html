@@ -11,7 +11,10 @@
     <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
     <title>Employee Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
-    <!--    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">-->
+    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">
+    <link th:href="@{/libs/MDB/css/addons/datatables.css}" href="../../../static/libs/MDB/css/addons/datatables.css" rel="stylesheet">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+
     <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
 </head>
 <body>
@@ -93,27 +96,15 @@
         <br/>
         <h2>Insurance product information</h2>
         <div id="vue_product">
-            <table class="table table-striped table-sm" style="border-right: 1px solid #c5c7cc;border-left: 1px solid #c5c7cc;border-bottom: 1px solid #c5c7cc;">
+            <table id="dtMaterialDesignExample" class="table table-striped table-bordered table-sm" cellSpacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Insurance Type Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Insurance Name</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Time limit</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Abstract</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Detail</th>
+                    <th class="th-sm">Insurance ID</th>
+                    <th class="th-sm">Insurance Name</th>
+                    <th class="th-sm">Abstract</th>
                 </tr>
                 </thead>
-
                 <tbody>
-
-                <tr v-for="i in product">
-                    <td>{{ i.productId }}</td>
-                    <td>{{ i.name }}</td>
-                    <td>{{ i.time }}</td>
-                    <td>{{ i.abstract }}</td>
-                    <td><a class="nav-link" href="/employee/admin/product_detail.html">Click</a></td>
-                </tr>
-
                 </tbody>
             </table>
         </div>
@@ -137,10 +128,13 @@
 <script type="text/javascript" src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script type="text/javascript" src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<!--<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>-->
 <script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
 <script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>
+<script type="text/javascript" th:src="@{/libs/MDB/js/addons/datatables.js}" src="../../../static/libs/MDB/js/addons/datatables.js">
 <script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
+
+
 <script type="text/javascript" src="../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
 <script src="/js/employee/show_product.js"></script>
 </body>

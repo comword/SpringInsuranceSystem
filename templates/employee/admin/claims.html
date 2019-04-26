@@ -9,16 +9,16 @@
     <link rel="icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon-precomposed" href="/images/favicon-touch.png">
     <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
-    <title>Employee Claims</title>
+    <title>Claims Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">
+    <link th:href="@{/libs/MDB/css/addons/datatables.css}" href="../../../static/libs/MDB/css/addons/datatables.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
-    <button class="navbar-toggler btn btn-flat btn-md" type="button" data-toggle="offcanvas" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle sidebar">
-        Side
-    </button>
     <a class="navbar-brand" href="#">Hibernia-Sino</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,10 +28,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/employee/admin/dashboard#">Dashboard</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/employee/admin/claims#">Claim</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/employee/admin/customer#">Customers</a>
             </li>
             <li class="nav-item">
@@ -58,18 +58,14 @@
         </ul>
     </div>
 </nav>
+
 <div class="container-fluid">
     <div class="row row-offcanvas row-offcanvas-right" id="left-nav-bar">
-        <nav class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar">
+        <p class="pull-left visible-xs" style="margin-top: 5px;">
+            <button type="button" class="btn btn-sm" data-toggle="offcanvas" style="background-color: #1c2331;color: #e5f2fa">Side</button>
+        </p>
+        <nav class="col-md-3 col-lg-2 bg-light sidebar-offcanvas" id="sidebar">
             <div class="sidebar-sticky">
-
-                <!--<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">-->
-                    <!--<span>Received claims</span>-->
-                    <!--<a class="d-flex align-items-center text-muted">-->
-                        <!--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>-->
-                    <!--</a>-->
-                <!--</h6>-->
-
                 <ul class="nav flex-column mb-2">
                     <br/>
                     <li class="nav-item">
@@ -104,52 +100,61 @@
         </nav>
     </div>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main">
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" id="main">
         <h2>Claims received</h2>
         <div id="vue_claim">
-            <table class="table table-striped table-sm" style="border-right: 1px solid #c5c7cc;border-left: 1px solid #c5c7cc;border-bottom: 1px solid #c5c7cc;">
+
+            <!--<table id="dtMaterialDesignExample" class="table table-striped table-bordered table-sm" cellSpacing="0" width="100%">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th class="th-sm">Customer ID</th>-->
+                    <!--<th class="th-sm">Customer Name</th>-->
+                    <!--<th class="th-sm">Insurance ID</th>-->
+                    <!--<th class="th-sm">Employee ID</th>-->
+                    <!--<th class="th-sm">Status</th>-->
+                    <!--<th class="th-sm">Email</th>-->
+                    <!--<th class="th-sm">Item Type</th>-->
+                    <!--<th class="th-sm">Item Price</th>-->
+                    <!--<th class="th-sm">Operation</th>-->
+
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--</tbody>-->
+            <!--</table>-->
+            <table id="dtMaterialDesignExample" class="table table-striped table-bordered table-sm" cellSpacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Claim Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Customer Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Application Date</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Insurance Type Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Categories of items</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Status</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Email</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Detail</th>
+                    <th class="th-sm">Claim ID</th>
+                    <th class="th-sm">Insurance Name</th>
+                    <th class="th-sm">Start Time</th>
+                    <th class="th-sm">Customer ID</th>
+                    <th class="th-sm">Item Type</th>
+                    <th class="th-sm">Email</th>
+                    <th class="th-sm">Status</th>
+                    <th class="th-sm">Detail</th>
                 </tr>
                 </thead>
-
                 <tbody>
-
-                <tr v-for="i in claim">
-                    <td>{{ i.claimId }}</td>
-                    <td>{{ i.customerId }}</td>
-                    <td>{{ i.applyDate }}</td>
-                    <td>{{ i.productId }}</td>
-                    <td>{{ i.categories }}</td>
-                    <td>{{ i.status }}</td>
-                    <td>{{ i.email }}</td>
-                    <td><a class="nav-link" href="/employee/admin/detail.html">Click</a></td>
-                </tr>
-                </tr>
-                </tr>
-
                 </tbody>
             </table>
         </div>
-    </main>
+    </div>
 </div>
-<script type="text/javascript" src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript" src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
-<script type="text/javascript" src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+
+
+<script src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../../static/js/jquery.cookie.js" th:src="@{/js/jquery.cookie.js}"></script>
+<script src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>
+<script type="text/javascript" th:src="@{/libs/MDB/js/addons/datatables.js}" src="../../../static/libs/MDB/js/addons/datatables.js"></script>
 <script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
 <script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
 <script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
 <script type="text/javascript" src="../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
-
 <script src="/js/employee/show_claim.js"></script>
 </body>
 </html>

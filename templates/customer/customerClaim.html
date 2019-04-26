@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/customer/customerInsurance.css}" href="../../static/css/customer/customerInsurance.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/MDB/css/mdb.css}" href="../../static/libs/MDB/css/mdb.css" rel="stylesheet" type="text/css">
-    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
     <link th:href="@{/libs/MDB/css/addons/datatables.css}" href="../../static/libs/MDB/css/addons/datatables.css" rel="stylesheet">
+    <link th:href="@{/libs/fileUpload/css/fileinput.css}" href="../../static/libs/fileUpload/css/fileinput.css" media="all" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/customer/customerClaim.css}" href="../../static/css/customer/customerClaim.css" rel="stylesheet" type="text/css">
+
 </head>
 <body class="fixed-sn light-blue-skin" >
 <script>
@@ -122,10 +124,7 @@
     <!-- /.Navbar -->
 </header>
 
-
-
 <!--/.Double navigation-->
-
 <!--Main Layout-->
 <main id="main">
     <div class="container-fluid mt-5">
@@ -149,6 +148,9 @@
 <script src="../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
 <script src="../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
 <script src="../../static/js/vue-resource.min.js" th:src="@{/js/vue-resource.min.js}"></script>
-
-<script type="text/javascript" th:src="@{/js/customer/customerInsurance.js}" src="../../static/js/customer/customerInsurance.js"></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/fileinput.js}" src="../../static/libs/fileUpload/js/fileinput.js"></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/piexif.js}"  src="../../static/libs/fileUpload/js/plugins/piexif.js"></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/js/plugins/sortable.js}" src="../../static/libs/fileUpload/js/plugins/sortable.js"></script>
+<script type="text/javascript" th:src="@{/libs/fileUpload/themes/fas/theme.js}" src="../../static/libs/fileUpload/themes/fas/theme.js" ></script>
+<script type="text/javascript" th:src="@{/js/customer/customerClaim.js}" src="../../static/js/customer/customerClaim.js"></script>
 </html>

@@ -18,3 +18,22 @@ table.dataTable thead .sorting_desc_disabled:before {
 .infMargin{
     margin-top: 10px;
 }
+.upload-file .btn{
+    padding: 10px;
+    margin: 0 5px 0 5px;
+}
+
+.upload-file .btn.btn-sm{
+    padding: 10px;
+    margin: unset;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+
+

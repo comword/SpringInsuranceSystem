@@ -31,5 +31,8 @@ public class InsuranceClaim {
     @JoinColumn
     private LostItem lostItem;
 
+    @Column(nullable = false)
+    private String date;
+
 
 }

@@ -17,7 +17,7 @@ public class CustomerPageController {
 
 
     @GetMapping("/customer/page")
-    public String claim(HttpServletRequest request) {
+    public String claimTrack(HttpServletRequest request) {
         Locale l = localeResolver.resolveLocale(request);
 //        if(l.equals(Locale.SIMPLIFIED_CHINESE))
 //            return "claim/claimTrack-cn";
@@ -33,5 +33,12 @@ public class CustomerPageController {
         return "customer/customerInsurance";
     }
 
-
+    @GetMapping("/customer/Claim")
+    public String claim(HttpServletRequest request) {
+        Locale l = localeResolver.resolveLocale(request);
+//        if(l.equals(Locale.SIMPLIFIED_CHINESE))
+//            return "claim/claimTrack-cn";
+//        else
+        return "customer/customerClaim";
+    }
 }

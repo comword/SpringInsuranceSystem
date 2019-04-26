@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -50,7 +51,7 @@ public class ClaimResponseController {
 
     @Data
     private static class claimSubmitRequest {
-        private String itemType,itemName,itemPrice,itemDescription,contactEmail,policyNum,username;
+        private String itemType,itemName,itemPrice,itemDescription,contactEmail,policyNum,username,date;
     }
 
     @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.POST)
@@ -186,7 +187,7 @@ public class ClaimResponseController {
         return resultMap;
     }
 
-    @RequestMapping(value="/claim/newclaim/ClaimItemInfo",  method = RequestMethod.POST)
+    @RequestMapping(value={"/claim/newclaim/ClaimItemInfo","/customer/Claim/newclaim/ClaimItemInfo"},  method = RequestMethod.POST)
     @ResponseBody
     public String uploadInfo(@RequestBody claimSubmitRequest csr) throws JSONException {
 //        LostItem lostItem = new LostItem();
@@ -195,14 +196,19 @@ public class ClaimResponseController {
 //        lostItem.setItemPrice(csr.getItemPrice());
 //        lostItem.setItemDescription(csr.getItemDescription());
 //        lostItem.setContactEmail(csr.getContactEmail());
+        log.info("time"+csr.getDate());
         LostItem lostItem = CreateLostItem(csr);
         LostItem savedLostItem = lostItemRepository.save(lostItem);
         log.info("The savedLostItem: "+savedLostItem.getId());
-
+//        Date sqlDate = new java.sql.Date(Long.parseLong(csr.getDate()));
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String dateString = formatter.format(sqlDate);
+//        log.info(dateString);
         InsurancePolicyRecord ipr = insurancePolicyRecordRepository.findInsurancePolicyRecordById(csr.getPolicyNum());
         InsuranceClaim ic = new InsuranceClaim();
         ic.setPolicy(ipr);
         ic.setClaimStep("2");
+        ic.setDate(csr.getDate());
         if(!csr.getUsername().equals("")){
             AppUser au = userRepository.findAppUserByUserName(csr.getUsername());
             ic.setUser(au);
@@ -228,30 +234,30 @@ public class ClaimResponseController {
 
 
 
-    @RequestMapping(value="/claim/claimTrack/claimOrderNum",  method = RequestMethod.POST)
-    @ResponseBody
-    public String claimOrderNum(@RequestBody claimRequest req) throws JSONException {
-        Optional<InsuranceClaim> ic = insuranceClaimRepository.findById(Long.parseLong(req.claimOrderNum));
-        JSONObject result = new JSONObject();
-//        result.put("resCode", 0);
-        log.info("Claim: " + req.toString());
-        if(!ic.isPresent()){//如果没有找到索赔单号
-            result.put("resCode","-2002");
-            result.put("message","The claim order record was not found, please try again.");
-        }
-        else{//找到索赔单号
-            result.put("resCode","0");
-            result.put("claimOrderNum",ic.get().getId());//索赔单号
-//            result.put("step","2");             //目前所在的阶段 审核中....
-//            result.put("step","3");             //目前所在的阶段 需要额外的信息
-            result.put("step",ic.get().getClaimStep());             //目前所在的阶段 成功或者失败
-            if(result.getString("step").equals("4")){
-                result.put("result",ic.get().getResult());
-//                result.put("result","fail");
+        @RequestMapping(value={"/claim/claimTrack/claimOrderNum"},  method = RequestMethod.POST)
+        @ResponseBody
+        public String claimOrderNum(@RequestBody claimRequest req) throws JSONException {
+            Optional<InsuranceClaim> ic = insuranceClaimRepository.findById(Long.parseLong(req.claimOrderNum));
+            JSONObject result = new JSONObject();
+    //        result.put("resCode", 0);
+            log.info("Claim: " + req.toString());
+            if(!ic.isPresent()){//如果没有找到索赔单号
+                result.put("resCode","-2002");
+                result.put("message","The claim order record was not found, please try again.");
             }
+            else{//找到索赔单号
+                result.put("resCode","0");
+                result.put("claimOrderNum",ic.get().getId());//索赔单号
+    //            result.put("step","2");             //目前所在的阶段 审核中....
+    //            result.put("step","3");             //目前所在的阶段 需要额外的信息
+                result.put("step",ic.get().getClaimStep());             //目前所在的阶段 成功或者失败
+                if(result.getString("step").equals("4")){
+                    result.put("result",ic.get().getResult());
+    //                result.put("result","fail");
+                }
+            }
+            return result.toString();
         }
-        return result.toString();
-    }
 
 
 

@@ -1,15 +1,27 @@
 var detail = new Vue({
     el: '#vue_detail',
     data: {
-        detail: [{
-            claimId: '001',
-            customerId: 'C1',
-            content: 'Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”. We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. Most Spring Boot applications need very little Spring configuration.\n' +
-                '                    You can use Spring Boot to create Java applications that can be started using java -jar or more traditional war deployments. We also provide a command line tool that runs “spring scripts”.\n' +
-                '                    Our primary goals are:',
-            attachment: 'Male',
-            feedback:'Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”. We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. Most Spring Boot applications need very little Spring configuration.\n' +
-                '                    You can use Spring Boot to create Java applications that can be started using java -jar or more traditional war deployments. We also provide a command line tool that runs “spring scripts”.'
-        }]
+        info: []
+    },
+    mounted:function () {
+        var id = $.cookie("claimID");
+        if(id==="null"){
+            window.location.href = "/employee/admin/claims";
+        }
+        var d = {};
+        d.claimID = id;
+        $.ajax({ url: "/employee/admin/detail/request",
+            data: JSON.stringify(d),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function(response){
+                detail.info = new Function("return" + response)();
+            },
+            error:function(jqXHR){
+                console.log("Error: "+ jqXHR.status);
+            }
+
+        });
     }
-})
+});
+
