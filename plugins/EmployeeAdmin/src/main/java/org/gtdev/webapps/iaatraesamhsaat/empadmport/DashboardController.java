@@ -1,14 +1,8 @@
 package org.gtdev.webapps.iaatraesamhsaat.empadmport;
 
 import lombok.Data;
-import org.gtdev.webapps.iaatraesamhsaat.database.dao.AppUserRepository;
-import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsuranceClaimRepository;
-import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsurancePolicyProductsRepository;
-import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsurancePolicyRecordRepository;
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.AppUser;
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsuranceClaim;
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsurancePolicyProducts;
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.LostItem;
+import org.gtdev.webapps.iaatraesamhsaat.database.dao.*;
+import org.gtdev.webapps.iaatraesamhsaat.database.entities.*;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
@@ -21,6 +15,9 @@ import org.springframework.web.servlet.LocaleResolver;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.Option;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +32,8 @@ public class DashboardController {
     @Autowired
     private InsuranceClaimRepository insuranceClaimRepository;
     @Autowired
+    private FeedbackRepository feedbackRepository;
+    @Autowired
     private LocaleResolver localeResolver;
 
     private Logger log= LoggerFactory.getLogger(DashboardController.class);
@@ -46,7 +45,14 @@ public class DashboardController {
     private static class ClaimIDRequest {
         private String claimID;
     }
-
+    @Data
+    private static class FeedbackRequest {
+        private String claimID,result,feedback,timeStamp;
+    }
+    @Data
+    private static class ClaimsRequest {
+        private String timeOption;
+    }
 
     @GetMapping("/employee/admin/dashboard")
     public String funcDashboard(HttpServletRequest request) {
@@ -123,7 +129,7 @@ public class DashboardController {
         return "employee/admin/claim/claim_attachment";
     }
 
-    @GetMapping("/claim/claim_feedback")
+    @GetMapping("/employee/admin/claim_feedback")
     public String atachment(HttpServletRequest request) {
 //        Locale l = localeResolver.resolveLocale(request);
 //        if(l.equals(Locale.SIMPLIFIED_CHINESE))
@@ -140,6 +146,9 @@ public class DashboardController {
 //        else
         return "employee/admin/product_detail";
     }
+
+
+
 
     @RequestMapping(value="/employee/admin/customer/request",  method = RequestMethod.POST)
     @ResponseBody
@@ -164,8 +173,21 @@ public class DashboardController {
 
     @RequestMapping(value="/employee/admin/claim/request",  method = RequestMethod.POST)
     @ResponseBody
-    public String ResponseClaim() throws JSONException {
-        List<InsuranceClaim> insuranceClaims = insuranceClaimRepository.findAll();
+    public String ResponseClaim(@RequestBody ClaimsRequest req) throws JSONException {
+        List<InsuranceClaim> insuranceClaims = null;
+        if(req.getTimeOption().equals("all")){
+            insuranceClaims = insuranceClaimRepository.findAll();
+        }
+        else if(req.getTimeOption().equals("year")){
+            insuranceClaims = insuranceClaimRepository.findAll();
+        }
+        else if(req.getTimeOption().equals("month")){
+            insuranceClaims = insuranceClaimRepository.findAll();
+        }
+        else{
+            insuranceClaims = insuranceClaimRepository.findAll();
+        }
+
         log.info("是否为空"+insuranceClaims.isEmpty());
         String json = icParseJson(insuranceClaims);
         log.info("JSON"+json);
@@ -183,6 +205,73 @@ public class DashboardController {
         return json;
     }
 
+
+    @RequestMapping(value="/employee/admin/feedback/precondition",  method = RequestMethod.POST)
+    @ResponseBody
+    public String ResponsePrecondition(@RequestBody ClaimIDRequest req) throws JSONException {
+        Long id = Long.parseLong(req.getClaimID());
+        Optional<Feedback> feedbackOptional = feedbackRepository.findByClaim(insuranceClaimRepository.findById(id).get());
+        JSONObject jsonObject = null;
+        jsonObject = new JSONObject();
+
+        if(feedbackOptional.isPresent()&&!feedbackOptional.get().getResult().equals("Undetermined")){
+            jsonObject.put("resCode", "0");
+            jsonObject.put("result",feedbackOptional.get().getResult());
+            jsonObject.put("feedback",feedbackOptional.get().getFeedback());
+        }
+        else {
+            jsonObject.put("resCode", "2");
+        }
+        return jsonObject.toString();
+    }
+
+
+    @RequestMapping(value="/employee/admin/feedback/request",  method = RequestMethod.POST)
+    @ResponseBody
+    public String ResponseFeedback(@RequestBody FeedbackRequest req) throws JSONException {
+        Long id = Long.parseLong(req.getClaimID());
+        String step = "";
+        String ClaimResult = "";
+        InsuranceClaim insuranceClaim = insuranceClaimRepository.findById(id).get();
+        Optional<Feedback> feedbackOptional = feedbackRepository.findByClaim(insuranceClaim);
+        Feedback feedback = new Feedback();
+        if(feedbackOptional.isPresent()) {
+            feedback = feedbackOptional.get();
+        }
+        else{
+            feedback.setClaim(insuranceClaim);
+        }
+            feedback.setFeedback(req.getFeedback());
+            feedback.setResult(req.getResult());
+        if(req.getResult().equals("Undetermined")){
+           step = "3";
+           insuranceClaim.setClaimStep(step);
+           insuranceClaim.setResult(req.getResult());
+        }
+        else if(req.getResult().equals("Accepted")){
+            step = "4";
+            ClaimResult = "success";
+            insuranceClaim.setClaimStep(step);
+            insuranceClaim.setResult(ClaimResult);
+
+        }
+        else{
+            step = "4";
+            ClaimResult = "fail";
+            insuranceClaim.setClaimStep(step);
+            insuranceClaim.setResult(ClaimResult);
+        }
+        feedbackRepository.save(feedback);
+        insuranceClaimRepository.save(insuranceClaim);
+        JSONObject jsonObject = null;
+        jsonObject = new JSONObject();
+        jsonObject.put("resCode", "0");
+        if(step.equals("4")){
+            jsonObject.put("result","4");
+        }
+        return jsonObject.toString();
+    }
+
     public String icdParseJson(InsuranceClaim info) throws JSONException {
         JSONObject jsonObject = null;
         jsonObject = new JSONObject();
@@ -196,15 +285,18 @@ public class DashboardController {
             jsonObject.put("CustomerName", info.getUser().getUserName());
         }
         LostItem lostItem = info.getLostItem();
+        jsonObject.put("InsuranceID",info.getPolicy().getId());
+        jsonObject.put("InsuranceStartDatetime",info.getPolicy().getStartDatetime());
+        jsonObject.put("InsuranceEndDatetime",info.getPolicy().getEndDatetime());
         jsonObject.put("InsuranceName", info.getPolicy().getInsuranceProduct().getInsuranceName());
-        jsonObject.put("StartTime", info.getDate());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        jsonObject.put("StartTime", df.format(info.getTime()));
         jsonObject.put("Status", info.getClaimStep());
         jsonObject.put("ItemName", lostItem.getItemName());
         jsonObject.put("ItemName", lostItem.getItemType());
         jsonObject.put("ItemPrice", lostItem.getItemPrice());
         jsonObject.put("ItemDescription", lostItem.getItemDescription());
         jsonObject.put("Email", lostItem.getContactEmail());
-
         return jsonObject.toString();
     }
 
@@ -220,7 +312,8 @@ public class DashboardController {
             jsonObject = new JSONObject();
             jsonObject.put("ClaimID", info.getId());
             jsonObject.put("InsuranceName", info.getPolicy().getInsuranceProduct().getInsuranceName());
-            jsonObject.put("StartTime", info.getDate());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            jsonObject.put("StartTime", df.format(info.getTime()));
             if(info.getUser()== null){
                 jsonObject.put("CustomerID", "null");
 

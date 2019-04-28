@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -76,8 +77,10 @@ public class CustomerResponseController {
         result.put("claimOrderNum",ic.get().getId());//索赔单号
         //            result.put("step","2");             //目前所在的阶段 审核中....
         //            result.put("step","3");             //目前所在的阶段 需要额外的信息
-        result.put("step",ic.get().getClaimStep());             //目前所在的阶段 成功或者失败
-        result.put("date",ic.get().getDate());
+        result.put("step",ic.get().getClaimStep());
+        //目前所在的阶段 成功或者失败
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        result.put("date",df.format(ic.get().getTime()));
             if(result.getString("step").equals("4")){
                 result.put("result",ic.get().getResult());
                 //                result.put("result","fail");

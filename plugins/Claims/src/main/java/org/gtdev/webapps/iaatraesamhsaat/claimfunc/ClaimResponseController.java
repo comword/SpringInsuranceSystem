@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -190,25 +191,18 @@ public class ClaimResponseController {
     @RequestMapping(value={"/claim/newclaim/ClaimItemInfo","/customer/Claim/newclaim/ClaimItemInfo"},  method = RequestMethod.POST)
     @ResponseBody
     public String uploadInfo(@RequestBody claimSubmitRequest csr) throws JSONException {
-//        LostItem lostItem = new LostItem();
-//        lostItem.setItemType(csr.getItemName());
-//        lostItem.setItemName(csr.getItemName());
-//        lostItem.setItemPrice(csr.getItemPrice());
-//        lostItem.setItemDescription(csr.getItemDescription());
-//        lostItem.setContactEmail(csr.getContactEmail());
         log.info("time"+csr.getDate());
         LostItem lostItem = CreateLostItem(csr);
         LostItem savedLostItem = lostItemRepository.save(lostItem);
         log.info("The savedLostItem: "+savedLostItem.getId());
-//        Date sqlDate = new java.sql.Date(Long.parseLong(csr.getDate()));
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        String dateString = formatter.format(sqlDate);
-//        log.info(dateString);
         InsurancePolicyRecord ipr = insurancePolicyRecordRepository.findInsurancePolicyRecordById(csr.getPolicyNum());
         InsuranceClaim ic = new InsuranceClaim();
         ic.setPolicy(ipr);
         ic.setClaimStep("2");
         ic.setDate(csr.getDate());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.info(timestamp.toString());
+        ic.setTime(timestamp);
         if(!csr.getUsername().equals("")){
             AppUser au = userRepository.findAppUserByUserName(csr.getUsername());
             ic.setUser(au);
@@ -269,7 +263,7 @@ public class ClaimResponseController {
          lostItem.setItemPrice(csr.getItemPrice());
          lostItem.setItemDescription(csr.getItemDescription());
          lostItem.setContactEmail(csr.getContactEmail());
-        return lostItem;
+         return lostItem;
      }
 }
 
