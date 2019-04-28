@@ -14,15 +14,13 @@ public class CustomerPageController {
     @Autowired
     private LocaleResolver localeResolver;
 
-
-
     @GetMapping("/customer/page")
     public String claimTrack(HttpServletRequest request) {
         Locale l = localeResolver.resolveLocale(request);
 //        if(l.equals(Locale.SIMPLIFIED_CHINESE))
 //            return "claim/claimTrack-cn";
 //        else
-            return "customer/customerPage";
+        return "customer/customerPage";
     }
     @GetMapping("/customer/insurance")
     public String insurance(HttpServletRequest request) {

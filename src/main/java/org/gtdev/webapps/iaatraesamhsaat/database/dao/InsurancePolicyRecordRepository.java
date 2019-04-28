@@ -1,6 +1,5 @@
 package org.gtdev.webapps.iaatraesamhsaat.database.dao;
 
-import org.gtdev.webapps.iaatraesamhsaat.database.entities.AppUser;
 import org.gtdev.webapps.iaatraesamhsaat.database.entities.CustomerDetails;
 import org.gtdev.webapps.iaatraesamhsaat.database.entities.InsurancePolicyRecord;
 import org.springframework.data.jpa.repository.JpaRepository;

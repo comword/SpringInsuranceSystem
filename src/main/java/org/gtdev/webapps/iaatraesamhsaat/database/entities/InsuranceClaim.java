@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Data
 @Entity
@@ -16,13 +17,13 @@ public class InsuranceClaim {
     @JoinColumn
     private InsurancePolicyRecord policy;
 
-    @ManyToOne
+    @NotBlank
+    @ManyToOne(optional = false)
     @JoinColumn
     private AppUser user;
 
-    @NotBlank
     @Column(nullable = false)
-    private String claimStep;
+    private int claimStep;
 
     @Column
     private String result;
@@ -31,8 +32,8 @@ public class InsuranceClaim {
     @JoinColumn
     private LostItem lostItem;
 
+    @NotBlank
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private String date;
-
-
+    private Date dateTime;
 }
