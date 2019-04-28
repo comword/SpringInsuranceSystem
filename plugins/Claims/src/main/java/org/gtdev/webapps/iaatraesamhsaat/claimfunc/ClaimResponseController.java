@@ -43,10 +43,10 @@ public class ClaimResponseController {
         private String firstName, lastName, policyNum, phone;
     }
 
-    @Data
-    private static class claimRequest {
-        private String claimOrderNum;
-    }
+//    @Data
+//    private static class claimRequest {
+//        private String claimOrderNum;
+//    }
 
     @Data
     private static class claimSubmitRequest {
@@ -189,25 +189,14 @@ public class ClaimResponseController {
     @RequestMapping(value="/claim/newclaim/ClaimItemInfo", method = RequestMethod.POST)
     @ResponseBody
     public String uploadInfo(@RequestBody claimSubmitRequest csr) throws JSONException {
-//        LostItem lostItem = new LostItem();
-//        lostItem.setItemType(csr.getItemName());
-//        lostItem.setItemName(csr.getItemName());
-//        lostItem.setItemPrice(csr.getItemPrice());
-//        lostItem.setItemDescription(csr.getItemDescription());
-//        lostItem.setContactEmail(csr.getContactEmail());
-//        log.info("time"+csr.getDate());
         LostItem lostItem = createLostItem(csr);
         LostItem savedLostItem = lostItemRepository.save(lostItem);
         log.info("The savedLostItem: "+savedLostItem.getId());
-//        Date sqlDate = new java.sql.Date(Long.parseLong(csr.getDate()));
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        String dateString = formatter.format(sqlDate);
-//        log.info(dateString);
         InsurancePolicyRecord ipr = insurancePolicyRecordRepository.findInsurancePolicyRecordById(csr.getPolicyNum());
         InsuranceClaim ic = new InsuranceClaim();
         ic.setPolicy(ipr);
         ic.setClaimStep(2);
-        ic.setDateTime(new Date());
+        ic.setTime(new Date());
         if(!csr.getUsername().equals("")){
             AppUser au = userRepository.findAppUserByUserName(csr.getUsername());
             ic.setUser(au);
@@ -233,11 +222,10 @@ public class ClaimResponseController {
 
     @RequestMapping(value="/claim/claimTrack/claimOrderNum",  method = RequestMethod.POST)
     @ResponseBody
-    public String claimOrderNum(@RequestBody claimRequest req) throws JSONException {
-        Optional<InsuranceClaim> ic = insuranceClaimRepository.findById(Long.parseLong(req.claimOrderNum));
+    public String claimOrderNum(@RequestParam String claimOrderNum) throws JSONException {
+        Optional<InsuranceClaim> ic = insuranceClaimRepository.findById(Long.parseLong(claimOrderNum));
         JSONObject result = new JSONObject();
 //        result.put("resCode", 0);
-        log.info("Claim: " + req.toString());
         if(!ic.isPresent()){//如果没有找到索赔单号
             result.put("resCode","-2002");
             result.put("message","The claim order record was not found, please try again.");
@@ -263,7 +251,7 @@ public class ClaimResponseController {
          lostItem.setItemPrice(csr.getItemPrice());
          lostItem.setItemDescription(csr.getItemDescription());
          lostItem.setContactEmail(csr.getContactEmail());
-        return lostItem;
+         return lostItem;
      }
 }
 

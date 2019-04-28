@@ -3,36 +3,29 @@ package org.gtdev.webapps.iaatraesamhsaat.database.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
 @Entity
-public class InsuranceClaim {
+public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @JoinColumn
-    private InsurancePolicyRecord policy;
+    private InsuranceClaim claim;
 
-    @NotBlank
-    @ManyToOne(optional = false)
-    @JoinColumn
-    private AppUser user;
-
-    @Column(nullable = false)
-    private int claimStep;
+    @Column
+    private String feedback;
 
     @Column
     private String result;
 
-    @OneToOne
-    @JoinColumn
-    private LostItem lostItem;
 
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
+
+
 }

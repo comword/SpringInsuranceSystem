@@ -28,10 +28,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/employee/admin/dashboard#">Dashboard</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/employee/admin/claims#">Claim</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="/employee/admin/customer#">Customers</a>
             </li>
             <li class="nav-item">
@@ -89,7 +89,7 @@
 
                     <br/>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/claim/claim_feedback#" style="font-size: 15px">
+                        <a class="nav-link active" href="/employee/admin/claim_feedback" style="font-size: 15px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             Feedback
                         </a>
@@ -127,171 +127,142 @@
         <!--第一部分: 申请人信息-->
         <br/>
         <br/>
-        <h2>Customer information</h2>
-        <div class="table-responsive">
-            <table class="table table-striped table-sm" style="border-right: 1px solid #c5c7cc;border-left: 1px solid #c5c7cc;border-bottom: 1px solid #c5c7cc;">
-                <thead>
-                <tr>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Claim Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Customer Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Customer Name</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Personal Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Insurance Type Id</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Application Date</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Email</th>
-                    <th rowspan=$rowspan style='vertical-align: middle;text-align: left;'>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>002</td>
-                    <td>1,001</td>
-                    <td>Fu Zixin</td>
-                    <td>11010319981224123x</td>
-                    <td>CA0002</td>
-                    <td>2019-03-09</td>
-                    <td>fuzixin000@gmail.com</td>
-                    <td>Accepted</td>
-                </tr>
+        <div id="vue_detail" class="table-responsive">
+            <!--Accordion wrapper-->
+            <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
-                </tbody>
-            </table>
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-4 z-depth-2" role="tab" id="headingTwo1">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo1"
+                           aria-expanded="false" aria-controls="collapseTwo1">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                                Claim Information<i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseTwo1" class="collapse show" role="tabpanel" aria-labelledby="headingTwo1" >
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Claim ID:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ClaimID }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Start Time:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.StartTime }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Customer ID:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.CustomerID }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Customer Name:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.CustomerName }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Email:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.Email }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Step:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.Status }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-3 z-depth-2" role="tab" id="headingTwo2">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+                           aria-expanded="false" aria-controls="collapseTwo2">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                                Insurance Information <i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" >
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Insurance ID:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceID }}</div>
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Insurance Name:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceName }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Start Time:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceStartDatetime }}</div>
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">End Time:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceEndDatetime }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-2 z-depth-2" role="tab" id="headingThree3">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
+                           aria-expanded="false" aria-controls="collapseThree3">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                                Lost Item Information <i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3" >
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Item Name:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ItemName }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Item Price:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ItemPrice }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-1 z-depth-2" role="tab" id="headingFour4">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseFour4"
+                           aria-expanded="false" aria-controls="collapseThree3">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                                Lost Item Description Content <i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseFour4" class="collapse" role="tabpanel" aria-labelledby="headingFour4" >
+                        <div class="card-body">
+                            {{info.ItemDescription}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Accordion wrapper -->
         </div>
-
-
-        <!--第二部分: 申请内容-->
-        <h3 id="content"></h3>
-        <br/>
-        <br/>
-        <br/>
-        <h2>Content</h2>
-        <br>
-
-        <p style="font-size:20px">
-            Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”. We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. Most Spring Boot applications need very little Spring configuration.
-            You can use Spring Boot to create Java applications that can be started using java -jar or more traditional war deployments. We also provide a command line tool that runs “spring scripts”.
-            Our primary goals are:
-            Provide a radically faster and widely accessible getting started experience for all Spring development.
-            Be opinionated out of the box, but get out of the way quickly as requirements start to diverge from the defaults.
-            Provide a range of non-functional features that are common to large classes of projects (e.g. embedded servers, security, metrics, health checks, externalized configuration).
-            Absolutely no code generation and no requirement for XML configuration.
-            Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”. We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. Most Spring Boot applications need very little Spring configuration.
-            You can use Spring Boot to create Java applications that can be started using java -jar or more traditional war deployments. We also provide a command line tool that runs “spring scripts”.
-            Our primary goals are:
-            Provide a radically faster and widely accessible getting started experience for all Spring development.
-            Be opinionated out of the box, but get out of the way quickly as requirements start to diverge from the defaults.
-            Provide a range of non-functional features that are common to large classes of projects (e.g. embedded servers, security, metrics, health checks, externalized configuration).
-            Absolutely no code generation and no requirement for XML configuration.
-            Provide a radically faster and widely accessible getting started experience for all Spring development.
-            Be opinionated out of the box, but get out of the way quickly as requirements start to diverge from the defaults.
-            Provide a range of non-functional features that are common to large classes of projects (e.g. embedded servers, security, metrics, health checks, externalized configuration).
-            Absolutely no code generation and no requirement for XML configuration.
-            Provide a radically faster and widely accessible getting started experience for all Spring development.
-            Be opinionated out of the box, but get out of the way quickly as requirements start to diverge from the defaults.
-            Provide a range of non-functional features that are common to large classes of projects (e.g. embedded servers, security, metrics, health checks, externalized configuration).
-            Absolutely no code generation and no requirement for XML configuration.
-
-        </p>
-
-
-        <!--&lt;!&ndash;第三部分：附件&ndash;&gt;-->
-        <!--<h3 id="attachment"></h3>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<h2>Attachment</h2>-->
-        <!--<br/>-->
-
-        <!--<div class="row">-->
-
-            <!--<div class="col-sm-6 col-md-3">-->
-                <!--<a href="#" class="thumbnail">-->
-                    <!--<img src="/images/bag.png"-->
-                         <!--alt="..." class="img-responsive" width="300px", height="300px">-->
-                <!--</a>-->
-            <!--</div>-->
-
-            <!--<div class="col-sm-6 col-md-3">-->
-                <!--<a href="#" class="thumbnail">-->
-                    <!--<img src="/images/ticket.png"-->
-                         <!--alt="..."  class="img-responsive" width="300px", height="300px">-->
-                <!--</a>-->
-            <!--</div>-->
-
-            <!--<div class="col-sm-6 col-md-3">-->
-                <!--<a href="#" class="thumbnail">-->
-                    <!--<img src="/images/insurance.png"-->
-                         <!--alt="..."  class="img-responsive" width="300px", height="300px">-->
-                <!--</a>-->
-            <!--</div>-->
-
-        <!--</div>-->
-
-        <!--&lt;!&ndash;第四部分：feedback&ndash;&gt;-->
-        <!--<h3 id="feedback"></h3>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<h3>Feedback</h3>-->
-        <!--<br>-->
-
-        <!--<p style="font-size:20px">-->
-            <!--Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”. We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. Most Spring Boot applications need very little Spring configuration.-->
-            <!--You can use Spring Boot to create Java applications that can be started using java -jar or more traditional war deployments. We also provide a command line tool that runs “spring scripts”.-->
-        <!--</p>-->
-
-
-
-        <!--&lt;!&ndash;第五部分：处理&ndash;&gt;-->
-        <!--<h3 id = "result"></h3>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<h2>Result</h2>-->
-        <!--<form>-->
-            <!--<div class="form-row">-->
-                <!--<div class="form-group col-md-6">-->
-                    <!--<label for="inputId" style="font-size: 20px">Date of Accepted</label>-->
-                    <!--<input type="date" class="form-control" id="inputId" placeholder="date">-->
-                <!--</div>-->
-            <!--</div>-->
-
-
-            <!--<label style="font-size: 20px">Result</label>-->
-            <!--<div class="form-row">-->
-                <!--<div class="form-check">-->
-                    <!--<input class="form-check-input" type="radio" name="exampleRadios" id="Accepted" value="option1" checked>-->
-                    <!--<label class="form-check-label" for="Accepted" style="float:right;margin-right:20px;font-size: 20px;">-->
-                        <!--Accepted-->
-                    <!--</label>-->
-                <!--</div>-->
-                <!--<div class="form-check">-->
-                    <!--<input class="form-check-input" type="radio" name="exampleRadios" id="Unaccepted" value="option1" checked>-->
-                    <!--<label class="form-check-label" for="UNaccepted" style="float:right;margin-right:20px;font-size: 20px;">-->
-                        <!--Unaccepted-->
-                    <!--</label>-->
-                <!--</div>-->
-                <!--<div class="form-check">-->
-                    <!--<input class="form-check-input" type="radio" name="exampleRadios" id="Undetermined" value="option1" checked>-->
-                    <!--<label class="form-check-label" for="Undetermined" style="float:right;margin-right:20px;font-size: 20px;">-->
-                        <!--Undetermined-->
-                    <!--</label>-->
-                <!--</div>-->
-
-
-            <!--</div>-->
-
-            <!--<br/>-->
-            <!--<div class="form-group">-->
-                <!--<label for="exampleFormControlTextarea1" style="font-size: 20px">Feedback</label>-->
-                <!--<textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>-->
-            <!--</div>-->
-
-            <!--<div class="col-auto">-->
-                <!--<button type="submit" class="btn btn-primary mb-2" >Submit form</button>-->
-            <!--</div>-->
-        <!--</form>-->
-
         <br/>
         <br/>
         <br/>
