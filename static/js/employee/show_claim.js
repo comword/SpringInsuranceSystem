@@ -1,3 +1,4 @@
+
 var claim = new Vue({
     el: '#vue_claim',
     data: {
@@ -36,28 +37,38 @@ var claim = new Vue({
                 categories:'Clothes',
                 status: 'Accepted',
                 email:'fuzixin000@gmail.com'
-            }]
+            }],
+            tables:"",
+            timeOption:"all"
     },
     methods:{
         table: function () {
             let that = this;
-            $('#dtMaterialDesignExample').DataTable({
+            var tables = $('#dtMaterialDesignExample').DataTable({
                     "ajax": {
                         "url": "claim/request",
                         "type": "POST",
                         "contentType": "application/json",
+                        "complete": function(xhr, status){
+                            xhr=null;
+                        },
+                        "data": function (d) {
+                            d = {};
+                            d.timeOption = that.timeOption;
+                            return JSON.stringify(d);
+                        }
                     },
                     "columns": [
                         { "data": "ClaimID" },
                         { "data": "InsuranceName" },
-                        { "data": function ( row, type, set ) {return that.$options.methods.timeFormate(parseInt(row.StartTime));}},
+                        { "data": function ( row, type, set ) {return row.StartTime;}},
                         { "data": "CustomerID"},
                         { "data": "ItemType"},
                         { "data": "Email"},
                         { "data": "Status"},
                         { "data": "Detail"}
                     ],
-                    "scrollX": true
+                    "scrollX": true,
                 }
             );
             $('#dtMaterialDesignExample_wrapper').find('label').each(function () {
@@ -83,11 +94,17 @@ var claim = new Vue({
             let mm =new Date(timeStamp).getMinutes() < 10? "0" + new Date(timeStamp).getMinutes(): new Date(timeStamp).getMinutes();
             let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
             return year + "/" + month + "/" + date + "/ " + hh + ":" + mm + ":" + ss;
+        },
+        refresh: function () {
+            $('#dtMaterialDesignExample').dataTable()._fnAjaxUpdate();
+            // this.table();
         }
     },
     mounted: function () {
+        var tables;
         $.cookie('claimID',null);
         this.table();
+        setInterval(this.refresh,1000);
     }
 });
 

@@ -52,7 +52,7 @@ var claim = new Vue({
             let hh =new Date(timeStamp).getHours() < 10? "0" + new Date(timeStamp).getHours(): new Date(timeStamp).getHours();
             let mm =new Date(timeStamp).getMinutes() < 10? "0" + new Date(timeStamp).getMinutes(): new Date(timeStamp).getMinutes();
             let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
-            return year + "/" + month + "/" + date + "/ " + hh + ":" + mm + ":" + ss;
+            return year + "-" + month + "-" + date + " " + hh + ":" + mm + ":" + ss;
         }
 
     },
@@ -154,7 +154,9 @@ function clicke(x){
                         claim.title=claim._T("索赔失败");//Failed
                     }
                 }
-                claim.claimOrder.StartDate = claim.timeFormate(parseInt(claim.claimOrder.date));
+                claim.claimOrder.StartDate = claim.claimOrder.date;
+                 var time = claim.claimOrder.date;
+                // claim.claimOrder.StartDate = claim.timeFormate(parseInt(claim.claimOrder.date));
                 var date = new Date();
                 claim.claimOrder.NowDate = claim.timeFormate(date.getTime());
             }

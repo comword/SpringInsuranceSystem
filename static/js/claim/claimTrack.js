@@ -5,8 +5,8 @@ let translationCn = {
     "日" : "",
     "索赔受理中" : "Claim is being reviewed",
     "需要更多信息": "Additional information required",
-    "索赔成功" : "Success!",
-    "索赔失败" : "Failed!",
+    "索赔成功" : "Success",
+    "索赔失败" : "Failed",
 };
 let translationUs = {
     "The claim order record was not found, please try again." : "索赔单号没有找到,请输入一个有效的索赔单号!"

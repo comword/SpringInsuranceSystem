@@ -16,7 +16,7 @@ Vue.component('navbar-indicator', {
 function table(){
     $('#dtMaterialDesignExample').DataTable({
         "ajax": {
-            "url": "page/uploadInsuranceInfoInClaim",
+            "url": "page/uploadInsuranceInfo",
             "type": "POST",
             "contentType": "application/json",
             "data": function (d) {
