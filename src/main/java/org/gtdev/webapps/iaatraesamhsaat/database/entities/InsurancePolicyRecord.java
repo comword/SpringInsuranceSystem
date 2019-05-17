@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -25,17 +26,17 @@ public class InsurancePolicyRecord {
     @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL)
     private List<InsuranceClaim> claims;
 
-    @NotBlank
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date startDatetime;
 
-    @NotBlank
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date endDatetime;
 
-    @NotBlank
+    @NotNull
     @Column(nullable = false)
     private float totalPaid;
 

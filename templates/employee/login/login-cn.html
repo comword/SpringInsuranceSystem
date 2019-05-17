@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>员工登陆</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="referrer" content="never">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="FG-TEAM">
+    <meta name="theme-color" content="#1d2d44">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/images/favicon-touch.png">
+    <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/floating-labels.css" th:href="@{/css/floating-labels.css}">
+    <!--<style>body {color: #fff; background-image: url(/images/background.jpg);}</style>-->
+</head>
+<body>
+<noscript>
+    <div>
+        <div>
+            本应用程序需要浏览器的JavaScript支持. 请访问<a href="http://enable-javascript.com/" target="_blank" rel="noreferrer">此网页</a>开启JavaScript，并刷新此页面.</div>
+    </div>
+</noscript>
+<div id="page" class="container-fluid mt-0">
+    <div id="page-content" class="row">
+        <div id="region-main-box" class="col-12">
+            <section id="region-main" class="col-12">
+                <span class="notifications" id="user-notifications"></span>
+                <div role="main"><span id="maincontent"></span><div class="my-1 my-sm-5"></div>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-sm-8 ">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h1 class="card-header text-center">员工登陆</h1>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-6">
+                                            <form class="form-signin">
+                                                <div class="form-label-group mb-4">
+                                                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                                                    <label for="inputEmail">电子邮件</label>
+                                                </div>
+
+                                                <div class="form-label-group mb-4">
+                                                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                                                    <label for="inputPassword">密码</label>
+                                                </div>
+                                                <div class="btn-group btn-block mb-4">
+                                                    <button type="button" class="btn btn-primary">英文</button>
+                                                    <button type="button" class="btn btn-info">中文</button>
+                                                </div>
+                                                <div class="checkbox mb-3">
+                                                    <label>
+                                                        <input type="checkbox" value="remember-me"> 记住我
+                                                    </label>
+                                                </div>
+                                                <button type="submit" class="btn btn-success btn-block mt-3" id="loginbtn">登入</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center mt-4">
+    <div class="col-xl-6 col-sm-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h4>如何登陆员工系统？</h4>
+                </div>
+                <div>
+                    <p>请使用你的工作邮箱登陆员工系统。如果你忘记了你的邮箱和密码,请发送邮件给人力资源部门管理邮箱<a href="mailto://Hibernia-Sino@gmail.com">Hibernia-Sino@gmail.com</a>或打电话给<a href="tel:+86-296-7986">+86-296-7986</a><br/></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<footer>
+</footer>
+</body>
+</html>

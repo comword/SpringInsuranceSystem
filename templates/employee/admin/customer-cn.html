@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#1d2d44">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/images/favicon-touch.png">
+    <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">
+    <link th:href="@{/libs/MDB/css/addons/datatables.css}" href="../../../static/libs/MDB/css/addons/datatables.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
+    <a class="navbar-brand" href="/">Hibernia-Sino</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/dashboard#">仪表盘</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/claims#">索赔</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/employee/admin/customer#">顾客</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/product#">产品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">设置</a>
+            </li>
+        </ul>
+        <li class="navbar-nav dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" id="langDrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                语言
+            </a>
+            <div class="dropdown-menu" aria-labelledby="langDrop">
+                <a class="dropdown-item" href="?lang=en-US">英语</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="?lang=zh-CN">中文</a>
+            </div>
+        </li>
+        <ul class="navbar-nav">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">登出</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row row-offcanvas row-offcanvas-right" id="left-nav-bar">
+        <p class="pull-left visible-xs" style="margin-top: 5px;">
+            <button type="button" class="btn btn-sm" data-toggle="offcanvas" style="background-color: #1c2331;color: #e5f2fa">侧栏</button>
+        </p>
+        <nav class="col-md-3 col-lg-2 bg-light sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column mb-2">
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            顾客列表
+                        </a>
+                    </li>
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                           管理
+                        </a>
+                    </li>
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            联系
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" id="main">
+        <br/>
+        <br/>
+        <h2>顾客信息</h2>
+        <div id="vue_customer">
+            <table id="dtMaterialDesignExample" class="table table-striped table-bordered table-sm" cellSpacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="th-sm">顾客ID</th>
+                    <th class="th-sm">顾客姓名</th>
+                    <th class="th-sm">手机号</th>
+                    <th class="th-sm">邮箱号</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script src="../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>
+<script type="text/javascript" th:src="@{/libs/MDB/js/addons/datatables.js}" src="../../../static/libs/MDB/js/addons/datatables.js"></script>
+<script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
+<script src="../../../static/js/employee/show_customer.js" th:src="@{/js/employee/show_customer-cn.js}"></script>
+</body>
+</html>

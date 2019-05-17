@@ -1,5 +1,6 @@
 $.getScript('/js/claim/translation-cn.js');
 let app_lang;
+
 Vue.component('navbar-indicator', {
     props: ['username'],
     data: function () {
@@ -17,12 +18,14 @@ var main = new Vue({
     data:{
         step:1,
         islogin: false,
+        isSearch: '',
         username: '',
         isMobile: false,
         showDetail:false,
         html: "wait",
         test: message,
         info: "",
+        timeStamp:[],
         errors: [],
         submit: [
             {firstName:''},
@@ -69,6 +72,110 @@ var main = new Vue({
         }
 
     },
+    watch:{
+        firstName(newName,oldName){
+            if(!newName){
+                this.setInvalid('#firstName');
+            }
+            else{
+                this.removeInvalid('#firstName');
+            }
+        },
+        lastName(newName,oldName){
+            if(!newName){
+                this.setInvalid('#lastName');
+            }
+            else{
+                this.removeInvalid('#lastName');
+            }
+        },
+        policyNum(newName,oldName){
+            if(!newName){
+                this.setInvalid('#policyNum');
+            }
+            else{
+                this.removeInvalid('#policyNum');
+            }
+        },
+        phone(newName,oldName){
+            if(!this.validPhone(newName)){
+                this.setInvalid('#phone');
+            }
+            else{
+                this.removeInvalid('#phone');
+            }
+        },
+        itemType(newName,oldName){
+            if(!newName){
+                this.setInvalid('#itemType');
+            }
+            else{
+                this.removeInvalid('#itemType');
+            }
+        },
+        itemName(newName,oldName){
+            if(!newName){
+                this.setInvalid('#itemName');
+            }
+            else{
+                this.removeInvalid('#itemName');
+            }
+        },
+        itemPrice(newName,oldName){
+            if(!this.validPrice(newName)){
+                this.setInvalid('#itemPrice');
+            }
+            else{
+                this.removeInvalid('#itemPrice');
+            }
+        },
+        itemDescription(newName,oldName){
+            if(!newName){
+                this.setInvalid('#itemDesc');
+            }
+            else{
+                this.removeInvalid('#itemDesc');
+            }
+        },
+        contactEmail(newName,oldName){
+            if(!this.validEmail(newName)){
+                this.setInvalid('#itemEmail');
+            }
+            else{
+                this.removeInvalid('#itemEmail');
+            }
+        },
+    },
+    computed: {
+        firstName() {
+            return this.submit.firstName;
+        },
+        lastName() {
+            return this.submit.lastName;
+        },
+        policyNum() {
+            return this.submit.policyNum;
+        },
+        phone() {
+            return this.submit.phone;
+        },
+        itemType() {
+            return this.claimSubmit.itemType;
+        },
+        itemName() {
+            return this.claimSubmit.itemName;
+        },
+        itemPrice() {
+            return this.claimSubmit.itemPrice;
+        },
+        itemDescription() {
+            return this.claimSubmit.itemDescription;
+        },
+        contactEmail() {
+            return this.claimSubmit.contactEmail;
+        },
+
+    },
     mounted:function () {
         if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
             this.isMobile = true;
@@ -97,6 +204,7 @@ $(document).ready(function(){
             });
         }
     });
+    main.claimSubmit.itemType = 'cloth';
     $("#search").click(function (){
         main.errors = [];
         var info = main.submit;
@@ -131,6 +239,7 @@ $(document).ready(function(){
             main.removeInvalid('#phone');
         }
 
+
         /*   查询数据库保险信息   */
         var d = {};
         d.firstName = info.firstName;
@@ -149,9 +258,12 @@ $(document).ready(function(){
                 //前端调用成功后，可以处理后端传回的json格式数据。
                 if(main.info.resCode===0) {
                     main.step = main.step + 1;
-                } else
+                }
+                else {
                     main.errors.push(_T(main.info.message));
-            },
+                    main.isSearch = main.info.resCode;
+                }
+                },
             error:function(jqXHR){
                 console.log("Error: "+ jqXHR.status);
             }
@@ -211,11 +323,16 @@ $(document).ready(function(){
         if(!isCorrect)
             return;
         var d = {};
+        var date= new Date();
         d.itemType = info.itemType;
         d.itemName = info.itemName;
         d.itemPrice = info.itemPrice;
         d.itemDescription = info.itemDescription;
         d.contactEmail = info.contactEmail;
+        d.timeStamps = main.timeStamp;
+        d.date = date.getTime();
+        d.username = main.username;
+        d.policyNum = main.submit.policyNum;
 
         $.ajax({ url: "newclaim/ClaimItemInfo",
             data: JSON.stringify(d),
@@ -251,9 +368,6 @@ function initFileInput(ctrlName) {
         allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
         uploadExtraData:function(){//向后台传递参数
             var extraInfo={
-                phone: main.submit.phone,
-                firstName: main.submit.firstName,
-                fuck: main.html,
                 policy: main.submit.policyNum
             };
             return extraInfo;
@@ -277,6 +391,7 @@ function initFileInput(ctrlName) {
         console.log(response);//打印出返回的json
         console.log(response.status);//打印出路径
         main.claimSubmit.hasPhoto = response.hasPhoto;
+        main.timeStamp.push(response.timeStamp);
     }).on('fileerror', function(event, data, msg) {  //一个文件上传失败
         console.log('upload failed！'+data.status);
     })

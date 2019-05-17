@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-model="http://www.w3.org/1999/xhtml" xmlns:v-show="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#1d2d44">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/images/favicon-touch.png">
+    <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="../../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" href="../../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">
+    <link rel="stylesheet" type="text/css" href="../../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
+    <a class="navbar-brand" href="/">Hibernia-Sino</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/dashboard#">仪表盘</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/employee/admin/claims#">索赔</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/customer#">顾客</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/product#">产品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">设置</a>
+            </li>
+        </ul>
+        <li class="navbar-nav dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" id="langDrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                语言
+            </a>
+            <div class="dropdown-menu" aria-labelledby="langDrop">
+                <a class="dropdown-item" href="?lang=en-US">英语</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="?lang=zh-CN">中文</a>
+            </div>
+        </li>
+        <ul class="navbar-nav">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">登出</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row row-offcanvas row-offcanvas-right" id="left-nav-bar">
+        <p class="pull-left visible-xs" style="margin-top: 5px;">
+            <button type="button" class="btn btn-sm" data-toggle="offcanvas" style="background-color: #1c2331;color: #e5f2fa">侧栏</button>
+        </p>
+        <nav class="col-md-3 col-lg-2 bg-light sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-sticky">
+
+                <ul class="nav flex-column" data-spy="affix" >
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/employee/admin/detail#" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            索赔信息
+                        </a>
+                    </li>
+                    <br/>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/employee/admin/claim_attachment" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            附件
+                        </a>
+                    </li>
+
+
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/employee/admin/claim_feedback" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            反馈
+                        </a>
+                    </li>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/employee/admin/claims#" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            索赔列表
+                        </a>
+                    </li>
+                    <br/>
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" id="vue_feedback">
+
+        <!--第五部分：处理-->
+        <br/>
+        <br/>
+        <h2>反馈</h2>
+        <br>
+
+        <p style="font-size:20px">
+            在此页面下，员工需要实事求是，根据客户索赔的信息来给出合理的反馈并处理索赔
+        </p>
+        <h3 id = "result"></h3>
+        <br/>
+        <br/>
+        <br/>
+
+
+        <h2>结果</h2>
+        <form>
+            <label style="font-size: 20px">结果</label>
+
+
+            <div class="form-check form-check-inline">
+                <input type="radio" v-model="result" value="Accepted" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample" checked="">
+                <label class="form-check-label"  for="materialInline1">接受</label>
+            </div>
+
+            <!-- Material inline 2 -->
+            <div class="form-check form-check-inline">
+                <input type="radio" v-model="result" value="Unaccepted" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+                <label class="form-check-label"  for="materialInline2">拒绝</label>
+            </div>
+
+            <!-- Material inline 3 -->
+            <div class="form-check form-check-inline">
+                <input type="radio" v-model="result" value="Undetermined" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
+                <label class="form-check-label" for="materialInline3">需要更多信息</label>
+            </div>
+
+
+
+            <br/>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1" style="font-size: 20px">反馈</label>
+                <textarea v-model="feedback" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+            </div>
+
+            <div class="col-auto">
+                <button type="button" onclick="clicke(this);" class="btn btn-primary mb-2" id="submit">提交表单</button>
+            </div>
+        </form>
+
+        <br/>
+        <br/>
+        <br/>
+        <!-- Central Modal Medium Success -->
+        <div  class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-success" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <p class="heading lead">信息更新成功</p>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                            <p>索赔进度成功更新，反馈已提交</p>
+                        </div>
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center">
+                        <a type="button" class="btn btn-success" data-dismiss="modal">确认 <i class="far fa-gem ml-1 text-white"></i></a>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+        <!-- Central Modal Medium Success-->
+
+    </div>
+
+</div>
+<script type="text/javascript" src="../../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../../../static/js/jquery.cookie.js" th:src="@{/js/jquery.cookie.js}"></script>
+<script type="text/javascript" src="../../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" src="../../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" src="../../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>
+<script type="text/javascript" src="../../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" src="../../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script type="text/javascript" src="../../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
+<script type="text/javascript" src="../../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
+<script src="../../../../static/js/employee/feedback.js" th:src="@{/js/employee/feedback.js}"></script>
+</body>
+</html>

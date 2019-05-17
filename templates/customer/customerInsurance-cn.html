@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/customer/customerInsurance.css}" href="../../static/css/customer/customerInsurance.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/MDB/css/mdb.css}" href="../../static/libs/MDB/css/mdb.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/libs/MDB/css/addons/datatables.css}" href="../../static/libs/MDB/css/addons/datatables.css" rel="stylesheet">
+</head>
+<body class="fixed-sn light-blue-skin" >
+<script>
+    let navbar_indicator_template =
+        '<ul class="navbar-nav nav-flex-icons">' +
+        '<li class="nav-item avatar dropdown">' +
+        '<a class="nav-link dropdown-toggle" id="avatarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+        '{{username}}' +
+        '<img v-bind:src="avatarPath" style="width: 40px;height: 40px; margin-left: 5px;" class="rounded-circle z-depth-0" alt="avatar image">' +
+        '</a>' +
+        '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="avatarDropdown">' +
+        '<a class="dropdown-item" href="#">账户</a>' +
+        '<div class="dropdown-divider"></div>' +
+        '<a class="dropdown-item" href="/logout">退出</a>' +
+        '</div>' +
+        '</li>' +
+        '</ul>';
+</script>
+<!--Double navigation-->
+<header >
+    <!-- Sidebar navigation -->
+
+    <!-- SideNav slide-out button -->
+    <a href="#" data-activates="slide-out" class="btn btn-primary p-3 button-collapse"><i class="fas fa-bars"></i></a>
+
+    <!-- Sidebar navigation -->
+    <div id="slide-out" class="side-nav sn-bg-4 fixed">
+        <ul class="custom-scrollbar">
+            <!-- Logo -->
+            <li>
+                <div class="logo-wrapper waves-light" style="height: 100px">
+                    <a href="/"><img src="/images/Hibernia-Sino-logo-white.png" class="img-fluid flex-center"></a>
+                </div>
+            </li>
+            <!--/. Logo -->
+            <!--Social-->
+            <li>
+                <ul class="social">
+                    <li><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-f"> </i></a></li>
+                    <li><a href="#" class="icons-sm pin-ic"><i class="fab fa-pinterest"> </i></a></li>
+                    <li><a href="#" class="icons-sm gplus-ic"><i class="fab fa-google-plus-g"> </i></a></li>
+                    <li><a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter"> </i></a></li>
+                </ul>
+            </li>
+            <!--/Social-->
+            <!--Search Form-->
+            <li>
+                <form class="search-form" role="search">
+                    <div class="form-group md-form mt-0 pt-1 waves-light">
+                        <input type="text" class="form-control" placeholder="搜索">
+                    </div>
+                </form>
+            </li>
+            <!--/.Search Form-->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li><a href="/customer/Profile" class="waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
+                        我的信息 <i class="fas fa-angle-down rotate-icon"></i></a>
+                    </li>
+                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
+                        保险<i class="fas fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="/customer/Renew" class="waves-effect">续保</a>
+                                </li>
+                                <li><a href="/customer/insurance" class="waves-effect">保险查询</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
+                        保险索赔 <i class="fas fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="/customer/Claim" class="waves-effect">索赔</a>
+                                </li>
+                                <li><a href="/customer/page" class="waves-esffect">跟踪保险</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> 联系我们<i class="fas fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="#" class="waves-effect">帮助</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
+                        语言 <i class="fas fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="?lang=en-US" class="waves-effect">英语</a>
+                                </li>
+                                <li><a href="?lang=zh-CN" class="waves-esffect">中文</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+        </ul>
+        <div class="sidenav-bg mask-strong"></div>
+    </div>
+    <!--/. Sidebar navigation -->
+    <!--/. Sidebar navigation -->
+    <!-- Navbar -->
+    <nav id="menu-nav" class="navbar navbar-dark fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+        <!-- SideNav slide-out button -->
+        <div class="float-left">
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-dn mr-auto">
+            <a href="/"><p>Hibernia-Sino</p></a>
+        </div>
+        <!--<div class="breadcrumb-dn mr-auto">-->
+        <navbar-indicator v-bind:username="username"></navbar-indicator>
+        <!--</div>-->
+
+    </nav>
+    <!-- /.Navbar -->
+</header>
+
+
+<!--/.Double navigation-->
+
+<!--Main Layout-->
+<main id="main">
+    <div class="container-fluid mt-5">
+        <router-view></router-view>
+    </div>
+
+
+
+</main>
+<!--Main Layout-->
+
+
+
+</body>
+
+<script src="../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/libs/MDB/js/mdb.js}" src="../../static/libs/MDB/js/mdb.js"></script>
+<script type="text/javascript" th:src="@{/libs/MDB/js/addons/datatables.js}" src="../../static/libs/MDB/js/addons/datatables.js"></script>
+<script src="../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<script src="../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script src="../../static/js/vue-resource.min.js" th:src="@{/js/vue-resource.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/customer/customerInsurance-cn.js}" src="../../static/js/customer/customerInsurance-cn.js"></script>
+</html>

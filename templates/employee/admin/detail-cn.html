@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#1d2d44">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/images/favicon-touch.png">
+    <link rel="mask-icon" sizes="any" href="/images/favicon-mask.svg">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../../static/libs/MDB/css/mdb.css" th:href="@{/libs/MDB/css/mdb.css}">
+    <link th:href="@{/libs/MDB/css/addons/datatables.css}" href="../../../static/libs/MDB/css/addons/datatables.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/employee/dashboard.css" th:href="@{/css/employee/dashboard.css}">
+    <link th:href="@{/libs/fontawesome-5.8.1/css/all.min.css}" href="../../static/libs/fontawesome-5.8.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
+    <a class="navbar-brand" href="/">Hibernia-Sino</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/dashboard#">仪表盘</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/employee/admin/claims#">索赔</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/employee/admin/customer#">顾客</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/admin/product#">产品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">设置</a>
+            </li>
+        </ul>
+        <li class="navbar-nav dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" id="langDrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                语言
+            </a>
+            <div class="dropdown-menu" aria-labelledby="langDrop">
+                <a class="dropdown-item" href="?lang=en-US">英语</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="?lang=zh-CN">中文</a>
+            </div>
+        </li>
+        <ul class="navbar-nav">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">登出</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+
+<div class="container-fluid">
+    <div class="row row-offcanvas row-offcanvas-right" id="left-nav-bar">
+        <p class="pull-left visible-xs" style="margin-top: 5px;">
+            <button type="button" class="btn btn-sm" data-toggle="offcanvas" style="background-color: #1c2331;color: #e5f2fa">侧栏</button>
+        </p>
+        <nav class="col-md-3 col-lg-2 bg-light sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column mb-2">
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/employee/admin/detail#" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            索赔信息
+                        </a>
+                    </li>
+                    <br/>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/employee/admin/claim_attachment" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            附件
+                        </a>
+                    </li>
+
+
+                    <br/>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/employee/admin/claim_feedback" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            反馈
+                        </a>
+                    </li>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/employee/admin/claims#" style="font-size: 15px">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            索赔列表
+                        </a>
+                    </li>
+                    <br/>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-4 main" id="main">
+
+
+
+
+        <!--第一部分: 申请人信息-->
+        <br/>
+        <br/>
+        <div id="vue_detail" class="table-responsive">
+            <!--Accordion wrapper-->
+            <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-4 z-depth-2" role="tab" id="headingTwo1">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo1"
+                           aria-expanded="false" aria-controls="collapseTwo1">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                                索赔信息<i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseTwo1" class="collapse show" role="tabpanel" aria-labelledby="headingTwo1" >
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">索赔ID:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ClaimID }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">开始时间:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.StartTime }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">顾客ID:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.CustomerID }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">顾客名称:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.CustomerName }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">邮件:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.Email }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">步骤:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.Status }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-3 z-depth-2" role="tab" id="headingTwo2">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+                           aria-expanded="false" aria-controls="collapseTwo2">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                                保险信息 <i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" >
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">保单单号:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceID }}</div>
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">保险种类:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceName }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">开始时间:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceStartDatetime }}</div>
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">结束时间:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.InsuranceEndDatetime }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-2 z-depth-2" role="tab" id="headingThree3">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
+                           aria-expanded="false" aria-controls="collapseThree3">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                                丢失物品信息 <i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3" >
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">物品名称:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ItemName }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">物品种类:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ItemType }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">物品价格:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ItemPrice }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header blue lighten-1 z-depth-2" role="tab" id="headingFour4">
+                        <a class="collapsed text-uppercase mb-0 py-1" data-toggle="collapse" data-parent="#accordionEx" href="#collapseFour4"
+                           aria-expanded="false" aria-controls="collapseThree3">
+                            <h5 class="mb-0 white-text font-weight-bold">
+                               丢失物品描述 <i class="fa fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="collapseFour4" class="collapse" role="tabpanel" aria-labelledby="headingFour4" >
+                        <div class="card-body">
+                            {{info.ItemDescription}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Accordion wrapper -->
+        </div>
+        <br/>
+        <br/>
+        <br/>
+
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../../../static/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="../../../static/js/jquery.cookie.js" th:src="@{/js/jquery.cookie.js}"></script>
+<script type="text/javascript" src="../../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" src="../../../static/libs/MDB/js/mdb.js" th:src="@{/libs/MDB/js/mdb.js}"></script>
+<script type="text/javascript" src="../../../static/js/vue.js" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" src="../../../static/js/vue-router.js" th:src="@{/js/vue-router.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/feather.min.js" th:src="@{/js/employee/feather.min.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/dashboard.js" th:src="@{/js/employee/dashboard.js}"></script>
+<script type="text/javascript" src="../../../static/js/employee/show_detail.js" th:src="@{/js/employee/show_detail.js}"></script>
+</body>
+</html>

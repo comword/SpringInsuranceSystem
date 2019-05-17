@@ -18,6 +18,9 @@ table.dataTable thead .sorting_desc_disabled:before {
 .infMargin{
     margin-top: 10px;
 }
+.insurnInf{
+    color: #0d5bdd;
+}
 .upload-file .btn{
     padding: 10px;
     margin: 0 5px 0 5px;

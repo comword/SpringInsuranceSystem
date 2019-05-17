@@ -221,8 +221,10 @@ function clicke(x){
         type: "POST",
         contentType: "application/json;charset=utf-8",
         success: function(response){
-            insurance.insuranceDetails = new Function("return" + response)();
+            // insurance.insuranceDetails = new Function("return" + response)();
             //前端调用成功后，可以处理后端传回的json格式数据。
+            insurance.insuranceDetails = response;
+            // insurance.insuranceDetails = response;
             details();
         },
         error:function(jqXHR){

@@ -19,7 +19,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white" role="navigation" id="menu-nav">
-    <a class="navbar-brand" href="#">Hibernia-Sino</a>
+    <a class="navbar-brand" href="/">Hibernia-Sino</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -80,13 +80,11 @@
                     <br/>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="/claim/claim_attachment#" style="font-size: 15px">
+                        <a class="nav-link active" href="/employee/admin/claim_attachment" style="font-size: 15px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                             Attachment
                         </a>
                     </li>
-
-
                     <br/>
                     <li class="nav-item">
                         <a class="nav-link active" href="/employee/admin/claim_feedback" style="font-size: 15px">
@@ -230,6 +228,10 @@
                             <div class="row">
                                 <div class="infMargin insurnInf col-xs-12 col-md-2">Item Name:</div>
                                 <div class="infMargin col-xs-12 col-md-4">{{ info.ItemName }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="infMargin insurnInf col-xs-12 col-md-2">Item Type:</div>
+                                <div class="infMargin col-xs-12 col-md-4">{{ info.ItemType }}</div>
                             </div>
                             <div class="row">
                                 <div class="infMargin insurnInf col-xs-12 col-md-2">Item Price:</div>
