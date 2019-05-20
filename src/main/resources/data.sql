@@ -71,10 +71,25 @@ INSERT INTO `app_user` (`id`, `display_name`, `email`, `last_login`, `password`,
 INSERT INTO `user_group` (`appuser_id`, `appgroup_id`) VALUES ('1', '1');
 INSERT INTO `user_group` (`appuser_id`, `appgroup_id`) VALUES ('2', '2');
 
-INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('1', NULL, 'Luggage insurance', '旅游行李险', '旅游行李险', 'Luggage insurance');
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('1', NULL, 'Luggage insurance abstract', '旅游行李险概要', '旅游行李险', 'Luggage insurance');
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('2', NULL, 'Life insurance abstract', '人寿保险概要', '人寿保险', 'Life insurance');
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('3', NULL, 'Health insurance abstract', '健康保险概要', '健康保险', 'Health insurance');
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('4', NULL, 'Vehicle insurance abstract', '车辆险概要', '车辆险', 'Vehicle insurance');
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('5', NULL, 'Casualty insurance abstract', '意外事故保险概要', '意外事故保险', 'Casualty insurance');
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('6', NULL, 'Property insurance abstract', '财产险概要', '财产险', 'Property insurance');
+INSERT INTO `insurance_policy_products` (`id`, `agreement_path`, `insurance_abstract`, `insurance_abstract_chinese`, `insurance_chinese_name`, `insurance_name`) VALUES ('7', NULL, 'Home insurance abstract', '房屋险概要', '房屋险', 'Home insurance');
 INSERT INTO `insurance_policy_record` (`id`, `destination`, `end_datetime`, `start_datetime`, `total_paid`, `customer_id`, `insurance_product_id`) VALUES ('1', 'Ireland', '2019-06-01 00:00:00', '2019-03-01 00:00:00', '1234', '1', '1');
-INSERT INTO `insurance_claim` (`id`, `policy_id`, `user_id`, `claim_step`, `result`, `date_time`) VALUES ('1', '1','1','4','success','2019-04-27 13:04:51');
-INSERT INTO `insurance_claim` (`id`, `policy_id`, `user_id`, `claim_step`, `result`, `date_time`) VALUES ('2', '1','1','4','fail','2019-04-26 15:24:11');
-INSERT INTO `insurance_claim` (`id`, `policy_id`, `user_id`, `claim_step`, `result`, `date_time`) VALUES ('3', '1','1','3','','2019-04-27 17:43:33');
-INSERT INTO `insurance_claim` (`id`, `policy_id`, `user_id`, `claim_step`, `result`, `date_time`) VALUES ('4', '1','1','2','','2019-04-27 12:35:43');
-INSERT INTO `insurance_claim` (`id`, `policy_id`, `user_id`, `claim_step`, `result`, `date_time`) VALUES ('5', '1','1','4','success','2019-04-27 13:04:51');
+INSERT INTO `insurance_policy_record` (`id`, `destination`, `end_datetime`, `start_datetime`, `total_paid`, `customer_id`, `insurance_product_id`) VALUES ('2', 'Beijing', '2019-09-03 00:00:00', '2019-07-03 00:00:00', '6000', '1', '1');
+
+INSERT INTO `item_type` (`chinese_name`,`english_name`) VALUES ('衣服','cloth');
+INSERT INTO `item_type` (`chinese_name`,`english_name`) VALUES ('数码产品','digital product');
+INSERT INTO `item_type` (`chinese_name`,`english_name`) VALUES ('重要文件','document');
+
+INSERT INTO `lost_item` (`contact_email`,`item_description`,`item_name`,`item_price`,`item_type`,`type_id`,`policy`,`url`) VALUES ('130@qq.com','FFFFF','IPad','8200','cloth','1','1','proxy.jpg');
+INSERT INTO `insurance_claim` (`id`,`lost_item_id`, `policy_id`,`user_id`,`claim_step`,`result`,`date`) VALUES ('1','1', '1','1','4','success','1556371174337');
+INSERT INTO `insurance_claim` (`id`,`lost_item_id`, `policy_id`,`user_id`,`claim_step`,`result`,`date`) VALUES ('2','1', '1','1','4','fail','1556371174337');
+INSERT INTO `insurance_claim` (`id`,`lost_item_id`, `policy_id`,`user_id`,`claim_step`,`result`,`date`) VALUES ('3','1', '1','1','3','','1556371174337');
+INSERT INTO `insurance_claim` (`id`,`lost_item_id`, `policy_id`,`user_id`,`claim_step`,`result`,`date`) VALUES ('4','1', '1','1','2','','1556371174337');
+INSERT INTO `insurance_claim` (`id`,`lost_item_id`, `policy_id`,`claim_step`,`result`,`date`) VALUES ('5','1', '1','4','success','1556371174337');
+INSERT INTO `insurance_claim` (`id`,`lost_item_id`, `policy_id`,`claim_step`,`result`,`date`,`time`) VALUES ('6','1', '1','4','success','1556371174337','2018-10-21 20:30:18');
+INSERT INTO `insurance_claim` (`id`,`lost_item_id`, `policy_id`,`claim_step`,`result`,`date`,`time`) VALUES ('7','1', '1','3','success','1556371174337','2019-3-21 12:30:18');

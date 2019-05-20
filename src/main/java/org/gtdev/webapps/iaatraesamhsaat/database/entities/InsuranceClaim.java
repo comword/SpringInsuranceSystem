@@ -17,13 +17,13 @@ public class InsuranceClaim {
     @JoinColumn
     private InsurancePolicyRecord policy;
 
-    @NotBlank
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn
     private AppUser user;
 
+    @NotBlank
     @Column(nullable = false)
-    private int claimStep;
+    private String claimStep;
 
     @Column
     private String result;
@@ -32,7 +32,11 @@ public class InsuranceClaim {
     @JoinColumn
     private LostItem lostItem;
 
+    @Column(nullable = false)
+    private String date;
+
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
+
 }

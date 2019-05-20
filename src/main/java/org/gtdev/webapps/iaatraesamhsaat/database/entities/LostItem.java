@@ -3,6 +3,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -19,6 +20,10 @@ public class LostItem {
     @Column(nullable = false)
     private String itemType;
 
+    @NotNull
+    @Column(nullable = false)
+    private Long TypeId;
+
     @NotBlank
     @Column(nullable = false)
     private String itemName;
@@ -34,5 +39,12 @@ public class LostItem {
     @NotBlank
     @Column(nullable = false)
     private String contactEmail;
+
+    @NotBlank
+    @Column(nullable = false)
+    private String url;
+    @NotBlank
+    @Column(nullable = false)
+    private String policy;
 
 }

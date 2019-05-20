@@ -1,7 +1,7 @@
 var detail = new Vue({
     el: '#vue_detail',
     data: {
-        info: []
+        info: ''
     },
     methods:{
         timeFormate:function(timeStamp) {
@@ -27,8 +27,10 @@ var detail = new Vue({
             type: "POST",
             contentType: "application/json;charset=utf-8",
             success: function(response){
-                detail.info = new Function("return" + response)();
+                // detail.info = new Function("return" + response)();
                 // detail.info.StartTime = detail.info.StartTime;
+                detail.info = response;
+
             },
             error:function(jqXHR){
                 console.log("Error: "+ jqXHR.status);

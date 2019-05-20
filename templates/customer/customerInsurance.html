@@ -19,8 +19,7 @@
         '<img v-bind:src="avatarPath" style="width: 40px;height: 40px; margin-left: 5px;" class="rounded-circle z-depth-0" alt="avatar image">' +
         '</a>' +
         '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="avatarDropdown">' +
-        '<a class="dropdown-item" href="#">Dashboard</a>' +
-        '<a class="dropdown-item" href="#">Profile</a>' +
+        '<a class="dropdown-item" href="/customer/page">Profile</a>' +
         '<div class="dropdown-divider"></div>' +
         '<a class="dropdown-item" href="/logout">Logout</a>' +
         '</div>' +
@@ -40,7 +39,7 @@
             <!-- Logo -->
             <li>
                 <div class="logo-wrapper waves-light" style="height: 100px">
-                    <a href="#"><img src="/images/Hibernia-Sino-logo-white.png" class="img-fluid flex-center"></a>
+                    <a href="/"><img src="/images/Hibernia-Sino-logo-white.png" class="img-fluid flex-center"></a>
                 </div>
             </li>
             <!--/. Logo -->
@@ -66,18 +65,21 @@
             <!-- Side navigation links -->
             <li>
                 <ul class="collapsible collapsible-accordion">
+                    <li><a href="/customer/Profile" class="waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
+                        Profile <i class="fas fa-angle-down rotate-icon"></i></a>
+                    </li>
                     <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
                         Insurances<i class="fas fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="#" class="waves-effect">Purchase Insurance</a>
+                                <li><a href="/customer/Renew" class="waves-effect">Renew Insurance</a>
                                 </li>
                                 <li><a href="/customer/insurance" class="waves-effect">Inquire Insurance </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-hand-pointer-o"></i>
+                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
                         Claims <i class="fas fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
                             <ul>
@@ -92,6 +94,17 @@
                         <div class="collapsible-body">
                             <ul>
                                 <li><a href="#" class="waves-effect">FAQ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i>
+                        Language <i class="fas fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="?lang=en-US" class="waves-effect">English</a>
+                                </li>
+                                <li><a href="?lang=zh-CN" class="waves-esffect">Chinese</a>
                                 </li>
                             </ul>
                         </div>
@@ -112,7 +125,7 @@
         </div>
         <!-- Breadcrumb-->
         <div class="breadcrumb-dn mr-auto">
-            <p>Hibernia-Sino</p>
+            <a href="/"><p>Hibernia-Sino</p></a>
         </div>
         <!--<div class="breadcrumb-dn mr-auto">-->
         <navbar-indicator v-bind:username="username"></navbar-indicator>

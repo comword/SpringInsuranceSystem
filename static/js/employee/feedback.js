@@ -26,9 +26,11 @@ var feedback = new Vue({
                 type: "POST",
                 contentType: "application/json;charset=utf-8",
                 success: function(response){
-                    feedback.precondition = new Function("return" + response)();
+                    feedback.precondition = response;
                     //前端调用成功后，可以处理后端传回的json格式数据。
                     if( feedback.precondition.resCode==='0'&&feedback.precondition.result!=="Undetermined"){
+                            feedback.result = feedback.precondition.result;
+                            feedback.feedback = feedback.precondition.feedback;
                             $("#exampleFormControlTextarea1").attr("disabled","disabled");
                             $("#materialInline1").attr("disabled","disabled");
                             $("#materialInline2").attr("disabled","disabled");

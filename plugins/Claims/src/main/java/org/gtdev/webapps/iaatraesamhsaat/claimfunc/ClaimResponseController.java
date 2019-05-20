@@ -2,6 +2,7 @@ package org.gtdev.webapps.iaatraesamhsaat.claimfunc;
 
 
 import lombok.Data;
+import org.apache.commons.lang.StringUtils;
 import org.gtdev.webapps.iaatraesamhsaat.configs.AppConfig;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.AppUserRepository;
 import org.gtdev.webapps.iaatraesamhsaat.database.dao.InsuranceClaimRepository;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -36,21 +39,22 @@ public class ClaimResponseController {
     @Autowired
     private AppConfig.DataPathConfig dataPathConfig;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log= LoggerFactory.getLogger(ClaimResponseController.class);
 
     @Data
     private static class insuranceRequest {
         private String firstName, lastName, policyNum, phone;
     }
 
-//    @Data
-//    private static class claimRequest {
-//        private String claimOrderNum;
-//    }
+    @Data
+    private static class claimRequest {
+        private String claimOrderNum;
+    }
 
     @Data
     private static class claimSubmitRequest {
-        private String itemType,itemName,itemPrice,itemDescription,contactEmail,policyNum,username;
+        private String itemType,itemName,itemPrice,itemDescription,contactEmail,policyNum,username,date;
+        private String[] timeStamps;
     }
 
     @RequestMapping(value = "/claim/newclaim/insurance", method = RequestMethod.POST)
@@ -86,9 +90,9 @@ public class ClaimResponseController {
             result.put("resCode", 0);
             result.put("message", "OK");
 
-//            result.put("idType", "ID card");
-//            result.put("birthDay", "1992-10-21");
-//            result.put("gender", "Male");
+            result.put("idType", "ID card");
+            result.put("birthDay", "1992-10-21");
+            result.put("gender", "Male");
         }
         return result.toString();
 //        result.put("message", "OK");
@@ -119,8 +123,11 @@ public class ClaimResponseController {
     public Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile[] file) {
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("status", 400);
+        long current = System.currentTimeMillis();
+        String url = "";
         String policyNum =request.getParameter("policy");// 接受上传图片时的额外参数 对应 uploadExtraData:function()
         log.info("The policy number: "+policyNum);
+        log.info(" System.currentTimeMillis(): "+current);
         if(file!=null&&file.length>0){
             //组合image名称，“;隔开”
             List<String> fileName =new ArrayList<String>();
@@ -146,9 +153,9 @@ public class ClaimResponseController {
                                 //类型正确
                                 if (booIsType) {
                                     //存放图片文件的路径
-                                    String path = dataPathConfig.getUploadPath() + File.pathSeparator + policyNum + File.pathSeparator;
-                                    //String path="D:\\tupian\\"+policyNum+"\\";
-                                    log.info("File upload path: "+path);
+//                                    String path = dataPathConfig.getUploadPath() + File.pathSeparator + policyNum + File.pathSeparator;
+                                    String path="D:\\insurance\\static\\images\\claimPhotos\\";
+                                    log.info("文件上传的路径"+path);
                                     //组合名称
                                     String fileSrc = path;
                                     File targetFile=new File(fileSrc,origName);
@@ -156,8 +163,10 @@ public class ClaimResponseController {
                                     if(!targetFile.exists()){
                                         targetFile.getParentFile().mkdirs();//创建目录
                                     }
-                                    log.info("Full path: " + targetFile.getAbsolutePath());
+                                    log.info("完整路径:" + targetFile.getAbsolutePath());
                                     file1.transferTo(targetFile);
+                                    url = origName;
+
                                 }
                             }
                         }
@@ -172,6 +181,7 @@ public class ClaimResponseController {
                 resultMap.put("status", 200);
                 resultMap.put("message", "上传成功！");
                 resultMap.put("hasPhoto",true);
+                resultMap.put("timeStamp",url);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -186,19 +196,25 @@ public class ClaimResponseController {
         return resultMap;
     }
 
-    @RequestMapping(value="/claim/newclaim/ClaimItemInfo", method = RequestMethod.POST)
+    @RequestMapping(value={"/claim/newclaim/ClaimItemInfo","/customer/Claim/newclaim/ClaimItemInfo"},  method = RequestMethod.POST)
     @ResponseBody
     public String uploadInfo(@RequestBody claimSubmitRequest csr) throws JSONException {
-        LostItem lostItem = createLostItem(csr);
+        log.info("time"+csr.getDate());
+        log.info("timeStamps"+csr.getTimeStamps()[0]);
+        LostItem lostItem = CreateLostItem(csr);
         LostItem savedLostItem = lostItemRepository.save(lostItem);
         log.info("The savedLostItem: "+savedLostItem.getId());
         InsurancePolicyRecord ipr = insurancePolicyRecordRepository.findInsurancePolicyRecordById(csr.getPolicyNum());
         InsuranceClaim ic = new InsuranceClaim();
         ic.setPolicy(ipr);
-        ic.setClaimStep(2);
-        ic.setTime(new Date());
+        ic.setClaimStep("2");
+        ic.setDate(csr.getDate());
+        ic.setDate(csr.getDate());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        log.info(timestamp.toString());
+        ic.setTime(timestamp);
         if(!csr.getUsername().equals("")){
-            AppUser au = userRepository.findAppUserByUserName(csr.getUsername());
+            AppUser au = userRepository.findAppUserByDisplayName(csr.getUsername());
             ic.setUser(au);
         }
         else{
@@ -220,37 +236,56 @@ public class ClaimResponseController {
 
     }
 
-    @RequestMapping(value="/claim/claimTrack/claimOrderNum",  method = RequestMethod.POST)
-    @ResponseBody
-    public String claimOrderNum(@RequestParam String claimOrderNum) throws JSONException {
-        Optional<InsuranceClaim> ic = insuranceClaimRepository.findById(Long.parseLong(claimOrderNum));
-        JSONObject result = new JSONObject();
-//        result.put("resCode", 0);
-        if(!ic.isPresent()){//如果没有找到索赔单号
-            result.put("resCode","-2002");
-            result.put("message","The claim order record was not found, please try again.");
-        }
-        else{//找到索赔单号
-            result.put("resCode","0");
-            result.put("claimOrderNum",ic.get().getId());//索赔单号
-//            result.put("step","2");             //目前所在的阶段 审核中....
-//            result.put("step","3");             //目前所在的阶段 需要额外的信息
-            result.put("step",ic.get().getClaimStep());             //目前所在的阶段 成功或者失败
-            if(result.getString("step").equals("4")){
-                result.put("result",ic.get().getResult());
-//                result.put("result","fail");
-            }
-        }
-        return result.toString();
-    }
 
-     public LostItem createLostItem(claimSubmitRequest csr){
+
+        @RequestMapping(value={"/claim/claimTrack/claimOrderNum"},  method = RequestMethod.POST)
+        @ResponseBody
+        public String claimOrderNum(@RequestBody claimRequest req) throws JSONException {
+            Optional<InsuranceClaim> ic = insuranceClaimRepository.findById(Long.parseLong(req.claimOrderNum));
+            JSONObject result = new JSONObject();
+    //        result.put("resCode", 0);
+            log.info("Claim: " + req.toString());
+            if(!ic.isPresent()){//如果没有找到索赔单号
+                result.put("resCode","-2002");
+                result.put("message","The claim order record was not found, please try again.");
+            }
+            else{//找到索赔单号
+                result.put("resCode","0");
+                result.put("claimOrderNum",ic.get().getId());//索赔单号
+    //            result.put("step","2");             //目前所在的阶段 审核中....
+    //            result.put("step","3");             //目前所在的阶段 需要额外的信息
+                result.put("step",ic.get().getClaimStep());             //目前所在的阶段 成功或者失败
+                if(result.getString("step").equals("4")){
+                    result.put("result",ic.get().getResult());
+    //                result.put("result","fail");
+                }
+            }
+            return result.toString();
+        }
+
+
+
+
+     public LostItem CreateLostItem(claimSubmitRequest csr){
          LostItem lostItem = new LostItem();
-         lostItem.setItemType(csr.getItemName());
+         lostItem.setItemType(csr.getItemType());
+         if(csr.getItemType().equals("cloth")){
+            lostItem.setTypeId(Long.parseLong("1"));
+         }
+         else if(csr.getItemType().equals("digital-product")){
+             lostItem.setTypeId(Long.parseLong("2"));
+         }
+         else {
+             lostItem.setTypeId(Long.parseLong("3"));
+         }
          lostItem.setItemName(csr.getItemName());
          lostItem.setItemPrice(csr.getItemPrice());
          lostItem.setItemDescription(csr.getItemDescription());
          lostItem.setContactEmail(csr.getContactEmail());
+         String str4 = StringUtils.join(csr.getTimeStamps(), ","); // 数组转字符串(逗号分隔)
+         System.out.println(str4); // 0,1,2,3,4,5
+         lostItem.setUrl(str4);
+         lostItem.setPolicy(csr.getPolicyNum());
          return lostItem;
      }
 }

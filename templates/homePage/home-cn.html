@@ -32,7 +32,6 @@
             '<img v-bind:src="avatarPath" style="width: 40px;height: 40px; margin-left: 5px;" class="rounded-circle z-depth-0" alt="avatar image">' +
             '</a>' +
             '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="avatarDropdown">' +
-            '<a class="dropdown-item" href="#">仪表板</a>' +
             '<a class="dropdown-item" href="customer/page">账户</a>' +
             '<div class="dropdown-divider"></div>' +
             '<a class="dropdown-item" href="/logout">退出</a>' +
@@ -42,20 +41,20 @@
     </script>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top  scrolling-navbar" role="navigation" id="menu-nav">
         <a class="navbar-brand navbar-left"  href="#"><img class="img-logo" src="/images/Hibernia-Sino-logo.png"/></a>
-        <a class="navbar-brand" href="#">Hibernia-Sino</a>
+        <a class="navbar-brand" href="/">Hibernia-Sino</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">主页</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#insurance">保险</a>
+                    <a class="nav-link" href="/">主页</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/claim/newclaim">理赔</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/claim/claimTrack">理赔进度</a>
                 </li>
             </ul>
             <li class="navbar-nav dropdown">
@@ -153,7 +152,7 @@
         <!--Card image-->
         <div class="view overlay">
             <img class="card-img-top" src="/images/homePage/insurance.jpg" alt="Card image cap">
-            <a href="">
+            <a href="/customer/Renew">
                 <div class="mask rgba-white-slight"></div>
             </a>
         </div>
@@ -162,10 +161,10 @@
         <div class="card-body">
 
             <!--Title-->
-            <h4 class="card-title">旅游保险</h4>
+            <h4 class="card-title">续保</h4>
             <!--Text-->
-            <p class="card-text">我们提供购买保险的快捷方法。</p>
-            <button type="button" onclick="window.open('claim/newclaim')" class="btn btn-light-blue btn-md">购买保险</button>
+            <p class="card-text">我们提供续保的快捷方法。</p>
+            <button type="button" onclick="window.open('/customer/Renew')" class="btn btn-light-blue btn-md">续保</button>
 
         </div>
 

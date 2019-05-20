@@ -98,13 +98,42 @@ var claim = new Vue({
         refresh: function () {
             $('#dtMaterialDesignExample').dataTable()._fnAjaxUpdate();
             // this.table();
+        },
+        changeYear: function () {
+            this.timeOption = "year";
+            $('#dtMaterialDesignExample').dataTable()._fnAjaxUpdate();
+        },
+        changeAll: function () {
+            this.timeOption = "all";
+            $('#dtMaterialDesignExample').dataTable()._fnAjaxUpdate();
+        },
+        changeMonth: function () {
+            this.timeOption = "month";
+            $('#dtMaterialDesignExample').dataTable()._fnAjaxUpdate();
+        },
+        changeUnfinished: function () {
+            this.timeOption = "unfinished";
+            $('#dtMaterialDesignExample').dataTable()._fnAjaxUpdate();
         }
     },
     mounted: function () {
         var tables;
+        var that = this;
         $.cookie('claimID',null);
         this.table();
-        setInterval(this.refresh,1000);
+        $('#year').click(function () {
+            that.changeYear();
+        });
+        $('#month').click(function () {
+            that.changeMonth();
+        });
+        $('#all').click(function () {
+            that.changeAll();
+        });
+        $('#unfinished').click(function () {
+            that.changeUnfinished();
+        });
+        // setInterval(this.refresh,1000);
     }
 });
 

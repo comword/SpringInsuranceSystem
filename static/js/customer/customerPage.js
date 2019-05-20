@@ -33,6 +33,7 @@ var claim = new Vue({
         title: "",
         isMobile:"",
         color:"",
+        app_lang: '',
     },
     methods:{
         _T(msg) {

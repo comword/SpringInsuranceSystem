@@ -5,8 +5,8 @@ let translationCn = {
     "日" : "",
     "索赔受理中" : "Claim is being reviewed",
     "需要更多信息": "Additional information required",
-    "索赔成功" : "Success",
-    "索赔失败" : "Failed",
+    "索赔成功" : "Success!",
+    "索赔失败" : "Failed!",
 };
 let translationUs = {
     "The claim order record was not found, please try again." : "索赔单号没有找到,请输入一个有效的索赔单号!"
@@ -122,60 +122,60 @@ $(document).ready(function(){
     });
     });
 $("#search").click(function (){
-    var info = main.submit;
-    var isCorrect = true;
+        var info = main.submit;
+        var isCorrect = true;
 
-    /*   验证是否为空   */
-    if(!info.claimOrderNum || !main.validPrice(info.claimOrderNum)){
-        isCorrect=false;
-        main.setInvalid('#policyNumber1');
-        main.errors='';
-    }
-    else{
-        main.removeInvalid('#policyNumber1');
-    }
-    if(!isCorrect)
-        return;
-    var d = {};
-    d.claimOrderNum = info.claimOrderNum;
-    $.ajax({ url: "claimTrack/claimOrderNum",
-        data: JSON.stringify(d),
-        //type、contentType必填,指明传参方式
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        success: function(response){
-            main.claimOrder = new Function("return" + response)();
-            //前端调用成功后，可以处理后端传回的json格式数据。
-            if(main.claimOrder.resCode==='0'){
-                main.errors='';
-                if(main.claimOrder.step==='2'){
-                    main.color="text-info";
-                    main.title=main._T("索赔受理中");//Claim is being reviewed
-                }
-                else if(main.claimOrder.step==='3'){
-                    main.color="text-warning";
-                    main.title=main._T("需要更多信息");//Additional information required
-                }
-                else{
-                    if(main.claimOrder.result==='success'){
-                        main.color="text-success";
-                        main.title=main._T("索赔成功");//Success
-                    }
-                    else{
-                        main.color="text-danger";
-                        main.title=main._T("索赔失败");//Failed
-                    }
-                }
-            }
-            else{
-                main.errors= main._TUs(main.claimOrder.message);
-            }
-        },
-        error:function(jqXHR){
-            console.log("Error: "+ jqXHR.status);
+        /*   验证是否为空   */
+        if(!info.claimOrderNum || !main.validPrice(info.claimOrderNum)){
+            isCorrect=false;
+            main.setInvalid('#policyNumber1');
             main.errors='';
         }
-    });
+        else{
+            main.removeInvalid('#policyNumber1');
+        }
+        if(!isCorrect)
+            return;
+        var d = {};
+        d.claimOrderNum = info.claimOrderNum;
+        $.ajax({ url: "claimTrack/claimOrderNum",
+            data: JSON.stringify(d),
+            //type、contentType必填,指明传参方式
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function(response){
+                main.claimOrder = new Function("return" + response)();
+                //前端调用成功后，可以处理后端传回的json格式数据。
+                if(main.claimOrder.resCode==='0'){
+                    main.errors='';
+                    if(main.claimOrder.step==='2'){
+                        main.color="text-info";
+                        main.title=main._T("索赔受理中");//Claim is being reviewed
+                    }
+                    else if(main.claimOrder.step==='3'){
+                        main.color="text-warning";
+                        main.title=main._T("需要更多信息");//Additional information required
+                    }
+                    else{
+                        if(main.claimOrder.result==='success'){
+                            main.color="text-success";
+                            main.title=main._T("索赔成功");//Success
+                        }
+                        else{
+                            main.color="text-danger";
+                            main.title=main._T("索赔失败");//Failed
+                        }
+                    }
+                }
+                else{
+                    main.errors= main._TUs(main.claimOrder.message);
+                }
+            },
+            error:function(jqXHR){
+                console.log("Error: "+ jqXHR.status);
+                main.errors='';
+            }
+        });
 
 });
 

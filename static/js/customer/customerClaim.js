@@ -16,7 +16,7 @@ Vue.component('navbar-indicator', {
 function table(){
     $('#dtMaterialDesignExample').DataTable({
         "ajax": {
-            "url": "page/uploadInsuranceInfo",
+            "url": "page/uploadInsuranceInfoInClaim",
             "type": "POST",
             "contentType": "application/json",
             "data": function (d) {
@@ -136,6 +136,79 @@ var Detail = {template: '<div>' +
         '                            </form>' +
         '                        </div>' +
         '<button type="button" id="submit" class="btn btn-lg btn-primary step-button">Submit</button>' +
+        '<div  class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"' +
+        '             aria-hidden="true">' +
+        '            <div class="modal-dialog modal-notify modal-success" role="document">' +
+        '                <!--Content-->' +
+        '                <div class="modal-content">' +
+        '                    <!--Header-->' +
+        '                    <div class="modal-header">' +
+        '                        <p class="heading lead">Update Success</p>' +
+        '                    </div>' +
+        '                    <!--Body-->' +
+        '                    <div class="modal-body">' +
+        '                        <div class="text-center">' +
+        '                            <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>' +
+        '                            <p>Information has been updated</p>' +
+        ' <div class="card ">\n' +
+        '                                <div class="card-header bg-primary">\n' +
+        '                                    <a class="card-link text-white" data-toggle="collapse" href="#collapse1">\n' +
+        '                                        Claim Informaion\n' +
+        '                                    </a>\n' +
+        '                                </div>\n' +
+        '                                <div id="collapse1" class="collapse show" data-parent="#claimOrder">\n' +
+        '                                    <div class="card-body">\n' +
+        '                                        <div class="row">\n' +
+        '                                            <!--<div class="dateStart">-->\n' +
+        '                                            <div class="infMargin insurnInf col-xs-12 col-md-6" style="color: #0d5bdd;">Claim Order No: </div>\n' +
+        '                                            <div class="orderNum infMargin col-md-6">{{claimOrderNum}}</div>\n' +
+        '                                            <!--</div>-->\n' +
+        '                                        </div>\n' +
+        '                                        <div class="row">\n' +
+        '                                            <!--<div class="dateEnd">-->\n' +
+        '                                            <div class="infMargin insurnInf col-xs-12 col-md-6" style="color: #0d5bdd;">Estimated Compensation: </div>\n' +
+        '                                            <div class="orderMon infMargin col-md-6">{{compensation}} </div>\n' +
+        '                                            <!--</div>-->\n' +
+        '                                        </div>\n' +
+        '                                    </div>\n' +
+        '                                </div>\n' +
+        '                                <div  id="detail" class="card ">\n' +
+        '                                    <div class="card-header bg-primary">\n' +
+        '                                        <a class="card-link  text-white"  data-toggle="collapse" href="#collapse2">\n' +
+        '                                            Compensation Details\n' +
+        '                                        </a>\n' +
+        '                                    </div>\n' +
+        '                                    <div id="collapse2" class="collapse show" data-parent="#claimOrder">\n' +
+        '                                        <div class="card-body">\n' +
+        '                                            <div class="row">\n' +
+        '                                                <div class="infMargin insurnInf col-xs-12 col-md-6" style="color: #0d5bdd;">Item Type: </div>\n' +
+        '                                                <div class="orderNum infMargin col-md-6">{{claimSubmit.itemType}}</div>\n' +
+        '                                            </div>\n' +
+        '                                            <div class="row">\n' +
+        '                                                <div class="infMargin insurnInf col-xs-12 col-md-6" style="color: #0d5bdd;">Item Price: </div>\n' +
+        '                                                <div class="orderMon infMargin col-md-6">{{claimSubmit.itemPrice}}</div>\n' +
+        '                                            </div>\n' +
+        '                                            <div class="row">\n' +
+        '                                                <div class="infMargin insurnInf col-xs-12 col-md-6" style="color: #0d5bdd;">Compensation Ratio: </div>\n' +
+        '                                                <div class="orderMon infMargin col-md-6">0.7</div>\n' +
+        '                                            </div>\n' +
+        '                                        </div>\n' +
+        '                                    </div>\n' +
+        '\n' +
+        '\n' +
+        '                                </div>\n' +
+        '                            </div>' +
+        '                        </div>' +
+        '                    </div>' +
+        '' +
+        '                    <!--Footer-->' +
+        '                    <div class="modal-footer justify-content-center">' +
+        '                        <a type="button" class="btn btn-success" data-dismiss="modal">YES <i class="far fa-gem ml-1 text-white"></i></a>' +
+        '                    </div>' +
+        '                </div>' +
+        '                <!--/.Content-->' +
+        '            </div>' +
+        '        </div>' +
         '</div>',
     methods:{
         validPrice: function (price) {
@@ -155,7 +228,8 @@ var Detail = {template: '<div>' +
             $(id).removeClass("is-invalid");
         },
         getClaimPrice: function(){
-             this.result.claimOrderPrice = parseFloat(this.claimSubmit.itemPrice)*0.7;
+            var compensation = parseFloat(this.claimSubmit.itemPrice)*0.7;
+            return compensation;
         },
         getTimeF: function(){
             var date= new Date();
@@ -189,8 +263,71 @@ var Detail = {template: '<div>' +
                 {hasPhoto: false}
             ],
             id: '',
-            claimSubErr: 0
+            claimSubErr: 0,
+            timeStamp:[],
+            compensation: '',
+            claimOrderNum:''
         }
+    },
+    watch:{
+        itemType(newName,oldName){
+            if(!newName){
+                this.setInvalid('#itemType');
+            }
+            else{
+                this.removeInvalid('#itemType');
+            }
+        },
+        itemName(newName,oldName){
+            if(!newName){
+                this.setInvalid('#itemName');
+            }
+            else{
+                this.removeInvalid('#itemName');
+            }
+        },
+        itemPrice(newName,oldName){
+            if(!this.validPrice(newName)){
+                this.setInvalid('#itemPrice');
+            }
+            else{
+                this.removeInvalid('#itemPrice');
+            }
+        },
+        itemDescription(newName,oldName){
+            if(!newName){
+                this.setInvalid('#itemDesc');
+            }
+            else{
+                this.removeInvalid('#itemDesc');
+            }
+        },
+        contactEmail(newName,oldName){
+            if(!this.validEmail(newName)){
+                this.setInvalid('#itemEmail');
+            }
+            else{
+                this.removeInvalid('#itemEmail');
+            }
+        },
+    },
+    computed: {
+        itemType() {
+        return this.claimSubmit.itemType;
+        },
+        itemName() {
+            return this.claimSubmit.itemName;
+        },
+        itemPrice() {
+            return this.claimSubmit.itemPrice;
+        },
+        itemDescription() {
+            return this.claimSubmit.itemDescription;
+        },
+        contactEmail() {
+            return this.claimSubmit.contactEmail;
+        },
+
     },
     mounted: function () {
         let that = this;
@@ -252,8 +389,9 @@ var Detail = {template: '<div>' +
             d.contactEmail = info.contactEmail;
             d.policyNum = that.id;
             d.date = that.getTimeF();
-            // d.username = main.username;
-            d.username = 'customer0';
+            d.username = insurance.username;
+            // d.username = 'customer0';
+            d.timeStamps = that.timeStamp;
             $.ajax({ url: "newclaim/ClaimItemInfo",
                 data: JSON.stringify(d),
                 //type、contentType必填,指明传参方式
@@ -261,20 +399,30 @@ var Detail = {template: '<div>' +
                 contentType: "application/json;charset=utf-8",
                 success: function(response){
                     that.claimOrder = new Function("return" + response)();
+
+
                     //前端调用成功后，可以处理后端传回的json格式数据。
                     if(that.claimOrder.resCode===0){
-                        that.result.claimOrderNum = that.claimOrder.claimOrderNum;
-                        that.getClaimPrice();
-
-
-                        var unixTimestamp = that.timeFormate(1477386005*1000);
-                        alert(unixTimestamp);
-
-
+                        $('#centralModalSuccess').modal('show');
+                        // that.result.claimOrderNum = that.claimOrder.claimOrderNum;
+                        $("#itemType").attr("disabled","disabled");
+                        $("#itemName").attr("disabled","disabled");
+                        $("#itemPrice").attr("disabled","disabled");
+                        $("#itemDesc").attr("disabled","disabled");
+                        $(".fileinput-remove").attr("disabled","disabled");
+                        $(".kv-file-upload").attr("disabled","disabled");
+                        $(".kv-file-remove").attr("disabled","disabled");
+                        $(".fileinput-upload").attr("disabled","disabled");
+                        $("#input-id").attr("disabled","disabled");
+                        $("#itemEmail").attr("disabled","disabled");
+                        $("#submit").attr("disabled","disabled");
+                        that.compensation = that.getClaimPrice();
+                        that.claimOrderNum = that.claimOrder.claimOrderNum;
                     }
                 },
                 error:function(jqXHR){
                     console.log("Error: "+ jqXHR.status);
+                    console.log(JSON.stringify(d));
                 }
             });
 
@@ -318,15 +466,14 @@ var Detail = {template: '<div>' +
                 console.log(response);//打印出返回的json
                 console.log(response.status);//打印出路径
                 that.claimSubmit.hasPhoto = response.hasPhoto;
-                alert(that.claimSubmit.hasPhoto);
+                that.timeStamp.push(response.timeStamp);
+
+                // alert(that.claimSubmit.hasPhoto);
             }).on('fileerror', function(event, data, msg) {  //一个文件上传失败
                 console.log('upload failed！'+data.status);
             })
         };
     },
-    watch:{
-
-    }
 };
 
 const routes = [
@@ -405,7 +552,7 @@ function clicke(x) {
     details(id);
 }
 function details(id){
-    alert(id);
+
     insurance.$router.push({name :'Detail',params: { id: id }});
 }
 
